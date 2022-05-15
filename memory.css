@@ -88,13 +88,26 @@
 }
 
 .buttons { 
-    /* width: 100px; */
-    table-layout: fixed;
-    border-collapse: collapse;
+    width: 100px; 
+    table-layout: auto;
 }
 
 .buttons button { 
-    /* width: 100%; */
+    width: 100%;
+    margin-top: 5px;
 }
 
+.kleur {
+    background-color: #A2F06E;
+    padding-left: 250px;
+}
 
+.kleur1 {
+    background-color: #538324;
+    padding-left: 250px;
+}
+
+.kleur2 {
+    background-color: #6A307C;
+    padding-left: 250px;
+}
