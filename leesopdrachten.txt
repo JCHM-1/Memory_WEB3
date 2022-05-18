@@ -1,0 +1,28 @@
+1.	
+A. De inaccessable web forms lijken het meest belemmerend voor een blinde of slechtziende gebruiker.
+Denk hierbij aan de CAPTCHA requirement, voor normale gebruikers wordt dit al een irritatant gevonden, 
+laat staan voor een blinde gebruiker terwijl het nog steeds door veel web forms op bekende websites wordt 
+gebruikt.
+
+CAPTCHA werkt door middel van letters die vervormd zijn bijvoorbeeld door middel van de 
+kleurenovergang aan de achtergrond mee te geven om automatische herkenning te bemoeilijken.
+Doordat ze niet machinaal leesbaar zijn, kunnen hulpprogramma's voor deze gebruikers, zoals 
+schermlezers, de captcha ook niet interpreteren. Omdat captcha's dikwijls gebruikt worden bij 
+inschrijvingsprocessen (bijvoorbeeld bij Outlook.com, eBay en Yahoo!), wordt de toegang tot 
+deze diensten volledig belemmerd voor slechtziende of blinde gebruikers. 
+
+B. Als ziend persoon belemmeren veel reclames en pop-ups in het correct gebruiken van een website omdat 
+deze advertenties steeds moeten worden weggeklikt. Tevens zijn deze reclames vaak erg lelijk. je steeds 
+alle reclame moet wegklikken. Dit zou beter gedaan kunnen worden door rekening te houden met de advertenties 
+en proberen beter te integreren in de website.
+
+2.	
+A. De schrijver betoogd dat het complexer is om een desktop-first benadering te gebruiken bij responsive
+web design dan om een mobile-first benadering voor responsive web-design te gebruiken. Bij een desktop-first 
+benadering zul je meer elementen moet verplaatsen, omdat je met een groot scherm werkt. Daar ben ik het mee eens.
+
+Ik ben het deels eens met de schrijver. Het is denk ik makkelijker om te kiezen voor mobile-first en daarna 
+naar desktop want zodra je begint met een klein mobielscherm is het makkelijker om dat uit te breiden naar 
+een desktopscherm in tegenstelling tot een desktop-first design naar mobile aan te passen. 
+
+
