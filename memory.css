@@ -76,13 +76,8 @@
     aspect-ratio: 1;
 }
 
-.game .item-e{
-    background: #6A307C !important;
-}
-
-.game .item-m{
-    background: #538324 !important;
-}
+.game .item-e{background: #6A307C !important;}
+.game .item-m{ background: #538324 !important;}
 
 /* Second column */
 .sidebar {
