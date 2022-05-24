@@ -6,12 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory</title>
-
     <link rel="stylesheet" href="memory.css">
 </head>
 
 <body>
-    <script src="memory.js"></script> 
     <div class="container">
 
         <div class="main">
@@ -20,7 +18,7 @@
                 Gevonden kaart-paren: 1 <br>
                 Resterende toontijd:</p>
 
-            <div class="game" aria-description="Kaarten in het spel" aria-roledescription="Kaart kan gesloten, open of gevonden zijn.">
+            <div id="game" class="game" aria-description="Kaarten in het spel" aria-roledescription="Kaart kan gesloten, open of gevonden zijn.">
                 <div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>
 
                 <div class="kaart" id="gesloten" aria-label="gesloten">
@@ -42,96 +40,7 @@
                     <p>+</p>
                 </div>
 
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart-open" id="open" aria-label="open">
-                    <p>M</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
+                
             </div>
 
         </div>
@@ -173,16 +82,19 @@
             <div class="buttons_div">
                 <table class="buttons" >
                     <tr>
-                        <td><button type="button" aria-controls="gesloten">Kaartkleur</button></td>
-                        <td class="kleur"></td>
+                        <td>Kaartkleur</td>
+                        <td class="kleur-gesloten"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#A2F06E"></button></td>
+                        
                     </tr>
                     <tr>
-                        <td><button type="button" aria-controls="open">Open</button></td>
-                        <td class="kleur1"></td>
+                        <td>Open</td>
+                        <td class="kleur-open"><input type="color" id ="kleur-open"  aria-controls="open" value="#538324"></button></td>
+                        
                     </tr>
                     <tr>
-                        <td><button type="button" aria-controls="gevonden">Gevonden</button></td>
-                        <td class="kleur2"></td>
+                        <td>Gevonden</td>
+                        <td class="kleur-gevonden"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#6A307C"></button></td>
+                        
                     </tr>
                 </table>
             </div>
@@ -199,7 +111,7 @@
 
 
     </div>
-
+    <script src="memory.js"></script>
 </body>
 
 </html>

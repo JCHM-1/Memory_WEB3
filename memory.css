@@ -37,9 +37,11 @@
 
 
 .game{
+    /* Outer layout */
     grid-column: 1;
     grid-row: 2;
     
+    /* Inner layout */
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(7, 1fr);
@@ -72,9 +74,7 @@
     aspect-ratio: 1;
 }
 
-.game .kaart-gevonden{
-background: #6A307C !important;
-}
+.game .kaart-gevonden{background: #6A307C !important;}
 
 .game .kaart-open{ background: #538324 !important;}
 
@@ -106,18 +106,17 @@ background: #6A307C !important;
     margin-top: 5px;
 }
 
-.kleur {
-    background-color: #A2F06E;
+.kleur-gesloten {
+    width: 100%;
     padding-left: 250px;
 }
 
-.kleur1 {
-    background-color: #538324;
+.kleur-open {
+    width: 100%;
     padding-left: 250px;
 }
 
-.kleur2 {
-    background-color: #6A307C;
+.kleur-gevonden {
+    width: 100%;
     padding-left: 250px;
-    box-shadow: 1px 1px 1px #888888;
 }
