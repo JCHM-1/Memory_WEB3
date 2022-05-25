@@ -10,10 +10,16 @@
 </head>
 
 <body>
+
     <div class="container">
 
         <div class="main">
             <h1>Javascript memory</h1>
+
+            <div class="button_darkmode">
+                <button onclick="darkMode()">Darkmode/Lightmode</button>
+            </div>
+
             <p> Verlopen tijd: 64 seconden <br>
                 Gevonden kaart-paren: 1 <br>
                 Resterende toontijd:</p>
@@ -21,25 +27,6 @@
             <div id="game" class="game" aria-description="Kaarten in het spel" aria-roledescription="Kaart kan gesloten, open of gevonden zijn.">
                 <div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>
 
-                <div class="card" id="gesloten" aria-label="gesloten">
-                    <div class="card__face card__face--front">front</div>
-                    <div class="card__face card__face--back">back</div>
-                </div>
-                <div class="kaart-gevonden" id="gevonden" aria-label="gevonden">
-                    <p>E</p>
-                </div>
-                <div class="kaart-gevonden" id="gevonden" aria-label="gevonden">
-                    <p>E</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
-                <div class="kaart" id="gesloten" aria-label="gesloten">
-                    <p>+</p>
-                </div>
 
                 
             </div>
@@ -108,9 +95,6 @@
                 </table>
             </div>
         </div>
-
-    
-
     </div>
     <script src="memory.js"></script>
 </body>

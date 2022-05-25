@@ -1,3 +1,8 @@
+body {
+    height: 100vh;
+    background: linear-gradient(#e66465, #9198e5);
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -11,7 +16,6 @@
     flex: 1.5;
     max-width: 100vw;
     text-align: center;
-
 }
 
 .meter {
@@ -34,7 +38,7 @@
     /* box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3) !important;  */
 }
 
-.game{
+.game {
     /* Outer layout */
     grid-column: 1;
     grid-row: 2;
@@ -55,6 +59,8 @@
     /* Centers the grid */
     margin-left: auto;
     margin-right: auto;
+
+    position: relative;
 }
 
 .game div {
@@ -68,22 +74,45 @@
     font-weight: bold;
 
     /* Make the grid items green and squared */
-    background: #A2F06E;
     aspect-ratio: 1;
 
-}
-.game .kaart-gevonden{background: #6A307C !important;}
-
-
-.game .kaart-open {
-    background: #538324 !important;
+    perspective: 800px;
 }
 
+/* kaarten --------------- */
 .kaart {
     border-radius: 10%;
+    backface-visibility: hidden;
+    background-color: #538324;
+    transform-style: preserve-3d;
+    transform: scale(1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
 }
 
-/* Second column */
+.toggleCard {
+    transform: rotateY(180deg);
+}
+
+.kaart--front {
+    position: absolute;
+    background-color: crimson;
+    width: 100%;
+    height: 100%;
+}
+
+.kaart--back {
+    position: absolute;
+    background-color: slateblue;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    width: 100%;
+    height: 100%;
+}
+
+/* Second column --------- */
 .sidebar {
     flex: 1;
     max-width: 300vw;
@@ -91,6 +120,8 @@
     padding: 3%;
     margin-top: 10%;
 }
+
+/* buttons -------------- */
 
 .buttons_div {
     padding-top: 75px;
@@ -110,6 +141,8 @@
     margin-top: 5px;
 }
 
+/* Kleuren selectors ---- */
+
 .kleur-gesloten {
     width: 100%;
     padding-left: 250px;
@@ -126,8 +159,11 @@
     box-shadow: 1px 1px 1px #888888;
 }
 
+
+/* dark mode ------------ */
 .dark-mode {
-    background-color: black;
+    background-color: #000000;
+    background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
     color: white;
 }
 
@@ -135,15 +171,7 @@
     padding: 10px;
 }
 
-.kaart.is-flipped {
-    transform: translate(-100%) rotateY(-180deg);
-}
 
-.kaart-front {
-    background: crimson;
-}
 
-.kaart-back {
-    background: slateblue;
-    transform: rotateY(180deg);
-}
+
+
