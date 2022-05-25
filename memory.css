@@ -1,4 +1,3 @@
-
 .container{
     display: flex;
     flex-direction: row;
@@ -119,14 +118,4 @@
 .kleur-gevonden {
     width: 100%;
     padding-left: 250px;
-    box-shadow: 1px 1px 1px #888888;
-}
-
-.dark-mode {
-    background-color: black;
-    color: white;
-}
-
-.button_darkmode {
-    padding: 10px;
 }
