@@ -1,3 +1,4 @@
+
 var a = 0;
 var b = 0;
 
@@ -57,3 +58,19 @@ document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () 
 //       e.appendChild(row);
 //     }
 //   }
+
+function darkMode() {
+    var elemment = document.body;
+    elemment.classList.toggle("dark-mode")
+}
+
+var cards = document.querySelectorAll('.card');
+
+console.log("hallo");
+
+[...cards].forEach((card)=>{
+  card.addEventListener('click', function() {
+    card.classList.toggle('is-flipped');
+  });
+});
+
