@@ -23,17 +23,19 @@
             <p> Verlopen tijd: 64 seconden <br>
                 Gevonden kaart-paren: 1 <br>
                 Resterende toontijd:</p>
-
+            
+            
             <div id="game" class="game" aria-description="Kaarten in het spel" aria-roledescription="Kaart kan gesloten, open of gevonden zijn.">
                 <div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>
-
-
-                
+                <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
+                <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
+                <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
+                <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
             </div>
 
         </div>
 
-        <div class="sidebar" aria-labelledby="Configuraties">
+        <div class="sidebar" aria-label="Configuraties">
             <h2>Top vijf</h2>
             <p>
                 <ol role="Top vijf">
@@ -59,6 +61,7 @@
             
             <label for="afmeting" aria-label="Kies afmeting bord">Afmeting op bord:
                 <select id="afmeting" name="afmeting" aria-expanded="false">
+                    <option value="2" aria-label="2">2</option>
                     <option value="4" aria-label="4">4</option>
                     <option value="6" aria-label="6">6</option>
                     <option value="8" aria-label="8">8</option>
@@ -81,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>Gevonden</td>
-                        <td class="kleur-gevonden"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#6A307C"></button></td>
+                        <td class="kleur-gevonden"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#6A307C" size="100"></button></td>
                         
                     </tr>
                 </table>

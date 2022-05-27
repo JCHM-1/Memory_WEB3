@@ -1,27 +1,30 @@
 
-var a = 0;
-var b = 0;
+var afmeting = 2; 
+var cardA = 0;
+var cardB = 0;
 
 // click-event kaarten: 
 // Verandert kaart-class
-document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () => {
-    n.classList.toggle("kaart-open");
+// document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () => {
+//     n.classList.toggle("kaart-open");
     
-    if(a === 0){
-      a = n;
-    } else {
-      b = n;
-      if (a.innerHtml === b.innerHtml){
-        a.classList.replace("kaart-open", "kaart-gevonden");
-        b.classList.replace("kaart-open", "kaart-gevonden");
+//     if(a === 0){
+//       a = n;
+//     } else {
+//       b = n;
+//       if (a.innerHtml === b.innerHtml){
+//         a.classList.replace("kaart-open", "kaart-gevonden");
+//         b.classList.replace("kaart-open", "kaart-gevonden");
 
-        // Animatie toevoegen
-      }
+//         // Animatie toevoegen
+//       }
 
-      a = 0;
-      b = 0;
-    } 
-}))
+//       a = 0;
+//       b = 0;
+//     } 
+// }))
+
+
 
 // function darkMode() {
 //     var elemment = document.body;
@@ -56,7 +59,12 @@ document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () 
 //   }
 
 
-//get images
+
+//----------------------
+// Fetch images from API
+//----------------------
+var images
+
 function getjson(url, cb) {
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function() {
@@ -88,7 +96,9 @@ const getData = () => [
     {imgSrc: "./images/dog5.jpeg", name: "dog5"},
 ];
 
-//randomize
+//----------------------
+// Randomize
+//----------------------
 const randomize = () => {
     const kaartdata = getData();
     kaartdata.sort(() => Math.random() -0.5);
@@ -96,34 +106,113 @@ const randomize = () => {
     return kaartdata;
 };
 
-//Generate cards
-const kaartGenerator = () => {
-    const kaartData = randomize();
+//----------------------
+//  Size gameboard
+//----------------------
+var size = document.getElementById("afmeting");
+size.addEventListener("click", () =>  {
+    width = size.value; 
+    height = width + 1;
+    afmeting = width;
+
+    let game = document.getElementById("game");
+    game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
+    game.style.setProperty("grid-template-columns","repeat("+width+", 1fr)");
+    game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
+
+    kaartGenerator();
     
-    kaartData.forEach(item => {
-        const card = document.createElement("div");
-        const front = document.createElement("div");
-        const back = document.createElement("img");
-        card.classList = 'kaart';
-        front.classList = 'kaart--front';
-        back.classList = 'kaart--back';
+    console.log("afmeting: ", afmeting);
+});
 
-        back.src = item.imgSrc;
 
-        game.appendChild(card);
-        card.appendChild(front);
-        card.appendChild(back);
+//----------------------
+// Generate cards
+//----------------------
+const kaartGenerator = () => {
+  // generate HTML for board squares
+  for (let i = 0; i < (afmeting*afmeting); i++) {
 
-        card.addEventListener('click', (e) => {
-            card.classList.toggle("toggleCard");
-        })
-    });
+    const card = document.createElement("div");
+    const front = document.createElement("div");
+    const back = document.createElement("img");
+    card.classList = 'kaart';
+    front.classList = 'kaart--front';
+    back.classList = 'kaart--back';
 
-};
+    // back.src = item.imgSrc;
+    game.appendChild(card);
+    card.appendChild(front);
+    card.appendChild(back);
 
-kaartGenerator();
+    card.addEventListener('click', (e) => {
+        card.classList.toggle("toggleCard");
+        checkWin(card);
+    })
+  }
+}
 
+// ----------------------------
+
+// var sum = 0;
+// const kaartGenerator = () => {
+//     const kaartData = randomize();
+    
+//     // kaartData.forEach(item => {
+
+//     for(i = 0; i < (afmeting*afmeting); i++){
+//         sum = sum + i;
+//         const card = document.createElement("div");
+//         const front = document.createElement("div");
+//         const back = document.createElement("img");
+//         card.classList = 'kaart';
+//         front.classList = 'kaart--front';
+//         back.classList = 'kaart--back';
+
+//         // back.src = item.imgSrc;
+
+//         game.appendChild(card);
+//         card.appendChild(front);
+//         card.appendChild(back);
+
+//         card.addEventListener('click', (e) => {
+//             card.classList.toggle("toggleCard");
+
+//             checkWin(card);
+//         })
+//     };
+//     console.log("sum: "+sum);
+// };
+
+
+
+// const checkWin = (card) => {
+
+//   if(cardA === 0){
+//     let cardA = card;
+//   } else {
+//     let cardB = card;
+//     if (cardA.innerHtml === b.innerHtml){
+//       cardA.classList.replace("toggleCard", "kaart--back");
+//       cardA.removeEventListener('click');
+//       cardB.classList.replace("toggleCard", "kaart--back");
+//       cardB.removeEventListener('click');
+//       // Animatie toevoegen
+//     } else {
+//       cardA.classList.toggle("toggleCard");
+//       cardB.classList.toggle("toggleCard");
+//     }
+
+//     cardA = 0;
+//     cardB = 0;
+//   } 
+// }
+
+
+
+//----------------------
 //darkmode klaar!!
+//----------------------
 function darkMode() {
     var elemment = document.body;
     elemment.classList.toggle("dark-mode")
