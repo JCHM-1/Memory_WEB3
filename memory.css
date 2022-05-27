@@ -122,7 +122,6 @@ body {
 }
 
 /* buttons -------------- */
-
 .buttons_div {
     padding-top: 75px;
 }
@@ -142,20 +141,19 @@ body {
 }
 
 /* Kleuren selectors ---- */
-
 .kleur-gesloten {
-    width: 600px;
-    padding-left: 250px;
+    width: 100%;
+    padding-left: 50px;
 }
 
 .kleur-open {
-    width: 10px;
-    padding-left: 250px;
+    width: 100%;
+    padding-left: 50px;
 }
 
 .kleur-gevonden {
-    width: 10px;
-    padding-left: 250px;
+    width: 100%;
+    padding-left: 50px;
 }
 
 
@@ -170,6 +168,10 @@ body {
     padding: 10px;
 }
 
+/* timer ------------ */
+.timer {
+    font-size: 25px;
+}
 
 
 

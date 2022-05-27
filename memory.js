@@ -27,6 +27,18 @@ var alfabet = false;
 //     } 
 // }))
 
+
+// var a = 0;
+// var b = 0;
+
+// click-event kaarten: 
+// Verandert kaart-class
+
+// function darkMode() {
+//     var elemment = document.body;
+//     elemment.classList.toggle("dark-mode")
+// }
+
 // In progress
 //const game = document.querySelector('game');
 //game.textContent = '+';
@@ -61,11 +73,13 @@ var alfabet = false;
 //----------------------
 var images
 
+//get images work in progress!!!!
 function getjson(url, cb) {
     var xhttp = new XMLHttpRequest()
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-         cb(JSON.parse(this.responseText)) }
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            cb(JSON.parse(this.responseText))
+        }
     }
     xhttp.open("GET", url, true)
     xhttp.send()
@@ -73,23 +87,23 @@ function getjson(url, cb) {
 
 var imageid;
 getjson('https://dog.ceo/api/breeds/image/random', data => {
-  imageid = data.image_id;
+    imageid = data.image_id;
 })
 
 const game = document.querySelector('.game');
 
 //test voor nu zonder api
 const getData = () => [
-    {imgSrc: "./images/dog1.jpeg", name: "dog1"},
-    {imgSrc: "./images/dog2.jpeg", name: "dog2"},
-    {imgSrc: "./images/dog3.jpeg", name: "dog3"},
-    {imgSrc: "./images/dog4.jpeg", name: "dog4"},
-    {imgSrc: "./images/dog5.jpeg", name: "dog5"},
-    {imgSrc: "./images/dog1.jpeg", name: "dog1"},
-    {imgSrc: "./images/dog2.jpeg", name: "dog2"},
-    {imgSrc: "./images/dog3.jpeg", name: "dog3"},
-    {imgSrc: "./images/dog4.jpeg", name: "dog4"},
-    {imgSrc: "./images/dog5.jpeg", name: "dog5"},
+    { imgSrc: "./images/dog1.jpeg", name: "dog1" },
+    { imgSrc: "./images/dog2.jpeg", name: "dog2" },
+    { imgSrc: "./images/dog3.jpeg", name: "dog3" },
+    { imgSrc: "./images/dog4.jpeg", name: "dog4" },
+    { imgSrc: "./images/dog5.jpeg", name: "dog5" },
+    { imgSrc: "./images/dog1.jpeg", name: "dog1" },
+    { imgSrc: "./images/dog2.jpeg", name: "dog2" },
+    { imgSrc: "./images/dog3.jpeg", name: "dog3" },
+    { imgSrc: "./images/dog4.jpeg", name: "dog4" },
+    { imgSrc: "./images/dog5.jpeg", name: "dog5" },
 ];
 
 //----------------------
@@ -97,7 +111,7 @@ const getData = () => [
 //----------------------
 const randomize = () => {
     const kaartdata = getData();
-    kaartdata.sort(() => Math.random() -0.5);
+    kaartdata.sort(() => Math.random() - 0.5);
     console.log(kaartdata);
     return kaartdata;
 };
@@ -198,6 +212,17 @@ size.addEventListener("click", () =>  {
     
     console.log("afmeting: ", afmeting);
 });
+//Generate cards
+const kaartGenerator = () => {
+    const kaartData = randomize();
+
+    kaartData.forEach(item => {
+        const card = document.createElement("div");
+        const front = document.createElement("div");
+        const back = document.createElement("img");
+        card.classList = 'kaart';
+        front.classList = 'kaart--front';
+        back.classList = 'kaart--back';
 
 //----------------------
 // Generate cards
@@ -281,6 +306,11 @@ const kaartGenerator = () => {
 //     cardB = 0;
 //   } 
 // }
+        card.addEventListener('click', (e) => {
+            card.classList.toggle("toggleCard");
+            startTimer();
+        })
+    });
 
 
 
@@ -291,4 +321,97 @@ function darkMode() {
     var element = document.body;
     element.classList.toggle("dark-mode")
 };
+
+//Color picker klaar!!
+let kleurInput_gesloten = document.querySelector('#kleur-gevonden');
+let kleurInput_open = document.querySelector('#kleur-open');
+let kleurInput_gevonden = document.querySelector('#kleur-gevonden');
+
+function changeColour() {
+    let kleur1 = kleurInput_gesloten.value;
+    let kleur2 = kleurInput_open.value;
+    let kleur3 = kleurInput_gevonden.value;
+    const element1 = document.querySelectorAll(".kaart--front");
+    const element2 = document.querySelectorAll(".kaart--back");
+
+    element1.forEach(function () {
+        element1.style.backgroundColor = kleur1;
+        console.log("kleur select");
+    })
+}
+
+//Timer work in progress !!!!
+const timer = document.querySelector(".timer");
+
+var hr = 0;
+var min = 0;
+var sec = 0;
+var stoptime = true;
+
+function startTimer() {
+    if (stoptime == true) {
+        stoptime = false;
+        timerCycle();
+    }
+}
+function stopTimer() {
+    if (stoptime == false) {
+        stoptime = true;
+    }
+}
+
+function timerCycle() {
+    if (stoptime == false) {
+        sec = parseInt(sec);
+        min = parseInt(min);
+        hr = parseInt(hr);
+
+        sec = sec + 1;
+
+        if (sec == 60) {
+            min = min + 1;
+            sec = 0;
+        }
+        if (min == 60) {
+            hr = hr + 1;
+            min = 0;
+            sec = 0;
+        }
+
+        if (sec < 10 || sec == 0) {
+            sec = '0' + sec;
+        }
+        if (min < 10 || min == 0) {
+            min = '0' + min;
+        }
+        if (hr < 10 || hr == 0) {
+            hr = '0' + hr;
+        }
+
+        timer.innerHTML = hr + ':' + min + ':' + sec;
+
+        setTimeout("timerCycle()", 1000);
+    }
+}
+
+function resetTimer() {
+    timer.innerHTML = "00:00:00";
+    stoptime = true;
+    hr = 0;
+    sec = 0;
+    min = 0;
+}
+
+}
+
+
+//flippen work in progress!!
+// var kaarten = document.querySelectorAll('.kaart');
+// console.log("hallo");
+
+// [...kaarten].forEach((kaart)=>{
+//   kaart.addEventListener('click', function() {
+//     kaart.classList.toggle('is-flipped');
+//   });
+// });
 
