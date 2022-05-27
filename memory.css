@@ -137,21 +137,6 @@ body {
 
 /* Kleuren selectors ---- */
 .kleur-gesloten {
-<<<<<<< Updated upstream
-    width: 10px;
-    padding-left: 250px;
-}
-
-.kleur-open {
-    width: 10px;
-    padding-left: 250px;
-}
-
-.kleur-gevonden {
-    width: 10px;
-    padding-left: 250px;
-    box-shadow: 1px 1px 1px #888888;
-=======
     width: 100%;
     padding-left: 50px;
 }
@@ -164,7 +149,6 @@ body {
 .kleur-gevonden {
     width: 100%;
     padding-left: 50px;
->>>>>>> Stashed changes
 }
 
 

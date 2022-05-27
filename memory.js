@@ -1,5 +1,4 @@
 
-<<<<<<< Updated upstream
 var afmeting = 2; 
 var cardA = 0;
 var cardB = 0;
@@ -26,13 +25,11 @@ var cardB = 0;
 // }))
 
 
-=======
 // var a = 0;
 // var b = 0;
 
 // click-event kaarten: 
 // Verandert kaart-class
->>>>>>> Stashed changes
 
 // function darkMode() {
 //     var elemment = document.body;
@@ -68,15 +65,12 @@ var cardB = 0;
 
 
 
-<<<<<<< Updated upstream
 //----------------------
 // Fetch images from API
 //----------------------
 var images
 
-=======
 //get images work in progress!!!!
->>>>>>> Stashed changes
 function getjson(url, cb) {
     var xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
@@ -119,7 +113,6 @@ const randomize = () => {
     return kaartdata;
 };
 
-<<<<<<< Updated upstream
 //----------------------
 //  Size gameboard
 //----------------------
@@ -138,7 +131,6 @@ size.addEventListener("click", () =>  {
     
     console.log("afmeting: ", afmeting);
 });
-=======
 //Generate cards
 const kaartGenerator = () => {
     const kaartData = randomize();
@@ -150,7 +142,6 @@ const kaartGenerator = () => {
         card.classList = 'kaart';
         front.classList = 'kaart--front';
         back.classList = 'kaart--back';
->>>>>>> Stashed changes
 
 
 //----------------------
@@ -179,7 +170,6 @@ const kaartGenerator = () => {
   }
 }
 
-<<<<<<< Updated upstream
 // ----------------------------
 
 // var sum = 0;
@@ -235,13 +225,11 @@ const kaartGenerator = () => {
 //     cardB = 0;
 //   } 
 // }
-=======
         card.addEventListener('click', (e) => {
             card.classList.toggle("toggleCard");
             startTimer();
         })
     });
->>>>>>> Stashed changes
 
 
 
@@ -333,7 +321,7 @@ function resetTimer() {
     min = 0;
 }
 
-
+}
 
 
 //flippen work in progress!!
