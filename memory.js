@@ -156,12 +156,12 @@ function createCardBack(value){
     characters.sort(() => Math.random() -0.5);
     console.log("Characters: ",characters);
 
-    // Creeer front-cards innerhtml
+    // Creeer back-cards innerhtml
     var cards = document.getElementsByClassName("kaart--back");
 
     for(let i = 0; i < cards.length; i++){
         var card = cards[i];
-        // card.innerHTML += "<p>" + characters.pop() + "</p>";
+        card.innerHTML += "<p>" + characters.pop() + "</p>";
     }
   }
 
@@ -212,17 +212,18 @@ size.addEventListener("click", () =>  {
     
     console.log("afmeting: ", afmeting);
 });
-//Generate cards
-const kaartGenerator = () => {
-    const kaartData = randomize();
 
-    kaartData.forEach(item => {
-        const card = document.createElement("div");
-        const front = document.createElement("div");
-        const back = document.createElement("img");
-        card.classList = 'kaart';
-        front.classList = 'kaart--front';
-        back.classList = 'kaart--back';
+//Generate cards
+// const kaartGenerator = () => {
+//     const kaartData = randomize();
+
+//     kaartData.forEach(item => {
+//         const card = document.createElement("div");
+//         const front = document.createElement("div");
+//         const back = document.createElement("img");
+//         card.classList = 'kaart';
+//         front.classList = 'kaart--front';
+//         back.classList = 'kaart--back';
 
 //----------------------
 // Generate cards
@@ -246,6 +247,7 @@ const kaartGenerator = () => {
 
     card.addEventListener('click', (e) => {
         card.classList.toggle("toggleCard");
+        startTimer();
         checkWin(card);
     })
   }
@@ -306,13 +308,6 @@ const kaartGenerator = () => {
 //     cardB = 0;
 //   } 
 // }
-        card.addEventListener('click', (e) => {
-            card.classList.toggle("toggleCard");
-            startTimer();
-        })
-    });
-
-
 
 //----------------------
 // Darkmode
@@ -402,7 +397,7 @@ function resetTimer() {
     min = 0;
 }
 
-}
+
 
 
 //flippen work in progress!!

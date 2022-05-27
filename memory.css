@@ -26,8 +26,8 @@ body {
     grid-template-rows: repeat(3, 1fr);
 
     /* Style */
-    width: 600px;
-    height: 620px;  /* Gameboard 500px + meter 20px */
+    width: 500px;
+    height: 520px;  /* Gameboard 500px + meter 20px */
 
     /* Mobile accessibility */
     max-width: 90vw;
