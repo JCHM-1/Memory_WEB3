@@ -17,20 +17,27 @@
             <h1>Javascript memory</h1>
 
             <div class="button_darkmode">
-                <button onclick="darkMode()">Darkmode/Lightmode</button>
+                <button onclick="darkMode(), resetTimer()">Darkmode/Lightmode</button>
             </div>
 
-            <p> Verlopen tijd: 64 seconden <br>
+            <div class="timer">
+                00:00:00
+            </div>
+
+            <p> 
                 Gevonden kaart-paren: 1 <br>
                 Resterende toontijd:</p>
             
             
             <div id="game" class="game" aria-description="Kaarten in het spel" aria-roledescription="Kaart kan gesloten, open of gevonden zijn.">
                 <div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>
+<<<<<<< Updated upstream
                 <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
                 <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
                 <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
                 <div class="kaart"><div class="kaart--front"></div><img class="kaart--back"></div>
+=======
+>>>>>>> Stashed changes
             </div>
 
         </div>
@@ -74,17 +81,21 @@
                 <table class="buttons" >
                     <tr>
                         <td>Kaartkleur</td>
-                        <td class="kleur-gesloten"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#A2F06E"></button></td>
+                        <td class="kleur-gesloten"><input type="color" id="kleur-gevonden"  aria-controls="gevonden" value="#A2F06E"></button></td>
                         
                     </tr>
                     <tr>
                         <td>Open</td>
-                        <td class="kleur-open"><input type="color" id ="kleur-open"  aria-controls="open" value="#538324"></button></td>
+                        <td class="kleur-open"><input type="color" id="kleur-open"  aria-controls="open" value="#538324"></button></td>
                         
                     </tr>
                     <tr>
                         <td>Gevonden</td>
+<<<<<<< Updated upstream
                         <td class="kleur-gevonden"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#6A307C" size="100"></button></td>
+=======
+                        <td class="kleur-gevonden"><input type="color" id="kleur-gevonden"  aria-controls="gevonden" value="#6A307C"></button></td>
+>>>>>>> Stashed changes
                         
                     </tr>
                 </table>
@@ -93,7 +104,7 @@
             <div class="button_nieuwspel">
                 <table class="buttons">
                     <tr>
-                        <td><button type="button">Nieuw spel</button></td>
+                        <td><button onclick="changeColour()">Nieuw spel</button></td>
                     </tr>
                 </table>
             </div>

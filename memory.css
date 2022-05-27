@@ -117,7 +117,6 @@ body {
 }
 
 /* buttons -------------- */
-
 .buttons_div {
     padding-top: 75px;
 }
@@ -137,8 +136,8 @@ body {
 }
 
 /* Kleuren selectors ---- */
-
 .kleur-gesloten {
+<<<<<<< Updated upstream
     width: 10px;
     padding-left: 250px;
 }
@@ -152,6 +151,20 @@ body {
     width: 10px;
     padding-left: 250px;
     box-shadow: 1px 1px 1px #888888;
+=======
+    width: 100%;
+    padding-left: 50px;
+}
+
+.kleur-open {
+    width: 100%;
+    padding-left: 50px;
+}
+
+.kleur-gevonden {
+    width: 100%;
+    padding-left: 50px;
+>>>>>>> Stashed changes
 }
 
 
@@ -166,6 +179,10 @@ body {
     padding: 10px;
 }
 
+/* timer ------------ */
+.timer {
+    font-size: 25px;
+}
 
 
 
