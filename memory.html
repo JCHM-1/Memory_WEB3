@@ -49,24 +49,37 @@
 
             <h3>Gemiddelde speeltijd: </h3>
 
-            <label for="karakter" aria-label="Kies karakter">Karakter op kaarten:
-                <select id="karakter" name="karakter">
-                    <option value="E">E</option>
-                    <option value="M">M</option>
-                    <option value="A">A</option>
-                    <option value="C">C</option>
+            <label for="selectFront" aria-label="Kies karakter">Kies voorkant kaarten:
+                <select id="selectFront" name="front">
+                    <option value="random">Willekeurig</option>
+                    <option value="+">+</option>
+                    <option value="*">*</option>
+                    <option value="-">-</option>
+                    <option value="?">?</option>
                 </select>
             </label> 
             <br>
-            
-            <label for="afmeting" aria-label="Kies afmeting bord">Afmeting op bord:
+            <!-- Minstens 3 verschillende webAPI opties ! -->
+            <label for="selectBack" aria-label="Kies plaatjes" aria-description="Kies de plaatjes voor op de kaarten">Kies achterkant kaarten:
+                <select id="selectBack" name="selectBack">
+                    <option value="random">Willekeurig</option>
+                    <option value="alfabet">Alfabet</option>
+                    <option value="Hondenplaatjes" aria-label="Hondenplaatjes">Hondenplaatjes</option>
+                    <option value="kattenplaatjes" aria-label="Kattenplaatjes">Kattenplaatjes</option>
+                    <option value="Niet-bestaande personen" aria-label="Niet-bestaande personen">Niet-bestaande personen</option>
+                </select>
+            </label> 
+            <br>
+            <br>
+            <label for="afmeting" aria-label="Kies afmeting bord">Afmeting bord:
                 <select id="afmeting" name="afmeting" aria-expanded="false">
                     <option value="2" aria-label="2">2</option>
+                    <option value="3" aria-label="3">3</option>
                     <option value="4" aria-label="4">4</option>
+                    <option value="5" aria-label="5">5</option>
                     <option value="6" aria-label="6">6</option>
-                    <option value="8" aria-label="8">8</option>
-                    <option value="10" aria-label="10">10</option>
-                    
+                    <option value="7" aria-label="7">7</option>
+                    <option value="8" aria-label="8">8</option>  
                 </select>
             </label>
 

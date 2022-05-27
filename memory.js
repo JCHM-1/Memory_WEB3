@@ -3,6 +3,9 @@ var afmeting = 2;
 var cardA = 0;
 var cardB = 0;
 
+var random = false;
+var alfabet = false;
+
 // click-event kaarten: 
 // Verandert kaart-class
 // document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () => {
@@ -23,13 +26,6 @@ var cardB = 0;
 //       b = 0;
 //     } 
 // }))
-
-
-
-// function darkMode() {
-//     var elemment = document.body;
-//     elemment.classList.toggle("dark-mode")
-// }
 
 // In progress
 //const game = document.querySelector('game');
@@ -107,12 +103,90 @@ const randomize = () => {
 };
 
 //----------------------
+//  Kaarten FRONT
+//----------------------
+var selectFront = document.getElementById("selectFront");
+selectFront.addEventListener("click", () => {
+  createCardFront(selectFront.value);
+})
+
+function createCardFront(value){
+
+  if(char === "+"){}
+
+  if(char === "*"){}
+  
+  if(char === "-"){}
+
+  if(char === "?"){}
+}
+
+//----------------------
+//  Kaarten BACK
+//----------------------
+var selectBack = document.getElementById("selectBack");
+selectBack.addEventListener("click", () => {
+  createCardBack(selectBack.value);
+})
+
+function createCardBack(value){
+
+  if(value === "alfabet")
+  {
+    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    var characters = shuffle(alphabet);
+    var charactersCopy = characters.slice();
+    characters = characters.concat(charactersCopy);
+
+    // 2 keer geshuffelde array
+    characters.sort(() => Math.random() -0.5);
+    console.log("Characters: ",characters);
+
+    // Creeer front-cards innerhtml
+    var cards = document.getElementsByClassName("kaart--back");
+
+    for(let i = 0; i < cards.length; i++){
+        var card = cards[i];
+        // card.innerHTML += "<p>" + characters.pop() + "</p>";
+    }
+  }
+
+  if(value === "Hondenplaatjes"){}
+  if(value === "Kattenplaatjes"){}
+  if(value === "Niet-bestaande personen"){}
+  
+}
+
+// Shuffle alfabet array
+function shuffle(array){
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  // Pak subarray van geshuffle array met afmeting bord 
+  var arraySliced = array.slice(0, ((afmeting*afmeting) / 2));
+
+  return arraySliced;
+}
+
+
+//----------------------
 //  Size gameboard
 //----------------------
 var size = document.getElementById("afmeting");
 size.addEventListener("click", () =>  {
-    width = size.value; 
-    height = width + 1;
+    let width = size.value; 
+    let height = width + 1;
     afmeting = width;
 
     let game = document.getElementById("game");
@@ -125,7 +199,6 @@ size.addEventListener("click", () =>  {
     console.log("afmeting: ", afmeting);
 });
 
-
 //----------------------
 // Generate cards
 //----------------------
@@ -135,7 +208,8 @@ const kaartGenerator = () => {
 
     const card = document.createElement("div");
     const front = document.createElement("div");
-    const back = document.createElement("img");
+    const back = document.createElement("div");
+    
     card.classList = 'kaart';
     front.classList = 'kaart--front';
     back.classList = 'kaart--back';
@@ -211,20 +285,10 @@ const kaartGenerator = () => {
 
 
 //----------------------
-//darkmode klaar!!
+// Darkmode
 //----------------------
 function darkMode() {
-    var elemment = document.body;
-    elemment.classList.toggle("dark-mode")
+    var element = document.body;
+    element.classList.toggle("dark-mode")
 };
-
-//flippen work in progress!!
-// var kaarten = document.querySelectorAll('.kaart');
-// console.log("hallo");
-
-// [...kaarten].forEach((kaart)=>{
-//   kaart.addEventListener('click', function() {
-//     kaart.classList.toggle('is-flipped');
-//   });
-// });
 

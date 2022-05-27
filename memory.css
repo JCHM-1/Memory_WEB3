@@ -1,6 +1,7 @@
 body {
     height: 100vh;
     background: linear-gradient(#e66465, #9198e5);
+    background-attachment: fixed;
 }
 
 .container {
@@ -13,7 +14,7 @@ body {
 
 /* First column */
 .main {
-    flex: 1.5;
+    flex: 2;
     text-align: center;
 }
 
@@ -25,12 +26,12 @@ body {
     grid-template-rows: repeat(3, 1fr);
 
     /* Style */
-    width: 500px;
-    height: 600px;  /* Gameboard 500px + meter 20px */
+    width: 600px;
+    height: 620px;  /* Gameboard 500px + meter 20px */
 
     /* Mobile accessibility */
     max-width: 90vw;
-    max-height: 90vw; 
+    max-height: 90vh; 
 
     /* Centers the grid */
     margin-left: auto;
@@ -116,6 +117,10 @@ body {
     margin-top: 10%;
 }
 
+.sidebar select {
+    text-align: center;
+}
+
 /* buttons -------------- */
 
 .buttons_div {
@@ -139,7 +144,7 @@ body {
 /* Kleuren selectors ---- */
 
 .kleur-gesloten {
-    width: 10px;
+    width: 600px;
     padding-left: 250px;
 }
 
@@ -151,7 +156,6 @@ body {
 .kleur-gevonden {
     width: 10px;
     padding-left: 250px;
-    box-shadow: 1px 1px 1px #888888;
 }
 
 
