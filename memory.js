@@ -1,7 +1,10 @@
-cardFrontData = [];
-createCardFront;
-cardBackData = [];
-createCardBack;
+var cardFrontData = [];
+createCardFront();
+var cardBackData = [];
+createCardBack();
+kaartGenerator();
+
+window.onload = kaartGenerator();
 
 var afmeting = 2; 
 
@@ -120,44 +123,40 @@ selectFront.addEventListener("click", () => {
 
 function createCardFront(char){
 
-  cardFrontData = [];
+  this.cardFrontData = [];
   console.log("Char: ", char);
-  console.log("cardFrontData begin functie: ", cardFrontData);
+  console.log("cardFrontData begin functie: ", this.cardFrontData);
+  console.log("afmeting : ", afmeting);
 
   if(char === "*"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
       card.innerHTML = "<p> * </p>";
-      cardFrontData.push(card);
+      this.cardFrontData.push(card);
     }
-  }
-  
-  if(char === "-"){
+  }else if (char === "-"){
     for (let i = 0; i < (afmeting*afmeting); i++){
+
       var card = document.createElement("div");
       card.innerHTML = "<p> - </p>";
-      cardFrontData.push(card);  
+      this.cardFrontData.push(card);  
     }
-  }
-
-  if(char === "?"){
+  } else if(char === "?"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
       card.innerHTML = "<p> ? </p>";
-      cardFrontData.push(card);   
+      this.cardFrontData.push(card);   
     }
-  }
-
-  else{
+  } else{
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
       card.innerHTML = "<p> + </p>";
-      cardFrontData.push(card);   
+      this.cardFrontData.push(card);   
     }
   }
 
-  console.log("CardFrontData na functie: ", cardFrontData);
-  kaartGenerator;
+  console.log("CardFrontData na functie: ", this.cardFrontData);
+  kaartGenerator();
 }
 
 //----------------------
@@ -170,37 +169,44 @@ selectBack.addEventListener("click", () => {
 
 function createCardBack(value){
 
-  cardBackData = [];
+  this.cardBackData = [];
+  console.log("cardBackData begin functie: ", this.cardBackData);
 
-  if(value === "Hondenplaatjes"){}
-  if(value === "Kattenplaatjes"){}
-  if(value === "Niet-bestaande personen"){}
+  if(value === "Hondenplaatjes"){
 
-  else 
-    {
+  }else if(value === "Kattenplaatjes"){
+
+  }else if(value === "Niet-bestaande personen"){
+
+  }else{
       const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
       var characters = shuffle(alphabet);
+      console.log("characters na shuffle:", characters);
       var charactersCopy = characters.slice();
+      console.log("charcop: ", charactersCopy);
       characters = characters.concat(charactersCopy);
+      console.log("chars na concat: ", characters);
   
       // 2 keer geshuffelde array
       characters.sort(() => Math.random() -0.5);
-      console.log("Characters: ",characters);
+      console.log("Characters na shuffle: ",characters);
   
       for (let i = 0; i < (afmeting*afmeting); i++){
         var card = document.createElement("div");
         card.innerHTML = "<p> " + characters.pop() + " </p>";
-        cardBackData.push(card);   
+        this.cardBackData.push(card);   
       }
     }
-    console.log("CardBackData: ",cardBackData);
+    console.log("CardBackData na functie: ",this.cardBackData);
     kaartGenerator();
   }
 
 
 // Shuffle alfabet array
 function shuffle(array){
+  console.log("Array in shuffle: ", array);
   let currentIndex = array.length,  randomIndex;
+  console.log("currentIndex", currentIndex);
 
   // While there remain elements to shuffle.
   while (currentIndex != 0) {
@@ -213,10 +219,11 @@ function shuffle(array){
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
-
+  console.log("arrrray", array);
+  console.log("afmeting",afmeting)
   // Pak subarray van geshuffle array met afmeting bord 
-  var arraySliced = array.slice(0, ((afmeting*afmeting) / 2));
-
+  var arraySliced = array.slice(0, ((this.afmeting*this.afmeting) / 2));
+  console.log("arraysliced: ", arraySliced);
   return arraySliced;
 }
 
@@ -248,11 +255,12 @@ size.addEventListener("click", () =>  {
 //----------------------
 // Generate cards
 //----------------------
-const kaartGenerator = () => {
-
+function kaartGenerator(){
+  
+  console.log("cardFrontData in kaartgen: ", this.cardFrontData);
   let height = afmeting + 1;
   console.log("height: ", height);
-  console.log("CardFrontData in kaartgenerator: ", cardFrontData);
+  console.log("CardFrontData in kaartgenerator: ", this.cardFrontData);
   
 
   let game = document.getElementById("game");
@@ -264,8 +272,9 @@ const kaartGenerator = () => {
   for (let i = 0; i < (afmeting*afmeting); i++) {
 
     const card = document.createElement("div");
-    const front = cardFrontData[i];
-    const back = cardBackData[i];
+    const front = this.cardFrontData[i];
+    console.log(this.cardFrontData[i]);
+    const back = this.cardBackData[i];
     
     card.classList = 'kaart';
     front.classList = 'kaart--front';
