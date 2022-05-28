@@ -1,5 +1,7 @@
-var cardFrontData = [];
-var cardBackData = [];
+cardFrontData = [];
+createCardFront;
+cardBackData = [];
+createCardBack;
 
 var afmeting = 2; 
 
@@ -8,12 +10,6 @@ var cardB = 0;
 
 var random = false;
 var alfabet = false;
-
-window.addEventListener('load', (event) => {
-  createCardFront();
-  createCardBack();
-  kaartGenerator();
-});
 
 // click-event kaarten: 
 // Verandert kaart-class
@@ -125,11 +121,13 @@ selectFront.addEventListener("click", () => {
 function createCardFront(char){
 
   cardFrontData = [];
+  console.log("Char: ", char);
+  console.log("cardFrontData begin functie: ", cardFrontData);
 
   if(char === "*"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
-      card.innerHTML += "<p> * </p>";
+      card.innerHTML = "<p> * </p>";
       cardFrontData.push(card);
     }
   }
@@ -137,14 +135,15 @@ function createCardFront(char){
   if(char === "-"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
-      card.innerHTML += "<p> - </p>";
-      cardFrontData.push(card);    }
+      card.innerHTML = "<p> - </p>";
+      cardFrontData.push(card);  
+    }
   }
 
   if(char === "?"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
-      card.innerHTML += "<p> ? </p>";
+      card.innerHTML = "<p> ? </p>";
       cardFrontData.push(card);   
     }
   }
@@ -152,12 +151,13 @@ function createCardFront(char){
   else{
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
-      card.innerHTML += "<p> + </p>";
+      card.innerHTML = "<p> + </p>";
       cardFrontData.push(card);   
     }
   }
 
-  
+  console.log("CardFrontData na functie: ", cardFrontData);
+  kaartGenerator;
 }
 
 //----------------------
@@ -193,6 +193,8 @@ function createCardBack(value){
         cardBackData.push(card);   
       }
     }
+    console.log("CardBackData: ",cardBackData);
+    kaartGenerator();
   }
 
 
@@ -250,6 +252,8 @@ const kaartGenerator = () => {
 
   let height = afmeting + 1;
   console.log("height: ", height);
+  console.log("CardFrontData in kaartgenerator: ", cardFrontData);
+  
 
   let game = document.getElementById("game");
   game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
@@ -427,11 +431,15 @@ function resetTimer() {
     min = 0;
 }
 
-function getImages() {
-    fetch('https://picsum.photos/200')
-    .then(respone => respone.text())
-    .then(data => console.log(data));
-}
+// function getImages() {
+//     fetch('https://picsum.photos/200')
+//     .then(respone => respone.text())
+//     .then(data => console.log(data));
+// }
 
 
-getImages();
+// getImages();
+
+window.onload = createCardFront();
+window.onload = createCardBack();
+window.onload = kaartGenerator();
