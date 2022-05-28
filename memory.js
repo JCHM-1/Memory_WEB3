@@ -122,6 +122,8 @@ selectFront.addEventListener("click", () => {
 
 function createCardFront(char){
 
+  cardFrontData = [];
+
   if(char === "*"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
@@ -141,7 +143,8 @@ function createCardFront(char){
     for (let i = 0; i < (afmeting*afmeting); i++){
       var card = document.createElement("div");
       card.innerHTML += "<p> ? </p>";
-      cardFrontData.push(card);    }
+      cardFrontData.push(card);   
+    }
   }
 
   else{
@@ -150,8 +153,9 @@ function createCardFront(char){
       card.innerHTML += "<p> + </p>";
       cardFrontData.push(card);   
     }
-
   }
+
+  
 }
 
 //----------------------
@@ -163,6 +167,8 @@ selectBack.addEventListener("click", () => {
 })
 
 function createCardBack(value){
+
+  cardBackData = [];
 
   if(value === "Hondenplaatjes"){}
   if(value === "Kattenplaatjes"){}
