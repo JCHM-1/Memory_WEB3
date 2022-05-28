@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    font-family: Helvetica;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: small;
 }
 
@@ -172,7 +172,3 @@ body {
 .timer {
     font-size: 25px;
 }
-
-
-
-

@@ -101,6 +101,8 @@ getjson('https://dog.ceo/api/breeds/image/random', data => {
 
 const game = document.querySelector('.game');
 
+//test voor nu zonder api
+const getData = () => [];
 
 //----------------------
 // Randomize
@@ -334,6 +336,8 @@ const kaartGenerator = () => {
 //     cardB = 0;
 //   } 
 // }
+        
+
 
 //----------------------
 // Darkmode
@@ -423,16 +427,11 @@ function resetTimer() {
     min = 0;
 }
 
+function getImages() {
+    fetch('https://picsum.photos/200')
+    .then(respone => respone.text())
+    .then(data => console.log(data));
+}
 
 
-
-//flippen work in progress!!
-// var kaarten = document.querySelectorAll('.kaart');
-// console.log("hallo");
-
-// [...kaarten].forEach((kaart)=>{
-//   kaart.addEventListener('click', function() {
-//     kaart.classList.toggle('is-flipped');
-//   });
-// });
-
+getImages();
