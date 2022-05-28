@@ -1,10 +1,19 @@
+var cardFrontData = [];
+var cardBackData = [];
 
 var afmeting = 2; 
+
 var cardA = 0;
 var cardB = 0;
 
 var random = false;
 var alfabet = false;
+
+window.addEventListener('load', (event) => {
+  createCardFront();
+  createCardBack();
+  kaartGenerator();
+});
 
 // click-event kaarten: 
 // Verandert kaart-class
@@ -92,19 +101,6 @@ getjson('https://dog.ceo/api/breeds/image/random', data => {
 
 const game = document.querySelector('.game');
 
-//test voor nu zonder api
-const getData = () => [
-    { imgSrc: "./images/dog1.jpeg", name: "dog1" },
-    { imgSrc: "./images/dog2.jpeg", name: "dog2" },
-    { imgSrc: "./images/dog3.jpeg", name: "dog3" },
-    { imgSrc: "./images/dog4.jpeg", name: "dog4" },
-    { imgSrc: "./images/dog5.jpeg", name: "dog5" },
-    { imgSrc: "./images/dog1.jpeg", name: "dog1" },
-    { imgSrc: "./images/dog2.jpeg", name: "dog2" },
-    { imgSrc: "./images/dog3.jpeg", name: "dog3" },
-    { imgSrc: "./images/dog4.jpeg", name: "dog4" },
-    { imgSrc: "./images/dog5.jpeg", name: "dog5" },
-];
 
 //----------------------
 // Randomize
@@ -124,15 +120,38 @@ selectFront.addEventListener("click", () => {
   createCardFront(selectFront.value);
 })
 
-function createCardFront(value){
+function createCardFront(char){
 
-  if(char === "+"){}
-
-  if(char === "*"){}
+  if(char === "*"){
+    for (let i = 0; i < (afmeting*afmeting); i++){
+      var card = document.createElement("div");
+      card.innerHTML += "<p> * </p>";
+      cardFrontData.push(card);
+    }
+  }
   
-  if(char === "-"){}
+  if(char === "-"){
+    for (let i = 0; i < (afmeting*afmeting); i++){
+      var card = document.createElement("div");
+      card.innerHTML += "<p> - </p>";
+      cardFrontData.push(card);    }
+  }
 
-  if(char === "?"){}
+  if(char === "?"){
+    for (let i = 0; i < (afmeting*afmeting); i++){
+      var card = document.createElement("div");
+      card.innerHTML += "<p> ? </p>";
+      cardFrontData.push(card);    }
+  }
+
+  else{
+    for (let i = 0; i < (afmeting*afmeting); i++){
+      var card = document.createElement("div");
+      card.innerHTML += "<p> + </p>";
+      cardFrontData.push(card);   
+    }
+
+  }
 }
 
 //----------------------
@@ -145,31 +164,30 @@ selectBack.addEventListener("click", () => {
 
 function createCardBack(value){
 
-  if(value === "alfabet")
-  {
-    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    var characters = shuffle(alphabet);
-    var charactersCopy = characters.slice();
-    characters = characters.concat(charactersCopy);
-
-    // 2 keer geshuffelde array
-    characters.sort(() => Math.random() -0.5);
-    console.log("Characters: ",characters);
-
-    // Creeer back-cards innerhtml
-    var cards = document.getElementsByClassName("kaart--back");
-
-    for(let i = 0; i < cards.length; i++){
-        var card = cards[i];
-        card.innerHTML += "<p>" + characters.pop() + "</p>";
-    }
-  }
-
   if(value === "Hondenplaatjes"){}
   if(value === "Kattenplaatjes"){}
   if(value === "Niet-bestaande personen"){}
+
+  else 
+    {
+      const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+      var characters = shuffle(alphabet);
+      var charactersCopy = characters.slice();
+      characters = characters.concat(charactersCopy);
   
-}
+      // 2 keer geshuffelde array
+      characters.sort(() => Math.random() -0.5);
+      console.log("Characters: ",characters);
+  
+      for (let i = 0; i < (afmeting*afmeting); i++){
+        var card = document.createElement("div");
+        card.innerHTML = "<p> " + characters.pop() + " </p>";
+        cardBackData.push(card);   
+      }
+
+    }
+  }
+
 
 // Shuffle alfabet array
 function shuffle(array){
@@ -199,18 +217,11 @@ function shuffle(array){
 //----------------------
 var size = document.getElementById("afmeting");
 size.addEventListener("click", () =>  {
-    let width = size.value; 
-    let height = width + 1;
-    afmeting = width;
-
-    let game = document.getElementById("game");
-    game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
-    game.style.setProperty("grid-template-columns","repeat("+width+", 1fr)");
-    game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
-
+    afmeting = size.value;
+    console.log("afmeting na klik: ", afmeting);
+    cardFrontData();
+    cardBackData();
     kaartGenerator();
-    
-    console.log("afmeting: ", afmeting);
 });
 
 //Generate cards
@@ -229,16 +240,26 @@ size.addEventListener("click", () =>  {
 // Generate cards
 //----------------------
 const kaartGenerator = () => {
+
+  let height = afmeting + 1;
+  console.log("height: ", height);
+
+  let game = document.getElementById("game");
+  game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
+  game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
+  game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
+  
   // generate HTML for board squares
   for (let i = 0; i < (afmeting*afmeting); i++) {
 
     const card = document.createElement("div");
-    const front = document.createElement("div");
-    const back = document.createElement("div");
+    const front = cardFrontData[i];
+    const back = cardBackData[i];
     
     card.classList = 'kaart';
     front.classList = 'kaart--front';
     back.classList = 'kaart--back';
+
 
     // back.src = item.imgSrc;
     game.appendChild(card);
@@ -248,7 +269,7 @@ const kaartGenerator = () => {
     card.addEventListener('click', (e) => {
         card.classList.toggle("toggleCard");
         startTimer();
-        checkWin(card);
+        // checkWin(card);
     })
   }
 }
