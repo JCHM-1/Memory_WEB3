@@ -351,7 +351,9 @@ function darkMode() {
     element.classList.toggle("dark-mode")
 };
 
-//Color picker klaar!!
+//---------------------------------
+// Colour picker
+//---------------------------------
 let kleurInput_gesloten = document.querySelector('#kleur-gevonden');
 let kleurInput_open = document.querySelector('#kleur-open');
 let kleurInput_gevonden = document.querySelector('#kleur-gevonden');
@@ -361,15 +363,15 @@ function changeColour() {
     let kleur2 = kleurInput_open.value;
     let kleur3 = kleurInput_gevonden.value;
     const element1 = document.querySelectorAll(".kaart--front");
-    const element2 = document.querySelectorAll(".kaart--back");
 
-    element1.forEach(function () {
-        element1.style.backgroundColor = kleur1;
-        console.log("kleur select");
-    })
+    for (const element of element1) {
+        element.style.backgroundColor = kleur1;
+    }
 }
 
-//Timer work in progress !!!!
+//---------------------------------
+// Timer
+//---------------------------------
 const timer = document.querySelector(".timer");
 
 var hr = 0;
