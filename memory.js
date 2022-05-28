@@ -184,7 +184,6 @@ function createCardBack(value){
         card.innerHTML = "<p> " + characters.pop() + " </p>";
         cardBackData.push(card);   
       }
-
     }
   }
 
@@ -219,8 +218,8 @@ var size = document.getElementById("afmeting");
 size.addEventListener("click", () =>  {
     afmeting = size.value;
     console.log("afmeting na klik: ", afmeting);
-    cardFrontData();
-    cardBackData();
+    createCardFront();
+    createCardBack();
     kaartGenerator();
 });
 
