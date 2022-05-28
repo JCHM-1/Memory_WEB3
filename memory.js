@@ -106,6 +106,7 @@ function createCardBack(value){
   }else{
       const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
       var characters = shuffle(alphabet);
+      console.log("chars = "+ characters);
       var charactersCopy = characters.slice();
       characters = characters.concat(charactersCopy);
       
@@ -118,17 +119,13 @@ function createCardBack(value){
         cards.push(card);   
       }
     }
-
     return cards;
-
   }
 
 
 // Shuffle alfabet array
 function shuffle(array){
-  console.log("Array in shuffle: ", array);
   let currentIndex = array.length,  randomIndex;
-  console.log("currentIndex", currentIndex);
 
   // While there remain elements to shuffle.
   while (currentIndex != 0) {
@@ -143,7 +140,7 @@ function shuffle(array){
   }
 
   // Pak subarray van geshuffle array met afmeting bord 
-  let aantalKaarten = (((this.afmeting*this.afmeting) / 2) + 1);
+  let aantalKaarten = (this.afmeting*this.afmeting) / 2;
   var arraySliced = array.slice(0, aantalKaarten);
 
   return arraySliced;
@@ -194,9 +191,29 @@ function kaartGenerator(){
     card.addEventListener('click', (e) => {
         card.classList.toggle("toggleCard");
         startTimer();
-        // checkWin(card);
+        checkWin(card);
     })
   }
+}
+
+//----------------------
+// Darkmode
+//----------------------
+function checkWin(card){
+  if(cardA === 0){
+    cardA = card;
+  } else {
+    cardB = card;
+    if (cardA.innerHtml === cardB.innerHtml){
+      
+    } else {
+      cardA.classList.toggle("kaart--front");
+      cardB.classList.toggle("kaart--front");
+    }
+
+    cardA = 0;
+    cardB = 0;
+  } 
 }
 
 //----------------------
@@ -297,63 +314,6 @@ function resetTimer() {
 
 
 // getImages();
-
-
-// ----------------------------
-
-// var sum = 0;
-// const kaartGenerator = () => {
-//     const kaartData = randomize();
-    
-//     // kaartData.forEach(item => {
-
-//     for(i = 0; i < (afmeting*afmeting); i++){
-//         sum = sum + i;
-//         const card = document.createElement("div");
-//         const front = document.createElement("div");
-//         const back = document.createElement("img");
-//         card.classList = 'kaart';
-//         front.classList = 'kaart--front';
-//         back.classList = 'kaart--back';
-
-//         // back.src = item.imgSrc;
-
-//         game.appendChild(card);
-//         card.appendChild(front);
-//         card.appendChild(back);
-
-//         card.addEventListener('click', (e) => {
-//             card.classList.toggle("toggleCard");
-
-//             checkWin(card);
-//         })
-//     };
-//     console.log("sum: "+sum);
-// };
-
-
-
-// const checkWin = (card) => {
-
-//   if(cardA === 0){
-//     let cardA = card;
-//   } else {
-//     let cardB = card;
-//     if (cardA.innerHtml === b.innerHtml){
-//       cardA.classList.replace("toggleCard", "kaart--back");
-//       cardA.removeEventListener('click');
-//       cardB.classList.replace("toggleCard", "kaart--back");
-//       cardB.removeEventListener('click');
-//       // Animatie toevoegen
-//     } else {
-//       cardA.classList.toggle("toggleCard");
-//       cardB.classList.toggle("toggleCard");
-//     }
-
-//     cardA = 0;
-//     cardB = 0;
-//   } 
-// }
 
 // click-event kaarten: 
 // Verandert kaart-class
