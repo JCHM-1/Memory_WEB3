@@ -205,12 +205,11 @@ function checkWin(card){
   } else {
     cardB = card;
     if (cardA.innerHtml === cardB.innerHtml){
-      
+      // is a win
     } else {
       cardA.classList.toggle("kaart--front");
       cardB.classList.toggle("kaart--front");
     }
-
     cardA = 0;
     cardB = 0;
   } 
