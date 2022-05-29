@@ -80,8 +80,8 @@ function createCardBack(value){
 
   if(value === "Hondenplaatjes"){
     var url = "https://dog.ceo/api/breeds/image/random";
-    let i = 0;
-    while (i < (times.value)){
+
+    for (let i = 0; i <= afmeting; i++){
       fetch(url)
       .then((response) => {
         return response.json();
@@ -89,23 +89,20 @@ function createCardBack(value){
       .then((data) => {
         var img = data.message;
     
-        // var card = document.createElement("div");
-        //var img2 = document.createElement("img");
+        var card = document.createElement("div");
+        var img2 = document.createElement("img");
         // card.innerHTML = "<img src=" + img + ">";
-        //img2.src = img
+        img2.src = img
         //card.appendChild(img2);
         // console.log(card);   
+        cards.push(card); 
+        cards.push(card); 
+       
       })
-      var card = document.createElement("div");
-      card.innerHTML = "<img src=" + img + ">";
 
-      cards.push(card); 
-      cards.push(card); 
-      console.log(card); 
-      i++;
+      console.log("einde van honden: ", cards);
     }
-    console.log('card data:')
-    console.log(cards)  
+
   }else if(value === "Random foto's"){
     var url = "https://source.unsplash.com/collection/928423/480x480";
     let i = 0;
@@ -146,13 +143,14 @@ function createCardBack(value){
       // 2 keer geshuffelde array
       characters.sort(() => Math.random() -0.5);
     
-      for (let i = 0; i <= (afmeting*afmeting); i++){
+      for (let i = 0; i < (afmeting*afmeting); i++){
         var card = document.createElement("div");
         var value = characters.pop()
         card.innerHTML = "<p> " + value + " </p>";
         card.id = value;
         cards.push(card);   
       }
+      
     }
 
     return cards;
@@ -207,8 +205,7 @@ function kaartGenerator(){
   game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
   game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
 
-  console.log('dit is backdata:');
-  console.log(cardBackData);
+  console.log('backdata in kaartgen:', cardBackData);
 
   // generate HTML for board squares
   for (let i = 0; i < (afmeting*afmeting); i++) {

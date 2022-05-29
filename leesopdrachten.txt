@@ -1,28 +1,12 @@
-1.	
-A. De inaccessable web forms lijken het meest belemmerend voor een blinde of slechtziende gebruiker.
-Denk hierbij aan de CAPTCHA requirement, voor normale gebruikers wordt dit al een irritatant gevonden, 
-laat staan voor een blinde gebruiker terwijl het nog steeds door veel web forms op bekende websites wordt 
-gebruikt.
+1.	Lees hoofdstuk 2.5 van het proefschrift JavaScript: an analysis of the language and its impact on web development door Thomas Henson. Welke methode wordt er voornamelijk beschreven om een idee te krijgen bij de impact van JavaScript op webpagina's? Voer deze methode zelf ook uit in je browser en bekijk vier van je favoriete websites. Wat valt je op?
 
-CAPTCHA werkt door middel van letters die vervormd zijn bijvoorbeeld door middel van de 
-kleurenovergang aan de achtergrond mee te geven om automatische herkenning te bemoeilijken.
-Doordat ze niet machinaal leesbaar zijn, kunnen hulpprogramma's voor deze gebruikers, zoals 
-schermlezers, de captcha ook niet interpreteren. Omdat captcha's dikwijls gebruikt worden bij 
-inschrijvingsprocessen (bijvoorbeeld bij Outlook.com, eBay en Yahoo!), wordt de toegang tot 
-deze diensten volledig belemmerd voor slechtziende of blinde gebruikers. 
+De methode die voornamelijk wordt beschreven om een idee te krijgen bij de impact van Javascript is de mogelijkheid om Javascript op websites aan- en uit te kunnen zetten. Door javascript op bepaalde websites uit te schakelen kun je zien welke onderdelen en prestaties er van de website wel en wat niet wordt geladen. De sites die ik heb opgezocht zijn: YouTube, Hanze, Facebook en Blackboard. Wat er op valt is dat de website niet volledig laadt en veel, al dan niet alle, functionaliteit wegvalt. Voor blackboard is Javascript zelfs noodzakelijk. Zoals er ook wordt beschreven in hoofdstuk 2.5, Javascript uitschakelen zorgt ervoor dat websites niet meer zijn dan een simpel document zonder enige functionaliteiten. 
 
-B. Als ziend persoon belemmeren veel reclames en pop-ups in het correct gebruiken van een website omdat 
-deze advertenties steeds moeten worden weggeklikt. Tevens zijn deze reclames vaak erg lelijk. je steeds 
-alle reclame moet wegklikken. Dit zou beter gedaan kunnen worden door rekening te houden met de advertenties 
-en proberen beter te integreren in de website.
+2.	Lees hoofdstuk 2.7 "Will it still be relevant in the future?" van hetzelfde proefschrift. Beschrijf een van de redenen die de schrijver noemt waardoor er andere talen dan JavaScript worden overwogen voor het web. Denk jij dat dit inderdaad een belangrijke reden is om JavaScript te vervangen? En waarom?
 
-2.	
-A. De schrijver betoogd dat het complexer is om een desktop-first benadering te gebruiken bij responsive
-web design dan om een mobile-first benadering voor responsive web-design te gebruiken. Bij een desktop-first 
-benadering zul je meer elementen moet verplaatsen, omdat je met een groot scherm werkt. Daar ben ik het mee eens.
+Ten eerste wordt overwogen om Javascript te laten vervangen door een andere taal zodat je Javascript zelf niet hoeft te verbeteren. Javascript is momenteel erg populair en betrouwbaar, mensen zijn gewend geraakt aan en ingespeeld op de manier van werken met Javascript in de browser en om Javascript te vervangen zal voor veel problemen zorgen bij bijvoorbeeld bestaande projecten die opnieuw gemaakt zullen moeten worden.  Het lijkt dus geen toekomstmuziek. Het zal eerder voorkomen dat talen die nu met elkaar concurreren in populariteit zullen samenwerken om samen de browser te ondersteunen.
 
-Ik ben het deels eens met de schrijver. Het is denk ik makkelijker om te kiezen voor mobile-first en daarna 
-naar desktop want zodra je begint met een klein mobielscherm is het makkelijker om dat uit te breiden naar 
-een desktopscherm in tegenstelling tot een desktop-first design naar mobile aan te passen. 
+In het artikel staat dat javascript niet zo heel veilig is omdat de code wordt uitgevoerd terwijl de applicatie runt. Ook de uitbreiding naar verschillende bibliotheken en frameworks maakt de taal minder veilig omdat je alleen de werking van de bibliotheken en frameworks hoeft te weten en niet per se de werking in zijn geheel wat voor kwetsbaarheden kan zorgen. Wij denken dat dat wel een grote min punt is in deze tijd. Op dit moment staat veiligheid centraal bij alles. En als een taal misschien niet zo veilig is en er komt een andere taal die wel erg veilig is, dan zullen mensen sneller neigen om die taal te gaan implementeren in hun website. Maar om gelijk de taal te vervangen zou niet gelijk hoeven. Javascript is op dit moment de leider en veel programmeurs zijn ermee bekent, Javascript zou de veiligheid natuurlijk kunnen verbeteren. En dan denk ik dat Javascript nog steeds leider zou kunnen zijn.
+
 
 
