@@ -68,21 +68,75 @@ function createCardFront(char){
 //  Kaarten BACK
 //----------------------
 var selectBack = document.getElementById("selectBack");
+console.log(selectBack.value);
 selectBack.addEventListener("click", () => {
   cardBackData = createCardBack(selectBack.value);
+  kaartGenerator();
 })
 
 function createCardBack(value){
   var cards = [];
+  let times = document.querySelector('#afmeting');
 
   if(value === "Hondenplaatjes"){
+    var url = "https://dog.ceo/api/breeds/image/random";
+    let i = 0;
+    while (i < (times.value)){
+      fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        var img = data.message;
+    
+        // var card = document.createElement("div");
+        //var img2 = document.createElement("img");
+        // card.innerHTML = "<img src=" + img + ">";
+        //img2.src = img
+        //card.appendChild(img2);
+        // console.log(card);   
+      })
+      var card = document.createElement("div");
+      card.innerHTML = "<img src=" + img + ">";
 
-
-  }else if(value === "Kattenplaatjes"){
-
+      cards.push(card); 
+      cards.push(card); 
+      console.log(card); 
+      i++;
+    }
+    console.log('card data:')
+    console.log(cards)  
+  }else if(value === "Random foto's"){
+    var url = "https://source.unsplash.com/collection/928423/480x480";
+    let i = 0;
+    while (i < (times.value)){
+      fetch(url)
+      .then((response) => {
+        return response;
+      })
+      .then((data) => {
+        var img = data.url;
+        cards.push(img);
+        cards.push(img);
+      })
+      i++;
+    }
   }else if(value === "Niet-bestaande personen"){
-
-  }else{
+    var url = "https://randomuser.me/api/";
+    let i = 0;
+    while (i < (times.value)){
+      fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        var img = data.results[0].picture.medium;
+        cards.push(img);
+        cards.push(img);
+      })
+      i++;
+    } 
+  } else {
       const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
       var characters = shuffle(alphabet);
       console.log("chars = "+ characters);
@@ -152,7 +206,10 @@ function kaartGenerator(){
   game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
   game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
   game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
-  
+
+  console.log('dit is backdata:');
+  console.log(cardBackData);
+
   // generate HTML for board squares
   for (let i = 0; i < (afmeting*afmeting); i++) {
 
@@ -314,61 +371,61 @@ function resetTimer() {
 //----------------------
 // Fetch images from API
 //----------------------
-function getImages() {
-    console.log("werkt wel woef");
-    let times = document.querySelector('#afmeting');
-    let optie_img = document.querySelector('#selectBack');
-    if (optie_img.value === "Hondenplaatjes"){
-      var url = "https://dog.ceo/api/breeds/image/random";
-      let i = 0;
-      while (i < (times.value)){
-        fetch(url)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          var img = data.message;
-          this.cardImages.push(img);
-          this.cardImages.push(img);
-          console.log(this.cardImages);
-          console.log(this.cardBackData);
-        })
-        i++;
-      }  
-    } if (optie_img.value === "Random foto's"){
-      var url = "https://source.unsplash.com/collection/928423/480x480";
-      let i = 0;
-      while (i < (times.value)){
-        fetch(url)
-        .then((response) => {
-          return response;
-        })
-        .then((data) => {
-          var img = data.url;
-          this.cardImages.push(img);
-          this.cardImages.push(img);
-          console.log(this.cardImages);
-        })
-        i++;
-      }  
-    } if (optie_img.value === "Niet-bestaande personen"){
-      var url = "https://randomuser.me/api/";
-      let i = 0;
-      while (i < (times.value)){
-        fetch(url)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          var img = data.results[0].picture.medium;
-          this.cardImages.push(img);
-          this.cardImages.push(img);
-          console.log(this.cardImages);
-        })
-        i++;
-      } 
-    }
-}
+// function getImages() {
+//     console.log("werkt wel woef");
+//     let times = document.querySelector('#afmeting');
+//     let optie_img = document.querySelector('#selectBack');
+//     if (optie_img.value === "Hondenplaatjes"){
+//       var url = "https://dog.ceo/api/breeds/image/random";
+//       let i = 0;
+//       while (i < (times.value)){
+//         fetch(url)
+//         .then((response) => {
+//           return response.json();
+//         })
+//         .then((data) => {
+//           var img = data.message;
+//           this.cardImages.push(img);
+//           this.cardImages.push(img);
+//           console.log(this.cardImages);
+//           console.log(this.cardBackData);
+//         })
+//         i++;
+//       }  
+//     } if (optie_img.value === "Random foto's"){
+//       var url = "https://source.unsplash.com/collection/928423/480x480";
+//       let i = 0;
+//       while (i < (times.value)){
+//         fetch(url)
+//         .then((response) => {
+//           return response;
+//         })
+//         .then((data) => {
+//           var img = data.url;
+//           this.cardImages.push(img);
+//           this.cardImages.push(img);
+//           console.log(this.cardImages);
+//         })
+//         i++;
+//       }  
+//     } if (optie_img.value === "Niet-bestaande personen"){
+//       var url = "https://randomuser.me/api/";
+//       let i = 0;
+//       while (i < (times.value)){
+//         fetch(url)
+//         .then((response) => {
+//           return response.json();
+//         })
+//         .then((data) => {
+//           var img = data.results[0].picture.medium;
+//           this.cardImages.push(img);
+//           this.cardImages.push(img);
+//           console.log(this.cardImages);
+//         })
+//         i++;
+//       } 
+//     }
+// }
 
 
 // [ { imgSrc: "", name: "bla bla bla"} ]
