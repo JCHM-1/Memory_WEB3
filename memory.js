@@ -17,7 +17,7 @@ kaartGenerator();
 // Randomize
 //----------------------
 const randomize = () => {
-    const kaartdata = getData();
+    const kaartdata = this.cardImages;
     kaartdata.sort(() => Math.random() - 0.5);
     return kaartdata;
 };
@@ -76,31 +76,28 @@ selectBack.addEventListener("click", () => {
 
 function createCardBack(value){
   var cards = [];
-
-  if(value === "Hondenplaatjes"){
-
-  }else if(value === "Kattenplaatjes"){
-
-  }else if(value === "Niet-bestaande personen"){
+  
+  if(value === "plaatjes"){
 
   }else{
-      const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-      var characters = shuffle(alphabet);
-      console.log("chars = "+ characters);
-      var charactersCopy = characters.slice();
-      characters = characters.concat(charactersCopy);
+    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    var characters = shuffle(alphabet);
+    console.log("chars = "+ characters);
+    var charactersCopy = characters.slice();
+    characters = characters.concat(charactersCopy);
       
-      // 2 keer geshuffelde array
-      characters.sort(() => Math.random() -0.5);
+    // 2 keer geshuffelde array
+    characters.sort(() => Math.random() -0.5);
     
-      for (let i = 0; i <= (afmeting*afmeting); i++){
-        var card = document.createElement("div");
-        card.innerHTML = "<p> " + characters.pop() + " </p>";
-        cards.push(card);   
-      }
+    for (let i = 0; i <= (afmeting*afmeting); i++){
+      var card = document.createElement("div");
+      card.innerHTML = "<p> " + characters.pop() + " </p>";
+      cards.push(card);   
     }
+
     return cards;
-  }
+
+}
 
 
 // Shuffle alfabet array
@@ -342,8 +339,9 @@ function getImages() {
           console.log(this.cardImages);
         })
         i++;
-      }  
+      } 
     }
+}
 }
 
 // [ { imgSrc: "", name: "bla bla bla"} ]
