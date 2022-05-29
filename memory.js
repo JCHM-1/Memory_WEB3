@@ -178,17 +178,29 @@ function kaartGenerator(){
 function checkWin(card){
   if(cardA === 0){
     cardA = card;
+    console.log("cardA innerHTML: ",cardA.innerHTML);
   } else {
     cardB = card;
+    console.log("cardB innerHTML: ",cardB.innerHTML);
     if (cardA.innerHtml === cardB.innerHtml){
-      // is a win
-    } else {
-      cardA.classList.toggle("kaart--front");
-      cardB.classList.toggle("kaart--front");
+      removeToggle(cardA, cardB);
     }
     cardA = 0;
     cardB = 0;
-  } 
+  }
+  
+  
+}
+
+function removeToggle(cardA, cardB){
+  console.log("Komt in removeToggle");
+  if (cardA.innerHtml === cardB.innerHtml){
+    cardA.classList.toggle("kaart--found");
+    cardA.classList.remove("toggleCard");
+    cardB.classList.remove("kaart--found");
+    cardB.classList.remove("toggleCard");
+  }
+
 }
 
 //----------------------
