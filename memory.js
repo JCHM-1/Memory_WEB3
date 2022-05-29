@@ -2,7 +2,9 @@ var cardImages = [];
 
 var afmeting = 2; 
 var cardA = 0;
+var valueA = 0;
 var cardB = 0;
+var valueB = 0;
 
 var cardFrontData = createCardFront();
 var cardBackData = createCardBack();
@@ -75,6 +77,7 @@ function createCardBack(value){
 
   if(value === "Hondenplaatjes"){
 
+
   }else if(value === "Kattenplaatjes"){
 
   }else if(value === "Niet-bestaande personen"){
@@ -91,10 +94,13 @@ function createCardBack(value){
     
       for (let i = 0; i <= (afmeting*afmeting); i++){
         var card = document.createElement("div");
-        card.innerHTML = "<p> " + characters.pop() + " </p>";
+        var value = characters.pop()
+        card.innerHTML = "<p> " + value + " </p>";
+        card.id = value;
         cards.push(card);   
       }
     }
+
     return cards;
   }
 
@@ -158,7 +164,6 @@ function kaartGenerator(){
     front.classList = 'kaart--front';
     back.classList = 'kaart--back';
 
-
     // back.src = item.imgSrc;
     game.appendChild(card);
     card.appendChild(front);
@@ -178,46 +183,42 @@ function kaartGenerator(){
 function checkWin(card){
   if(cardA === 0){
     cardA = card
-    var valueA = card.getElementsByTagName('p')[1].innerHTML
+    valueA =  card.getElementsByClassName("kaart--back")[0].id
 
-    console.log("cardA innerHTML: ",valueA);
+    console.log("cardA dataset id = ", valueA)
 
   } else {
     document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+
     cardB = card
-    var valueB = card.getElementsByTagName('p')[1].innerHTML
+    valueB = card.getElementsByClassName("kaart--back")[0].id
+    console.log("cardB dataset id = ", valueB)
 
-    console.log("cardB innerHTML: ",valueB);
-
+    console.log("valueA: ", valueA)
+    console.log("valueB", valueB)
     setTimeout(() => {
-        if (valueA === valueB){
-          console.log("Kaarten zijn hetzelfde");
+      if (valueA === valueB){
 
-          cardA.classList.remove("toggleCard");
-          cardA.classList.toggle("kaart");
-
-          cardB.classList.remove("toggleCard")
-          cardB.classList.toggle("kaart");
+        
+        console.log("Kaarten zijn hetzelfde");
+         cardA.style.pointerEvents ="none"
+         cardB.style.pointerEvents ="none"
 
           cardA = 0;
           cardB = 0;
 
-        }else{
-
+      }else{
+        
+          console.log("Kaarten zijn niet hetzelfde");
           cardA.classList.toggle("toggleCard");
           cardB.classList.toggle("toggleCard");
 
           cardA = 0;
           cardB = 0;
         }
-        
-        document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-      }, 1500);
-
-      
+      }, 1500)
+      document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
   }
-
-  
 }
 
 //----------------------
