@@ -1,8 +1,4 @@
-cardFrontData = [];
-createCardFront;
-cardBackData = [];
-createCardBack;
-cardImages = [];
+var cardImages = [];
 
 var afmeting = 2; 
 var cardA = 0;
@@ -76,28 +72,31 @@ selectBack.addEventListener("click", () => {
 
 function createCardBack(value){
   var cards = [];
-  
-  if(value === "plaatjes"){
+
+  if(value === "Hondenplaatjes"){
+
+  }else if(value === "Kattenplaatjes"){
+
+  }else if(value === "Niet-bestaande personen"){
 
   }else{
-    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    var characters = shuffle(alphabet);
-    console.log("chars = "+ characters);
-    var charactersCopy = characters.slice();
-    characters = characters.concat(charactersCopy);
+      const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+      var characters = shuffle(alphabet);
+      console.log("chars = "+ characters);
+      var charactersCopy = characters.slice();
+      characters = characters.concat(charactersCopy);
       
-    // 2 keer geshuffelde array
-    characters.sort(() => Math.random() -0.5);
+      // 2 keer geshuffelde array
+      characters.sort(() => Math.random() -0.5);
     
-    for (let i = 0; i <= (afmeting*afmeting); i++){
-      var card = document.createElement("div");
-      card.innerHTML = "<p> " + characters.pop() + " </p>";
-      cards.push(card);   
+      for (let i = 0; i <= (afmeting*afmeting); i++){
+        var card = document.createElement("div");
+        card.innerHTML = "<p> " + characters.pop() + " </p>";
+        cards.push(card);   
+      }
     }
-
     return cards;
-
-}
+  }
 
 
 // Shuffle alfabet array
@@ -143,7 +142,6 @@ function kaartGenerator(){
   
   let height = afmeting + 1;
   
-
   let game = document.getElementById("game");
   game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
   game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
@@ -341,7 +339,7 @@ function getImages() {
       } 
     }
 }
-}
+
 
 // [ { imgSrc: "", name: "bla bla bla"} ]
 
