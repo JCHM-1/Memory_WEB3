@@ -177,30 +177,47 @@ function kaartGenerator(){
 //----------------------
 function checkWin(card){
   if(cardA === 0){
-    cardA = card;
-    console.log("cardA innerHTML: ",cardA.innerHTML);
+    cardA = card
+    var valueA = card.getElementsByTagName('p')[1].innerHTML
+
+    console.log("cardA innerHTML: ",valueA);
+
   } else {
-    cardB = card;
-    console.log("cardB innerHTML: ",cardB.innerHTML);
-    if (cardA.innerHtml === cardB.innerHtml){
-      removeToggle(cardA, cardB);
-    }
-    cardA = 0;
-    cardB = 0;
-  }
-  
-  
-}
+    document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+    cardB = card
+    var valueB = card.getElementsByTagName('p')[1].innerHTML
 
-function removeToggle(cardA, cardB){
-  console.log("Komt in removeToggle");
-  if (cardA.innerHtml === cardB.innerHtml){
-    cardA.classList.toggle("kaart--found");
-    cardA.classList.remove("toggleCard");
-    cardB.classList.remove("kaart--found");
-    cardB.classList.remove("toggleCard");
+    console.log("cardB innerHTML: ",valueB);
+
+    setTimeout(() => {
+        if (valueA === valueB){
+          console.log("Kaarten zijn hetzelfde");
+
+          cardA.classList.remove("toggleCard");
+          cardA.classList.toggle("kaart");
+
+          cardB.classList.remove("toggleCard")
+          cardB.classList.toggle("kaart");
+
+          cardA = 0;
+          cardB = 0;
+
+        }else{
+
+          cardA.classList.toggle("toggleCard");
+          cardB.classList.toggle("toggleCard");
+
+          cardA = 0;
+          cardB = 0;
+        }
+        
+        document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+      }, 1500);
+
+      
   }
 
+  
 }
 
 //----------------------
