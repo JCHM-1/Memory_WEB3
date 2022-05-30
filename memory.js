@@ -232,7 +232,7 @@ function kaartGenerator(){
 }
 
 //----------------------
-// Darkmode
+// Checkwin
 //----------------------
 function checkWin(card){
   if(cardA === 0){
@@ -244,19 +244,19 @@ function checkWin(card){
   } else {
     document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
 
+    setTimeout(() => {
     cardB = card
     valueB = card.getElementsByClassName("kaart--back")[0].id
     console.log("cardB dataset id = ", valueB)
 
     console.log("valueA: ", valueA)
     console.log("valueB", valueB)
-    setTimeout(() => {
+
+    
       if (valueA === valueB){
 
         
         console.log("Kaarten zijn hetzelfde");
-         cardA.style.pointerEvents ="none"
-         cardB.style.pointerEvents ="none"
 
           cardA = 0;
           cardB = 0;
@@ -270,10 +270,15 @@ function checkWin(card){
           cardA = 0;
           cardB = 0;
         }
+
+        document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+        document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
       }, 1500)
-      document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+    }
+    
   }
-}
+
+
 
 //----------------------
 // Darkmode
@@ -286,7 +291,7 @@ function darkMode() {
 //---------------------------------
 // Colour picker
 //---------------------------------
-let kleurInput_gesloten = document.querySelector('#kleur-gevonden');
+let kleurInput_gesloten = document.querySelector('#kleur-gesloten');
 let kleurInput_open = document.querySelector('#kleur-open');
 let kleurInput_gevonden = document.querySelector('#kleur-gevonden');
 
