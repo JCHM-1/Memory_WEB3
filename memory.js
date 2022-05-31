@@ -1,4 +1,5 @@
 var cardImages = [];
+var plaatjes = false;
 
 var afmeting = 2; 
 var firstCard = 0;
@@ -76,8 +77,9 @@ function createCardBack(value){
   let times = document.querySelector('#afmeting');
 
   if(value === "Hondenplaatjes"){
+    plaatjes = true;
 
-    generateDogPictures()
+    cards = generatePictures()
     console.log("einde van honden: ", cards);
     
 
@@ -128,35 +130,36 @@ function createCardBack(value){
       card.innerHTML = "<p> " + value + " </p>";
       card.id = value;
       cards.push(card);   
-    }
-      
-    }
-
-    return cards;
+    }  
   }
 
-  async function generateDogPictures() {
-    var temp = [];
-  
-    
-    for (let i = 0; i < afmeting; i++){
-      await fetch('https://dog.ceo/api/breeds/image/random')
-      .then(response => response.json())
-      .then(data => {
-        data.map(item => temp.push(item.url))
-      })
-      console.log("temp", temp)
+  return cards;
+}
 
-      let div = document.createElement("div");
-        let img = document.createElement("img");
-        // card.innerHTML = "<img src=" + img + ">";
-        img.src = temp[i]
-        div.appendChild(img);
-        
-        // console.log(card);   
-        cards.push(div); 
-        cards.push(div); 
-    }
+function generatePictures() {
+  var temp = [];
+
+  
+  for (let i = 0; i < afmeting; i++){
+    var div = document.createElement("div");
+    var img = document.createElement("img");
+
+    fetch('https://dog.ceo/api/breeds/image/random')
+    .then(response => response.json())
+    .then(data => img.src = data[Object.keys(data)[0]])
+
+    console.log("img = ", img)
+    
+    //img.src = data[Object.keys(data)[0]]
+    // card.innerHTML = "<img src=" + img + ">";
+    div.appendChild(img);
+    
+    console.log("div = ", div);
+    // console.log(card);   
+    temp.push(div); 
+    temp.push(div); 
+  }
+  return temp;
         
 }
 
@@ -198,7 +201,9 @@ function kaartGenerator(){
     card.appendChild(front);
     card.appendChild(back);
     front.style.backgroundColor = kleurInput_gesloten;
-    back.style.backgroundColor = kleurInput_open;
+    if(!plaatjes){
+      back.style.backgroundColor = kleurInput_open;
+    }
 
     card.addEventListener('click', (e) => {
         card.classList.toggle("toggleCard");
