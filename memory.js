@@ -6,35 +6,22 @@ var valueA = 0;
 var cardB = 0;
 var valueB = 0;
 
-let kleurInput_gesloten = document.getElementById('kleur-gesloten').value
-let kleurInput_open = document.getElementById('kleur-open').value
+var kleurInput_gesloten = document.getElementById('kleur-gesloten').value
+var kleurInput_open = document.getElementById('kleur-open').value
 
-
-
-// document.getElementById("kleur-gevonden").addEventListener("click", () => {
-//   document.querySelectorAll(".kaart--front").forEach(n =>
-//     n.style.backgroundColor = document.getElementById('kleur-gevonden').value
-//   )
-// })
+var selectFront = document.getElementById("selectFront");
+var selectBack = document.getElementById("selectBack");
+var size = document.getElementById("afmeting");
 
 var cardFrontData = createCardFront();
 var cardBackData = createCardBack();
 // array met objecten, front, back
-kaartGenerator();
 
-//----------------------
-// Randomize
-//----------------------
-const randomize = () => {
-    const kaartdata = this.cardImages;
-    kaartdata.sort(() => Math.random() - 0.5);
-    return kaartdata;
-};
+kaartGenerator();
 
 //----------------------
 //  Kaarten FRONT
 //----------------------
-var selectFront = document.getElementById("selectFront");
 selectFront.addEventListener("click", () => {
   cardFrontData = createCardFront(selectFront.value);
   kaartGenerator();
@@ -78,7 +65,6 @@ function createCardFront(char){
 //----------------------
 //  Kaarten BACK
 //----------------------
-var selectBack = document.getElementById("selectBack");
 console.log(selectBack.value);
 selectBack.addEventListener("click", () => {
   cardBackData = createCardBack(selectBack.value);
@@ -145,60 +131,36 @@ function createCardBack(value){
       i++;
     } 
   } else {
-      const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-      var characters = shuffle(alphabet);
-      console.log("chars = "+ characters);
-      var charactersCopy = characters.slice();
-      characters = characters.concat(charactersCopy);
-      
-      // 2 keer geshuffelde array
-      characters.sort(() => Math.random() -0.5);
+    const aantalKaarten = (this.afmeting*this.afmeting) / 2;
+    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     
-      for (let i = 0; i < (afmeting*afmeting); i++){
-        var card = document.createElement("div");
-        var value = characters.pop()
-        card.innerHTML = "<p> " + value + " </p>";
-        card.id = value;
-        cards.push(card);   
-      }
+    var characters = alphabet.sort(() => Math.random() -0.5).slice(0,aantalKaarten);
+    var charactersCopy = characters.slice();
+    characters = characters.concat(charactersCopy);
+    
+    // 2 keer geshuffelde array
+    characters.sort(() => Math.random() -0.5);
+  
+    for (let i = 0; i < (afmeting*afmeting); i++){
+      var card = document.createElement("div");
+      var value = characters.pop()
+      card.innerHTML = "<p> " + value + " </p>";
+      card.id = value;
+      cards.push(card);   
+    }
       
     }
 
     return cards;
   }
 
-
-// Shuffle alfabet array
-function shuffle(array){
-  let currentIndex = array.length,  randomIndex;
-
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
-
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-
-  // Pak subarray van geshuffle array met afmeting bord 
-  let aantalKaarten = (this.afmeting*this.afmeting) / 2;
-  var arraySliced = array.slice(0, aantalKaarten);
-
-  return arraySliced;
-}
-
-
 //----------------------
 //  Size gameboard
 //----------------------
-var size = document.getElementById("afmeting");
 size.addEventListener("click", () =>  {
     afmeting = size.value;
     console.log("afmeting na klik: ", afmeting);
+
     cardFrontData = createCardFront();
     cardBackData = createCardBack();
     kaartGenerator();
@@ -238,7 +200,6 @@ function kaartGenerator(){
 
     card.addEventListener('click', (e) => {
         card.classList.toggle("toggleCard");
-        
         startTimer();
         checkWin(card);
     })
@@ -306,22 +267,35 @@ function darkMode() {
   element.classList.toggle("dark-mode")
 };
 
+//----------------------
+// Randomize
+//----------------------
+const randomize = () => {
+  const kaartdata = this.cardImages;
+  kaartdata.sort(() => Math.random() - 0.5);
+  return kaartdata;
+};
+
 //---------------------------------
 // Colour picker
 //---------------------------------
 function changeColour() {
-  let kleur1 = kleurInput_gesloten.value;
-  let kleur2 = kleurInput_open.value;
-  let kleur3 = kleurInput_gevonden.value;
-  const element1 = document.querySelectorAll(".kaart--front");
-  const element2 = document.querySelectorAll(".kaart--back");
 
-  for (const element of element1) {
-      element.style.backgroundColor = kleur1;
+  kleurInput_gesloten = document.querySelector('#kleur-gesloten').value
+  kleurInput_open = document.querySelector('#kleur-open').value;
+
+  const front = document.querySelectorAll(".kaart--front");
+  const back = document.querySelectorAll(".kaart--back");
+
+  for (const element of front) {
+    element.style.backgroundColor = kleurInput_gesloten;
   }
-  for (const element of element2) {
-    element.style.backgroundColor = kleur2;
-}
+  for (const element1 of back) {
+    element1.style.backgroundColor = kleurInput_open;
+  }
+
+  // kaartGenerator()
+  
 }
 
 //---------------------------------
