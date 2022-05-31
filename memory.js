@@ -280,22 +280,11 @@ const randomize = () => {
 // Colour picker
 //---------------------------------
 function changeColour() {
-
   kleurInput_gesloten = document.querySelector('#kleur-gesloten').value
   kleurInput_open = document.querySelector('#kleur-open').value;
 
-  const front = document.querySelectorAll(".kaart--front");
-  const back = document.querySelectorAll(".kaart--back");
-
-  for (const element of front) {
-    element.style.backgroundColor = kleurInput_gesloten;
-  }
-  for (const element1 of back) {
-    element1.style.backgroundColor = kleurInput_open;
-  }
-
-  // kaartGenerator()
-  
+  document.querySelectorAll(".kaart--front").forEach(n => n.style.backgroundColor = kleurInput_gesloten);
+  document.querySelectorAll(".kaart--back").forEach(n => n.style.backgroundColor = kleurInput_open);
 }
 
 //---------------------------------
@@ -362,126 +351,3 @@ function resetTimer() {
   min = 0;
 }
 
-//----------------------
-// Fetch images from API
-//----------------------
-// function getImages() {
-//     console.log("werkt wel woef");
-//     let times = document.querySelector('#afmeting');
-//     let optie_img = document.querySelector('#selectBack');
-//     if (optie_img.value === "Hondenplaatjes"){
-//       var url = "https://dog.ceo/api/breeds/image/random";
-//       let i = 0;
-//       while (i < (times.value)){
-//         fetch(url)
-//         .then((response) => {
-//           return response.json();
-//         })
-//         .then((data) => {
-//           var img = data.message;
-//           this.cardImages.push(img);
-//           this.cardImages.push(img);
-//           console.log(this.cardImages);
-//           console.log(this.cardBackData);
-//         })
-//         i++;
-//       }  
-//     } if (optie_img.value === "Random foto's"){
-//       var url = "https://source.unsplash.com/collection/928423/480x480";
-//       let i = 0;
-//       while (i < (times.value)){
-//         fetch(url)
-//         .then((response) => {
-//           return response;
-//         })
-//         .then((data) => {
-//           var img = data.url;
-//           this.cardImages.push(img);
-//           this.cardImages.push(img);
-//           console.log(this.cardImages);
-//         })
-//         i++;
-//       }  
-//     } if (optie_img.value === "Niet-bestaande personen"){
-//       var url = "https://randomuser.me/api/";
-//       let i = 0;
-//       while (i < (times.value)){
-//         fetch(url)
-//         .then((response) => {
-//           return response.json();
-//         })
-//         .then((data) => {
-//           var img = data.results[0].picture.medium;
-//           this.cardImages.push(img);
-//           this.cardImages.push(img);
-//           console.log(this.cardImages);
-//         })
-//         i++;
-//       } 
-//     }
-// }
-
-
-// [ { imgSrc: "", name: "bla bla bla"} ]
-
-// getImages();
-
-// click-event kaarten: 
-// Verandert kaart-class
-// document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () => {
-//     n.classList.toggle("kaart-open");
-    
-//     if(a === 0){
-//       a = n;
-//     } else {
-//       b = n;
-//       if (a.innerHtml === b.innerHtml){
-//         a.classList.replace("kaart-open", "kaart-gevonden");
-//         b.classList.replace("kaart-open", "kaart-gevonden");
-
-//         // Animatie toevoegen
-//       }
-
-//       a = 0;
-//       b = 0;
-//     } 
-// }))
-
-
-// var a = 0;
-// var b = 0;
-
-// click-event kaarten: 
-// Verandert kaart-class
-
-// function darkMode() {
-//     var elemment = document.body;
-//     elemment.classList.toggle("dark-mode")
-// }
-
-// In progress
-//const game = document.querySelector('game');
-//game.textContent = '+';
-// let kleur = document.querySelector('gesloten').style.backgroundColor.value;
-// console.log(kleur);
-
-// document.querySelector("")
-
-// function genDivs (rows, cols) {
-//     var e = document.getElementById("game");
-//     for (var r = 0; r < rows; r++) {
-//       var row = document.createElement("div");
-//       row.className = "row";
-//       for (var c = 0; c < cols; c++) {
-//         var cell = document.createElement("div");
-//         if (r == 10 && c == 20)
-//           cell.className = "gridsquare begin";
-//         else if (r == 10 && c == 40)
-//           cell.className = "gridsquare end";
-//         else
-//           cell.className = "gridsquare";
-//         row.appendChild(cell);
-//       }
-//       e.appendChild(row);
-//     }
-//   }
