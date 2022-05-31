@@ -1,9 +1,9 @@
 var cardImages = [];
 
 var afmeting = 2; 
-var cardA = 0;
+var firstCard = 0;
 var valueA = 0;
-var cardB = 0;
+var secondCard = 0;
 var valueB = 0;
 
 var kleurInput_gesloten = document.getElementById('kleur-gesloten').value
@@ -76,29 +76,10 @@ function createCardBack(value){
   let times = document.querySelector('#afmeting');
 
   if(value === "Hondenplaatjes"){
-    var url = "https://dog.ceo/api/breeds/image/random";
 
-    for (let i = 0; i <= afmeting; i++){
-      fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        var img = data.message;
+    generateDogPictures()
+    console.log("einde van honden: ", cards);
     
-        var card = document.createElement("div");
-        var img2 = document.createElement("img");
-        // card.innerHTML = "<img src=" + img + ">";
-        img2.src = img
-        //card.appendChild(img2);
-        // console.log(card);   
-        cards.push(card); 
-        cards.push(card); 
-       
-      })
-
-      console.log("einde van honden: ", cards);
-    }
 
   }else if(value === "Random foto's"){
     var url = "https://source.unsplash.com/collection/928423/480x480";
@@ -154,6 +135,31 @@ function createCardBack(value){
     return cards;
   }
 
+  async function generateDogPictures() {
+    var temp = [];
+  
+    
+    for (let i = 0; i < afmeting; i++){
+      await fetch('https://dog.ceo/api/breeds/image/random')
+      .then(response => response.json())
+      .then(data => {
+        data.map(item => temp.push(item.url))
+      })
+      console.log("temp", temp)
+
+      let div = document.createElement("div");
+        let img = document.createElement("img");
+        // card.innerHTML = "<img src=" + img + ">";
+        img.src = temp[i]
+        div.appendChild(img);
+        
+        // console.log(card);   
+        cards.push(div); 
+        cards.push(div); 
+    }
+        
+}
+
 //----------------------
 //  Size gameboard
 //----------------------
@@ -170,9 +176,7 @@ size.addEventListener("click", () =>  {
 // Generate cards
 //----------------------
 function kaartGenerator(){
-  
   let height = afmeting + 1;
-  
   let game = document.getElementById("game");
   game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
   game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
@@ -182,11 +186,9 @@ function kaartGenerator(){
 
   // generate HTML for board squares
   for (let i = 0; i < (afmeting*afmeting); i++) {
-
     const card = document.createElement("div");
     const front = cardFrontData[i];
     const back = cardBackData[i];
-    
     card.classList = 'kaart';
     front.classList = 'kaart--front';
     back.classList = 'kaart--back';
@@ -210,8 +212,8 @@ function kaartGenerator(){
 // Checkwin
 //----------------------
 function checkWin(card){
-  if(cardA === 0){
-    cardA = card
+  if(firstCard === 0){
+    firstCard = card
     valueA =  card.getElementsByClassName("kaart--back")[0].id
 
     console.log("cardA dataset id = ", valueA)
@@ -220,44 +222,39 @@ function checkWin(card){
     document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
 
     setTimeout(() => {
-      cardB = card
+      secondCard = card
       valueB = card.getElementsByClassName("kaart--back")[0].id
       console.log("cardB dataset id = ", valueB)
 
       console.log("valueA: ", valueA)
       console.log("valueB", valueB)
-
       
-      
-        if (valueA === valueB){
-          console.log("Kaarten zijn hetzelfde");
+      if (valueA === valueB){
+        console.log("Kaarten zijn hetzelfde");
 
-          var kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
+        var kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
 
-          cardA.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-          cardB.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+        firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+        secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
 
-          cardA = 0;
-          cardB = 0;
+        firstCard = 0;
+        secondCard = 0;
 
-        }else{
-          
-            console.log("Kaarten zijn niet hetzelfde");
-            cardA.classList.toggle("toggleCard");
-            cardB.classList.toggle("toggleCard");
+      }else{
+        
+          console.log("Kaarten zijn niet hetzelfde");
+          firstCard.classList.toggle("toggleCard");
+          secondCard.classList.toggle("toggleCard");
 
-            cardA = 0;
-            cardB = 0;
-          }
+          firstCard = 0;
+          secondCard = 0;
+        }
 
         document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
         document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
       }, 1500)
     }
-    
   }
-
-
 
 //----------------------
 // Darkmode
