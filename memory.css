@@ -78,7 +78,6 @@ body {
 .kaart {
     border-radius: 10%;
     backface-visibility: hidden;
-    background-color: #538324;
     transform-style: preserve-3d;
     transform: scale(1);
     transition: all 0.2s ease;
@@ -94,14 +93,14 @@ body {
 
 .kaart--front {
     position: absolute;
-    background-color: crimson;
+    
     width: 100%;
     height: 100%;
 }
 
 .kaart--back {
     position: absolute;
-    background-color: slateblue;
+    
     backface-visibility: hidden;
     transform: rotateY(180deg);
     width: 100%;

@@ -6,6 +6,17 @@ var valueA = 0;
 var cardB = 0;
 var valueB = 0;
 
+let kleurInput_gesloten = document.getElementById('kleur-gesloten').value
+let kleurInput_open = document.getElementById('kleur-open').value
+
+
+
+// document.getElementById("kleur-gevonden").addEventListener("click", () => {
+//   document.querySelectorAll(".kaart--front").forEach(n =>
+//     n.style.backgroundColor = document.getElementById('kleur-gevonden').value
+//   )
+// })
+
 var cardFrontData = createCardFront();
 var cardBackData = createCardBack();
 // array met objecten, front, back
@@ -222,9 +233,12 @@ function kaartGenerator(){
     game.appendChild(card);
     card.appendChild(front);
     card.appendChild(back);
+    front.style.backgroundColor = kleurInput_gesloten;
+    back.style.backgroundColor = kleurInput_open;
 
     card.addEventListener('click', (e) => {
         card.classList.toggle("toggleCard");
+        
         startTimer();
         checkWin(card);
     })
@@ -245,31 +259,35 @@ function checkWin(card){
     document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
 
     setTimeout(() => {
-    cardB = card
-    valueB = card.getElementsByClassName("kaart--back")[0].id
-    console.log("cardB dataset id = ", valueB)
+      cardB = card
+      valueB = card.getElementsByClassName("kaart--back")[0].id
+      console.log("cardB dataset id = ", valueB)
 
-    console.log("valueA: ", valueA)
-    console.log("valueB", valueB)
+      console.log("valueA: ", valueA)
+      console.log("valueB", valueB)
 
-    
-      if (valueA === valueB){
+      
+      
+        if (valueA === valueB){
+          console.log("Kaarten zijn hetzelfde");
 
-        
-        console.log("Kaarten zijn hetzelfde");
+          var kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
 
-          cardA = 0;
-          cardB = 0;
-
-      }else{
-        
-          console.log("Kaarten zijn niet hetzelfde");
-          cardA.classList.toggle("toggleCard");
-          cardB.classList.toggle("toggleCard");
+          cardA.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+          cardB.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
 
           cardA = 0;
           cardB = 0;
-        }
+
+        }else{
+          
+            console.log("Kaarten zijn niet hetzelfde");
+            cardA.classList.toggle("toggleCard");
+            cardB.classList.toggle("toggleCard");
+
+            cardA = 0;
+            cardB = 0;
+          }
 
         document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
         document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
@@ -291,19 +309,19 @@ function darkMode() {
 //---------------------------------
 // Colour picker
 //---------------------------------
-let kleurInput_gesloten = document.querySelector('#kleur-gesloten');
-let kleurInput_open = document.querySelector('#kleur-open');
-let kleurInput_gevonden = document.querySelector('#kleur-gevonden');
-
 function changeColour() {
   let kleur1 = kleurInput_gesloten.value;
   let kleur2 = kleurInput_open.value;
   let kleur3 = kleurInput_gevonden.value;
   const element1 = document.querySelectorAll(".kaart--front");
+  const element2 = document.querySelectorAll(".kaart--back");
 
   for (const element of element1) {
       element.style.backgroundColor = kleur1;
   }
+  for (const element of element2) {
+    element.style.backgroundColor = kleur2;
+}
 }
 
 //---------------------------------
