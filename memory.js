@@ -2,9 +2,10 @@ var cardImages = [];
 var plaatjes = false;
 
 var afmeting = 2; 
-var firstCard = 0;
+let toggled = false;
+let lockBoard = false;
+let firstCard, secondCard;
 var valueA = 0;
-var secondCard = 0;
 var valueB = 0;
 
 var kleurInput_gesloten = document.getElementById('kleur-gesloten').value
@@ -203,6 +204,84 @@ size.addEventListener("click", () =>  {
     kaartGenerator();
 });
 
+function toggleCard() {
+
+  if (lockBoard) {
+    return;
+  }
+
+  if (this === firstCard) {
+    this.classList.toggle('toggleCard')
+    toggled = false
+    firstCard = null
+    console.log("komt in eerste if")
+    return
+
+  } else if(!toggled) {
+    console.log("komt in tweede if")
+    firstCard = this;
+    this.classList.toggle('toggleCard')
+    toggled = true
+    return
+  }
+  console.log("komt na if")
+  this.classList.toggle('toggleCard')
+  secondCard = this;
+
+  document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+  
+  checkWin()
+}
+
+//----------------------
+// Checkwin
+//----------------------
+function checkWin(){
+  console.log("komt in checkwin")
+    let firstCardBack = firstCard.getElementsByClassName("kaart--back")[0]
+    let secondCardBack = secondCard.getElementsByClassName("kaart--back")[0]
+
+    let win = firstCardBack.id === secondCardBack.id
+
+    win ? disableCards() : untoggleCards();
+
+}
+
+function disableCards() {
+  console.log("komt in disablecards")
+  let kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
+  setTimeout(() => {
+    firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+    secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+    firstCard.removeEventListener('click', toggleCard)
+    secondCard.removeEventListener('click', toggleCard)
+    resetBoard();
+    document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+  }, 1500)
+  
+}
+
+function untoggleCards(){
+  console.log("komt in untoggleCards")
+  lockBoard = true;
+  
+  setTimeout(() => {
+    firstCard.classList.toggle("toggleCard");
+    secondCard.classList.toggle("toggleCard");
+
+    resetBoard();
+    document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+  }, 1500)
+  
+}
+
+function resetBoard() {
+
+  [toggled, lockBoard] = [false, false];
+  [firstCard, secondCard] = [null, null];
+  
+}
+
 //----------------------
 // Generate cards
 //----------------------
@@ -235,66 +314,59 @@ function kaartGenerator(){
       back.style.backgroundColor = kleurInput_open;
     }
 
-    card.addEventListener('click', (e) => {
-        card.classList.toggle("toggleCard");
-        startTimer();
-        checkWin(card);
-    })
+    card.addEventListener('click', toggleCard)
     i++
   }
 }
 
-//----------------------
-// Checkwin
-//----------------------
-function checkWin(card){
-  if(firstCard === 0){
-    document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-    firstCard = card
-    valueA =  card.getElementsByClassName("kaart--back")[0].id
 
-    console.log("cardA dataset id = ", valueA)
+  // if(firstCard === 0){
+  //   document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
+  //   firstCard = card
+  //   valueA =  card.getElementsByClassName("kaart--back")[0].id
+
+  //   console.log("cardA dataset id = ", valueA)
     
 
-  } else {
-    document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
-    secondCard = card
+  // } else {
+  //   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+  //   secondCard = card
     
-    setTimeout(() => {
+  //   setTimeout(() => {
       
 
-      valueB = card.getElementsByClassName("kaart--back")[0].id
-      console.log("cardB dataset id = ", valueB)
+  //     valueB = card.getElementsByClassName("kaart--back")[0].id
+  //     console.log("cardB dataset id = ", valueB)
 
-      console.log("valueA: ", valueA)
-      console.log("valueB", valueB)
+  //     console.log("valueA: ", valueA)
+  //     console.log("valueB", valueB)
       
-      if (valueA === valueB){
-        console.log("Kaarten zijn hetzelfde");
+  //     if (valueA === valueB){
+  //       console.log("Kaarten zijn hetzelfde");
 
-        var kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
-
-        firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-        secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-
-        firstCard = 0;
-        secondCard = 0;
-
-      }else{
         
-          console.log("Kaarten zijn niet hetzelfde");
-          firstCard.classList.toggle("toggleCard");
-          secondCard.classList.toggle("toggleCard");
 
-          firstCard = 0;
-          secondCard = 0;
-        }
+  //       firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+  //       secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
 
-        document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-        document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-      }, 1500)
-    }
-  }
+  //       firstCard = 0;
+  //       secondCard = 0;
+
+  //     }else{
+        
+  //         console.log("Kaarten zijn niet hetzelfde");
+  //         firstCard.classList.toggle("toggleCard");
+  //         secondCard.classList.toggle("toggleCard");
+
+  //         firstCard = 0;
+  //         secondCard = 0;
+  //       }
+
+  //       document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+  //       document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
+  //     }, 1500)
+  //   }
+
 
 //----------------------
 // Darkmode
