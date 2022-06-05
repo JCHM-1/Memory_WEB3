@@ -83,14 +83,22 @@ function createCardBack(value){
   if (value === "Hondenplaatjes") {
     plaatjes = true;
     let i = 0
+    let j = 0
 
     generatePictures().then(data => {
       for (item of data) {
         let card = document.createElement("div")
         card.innerHTML = "<img src="+item+" />"
         console.log("card hondenplaatjes = ", card)
+        if(i == j){
+          card.id = i
+          i++
+        } else {
+          card.id = j
+          j++
+        }
+        card.id = i
         cards.push(card)
-        i++
       }
     })
     
@@ -241,16 +249,20 @@ function kaartGenerator(){
 //----------------------
 function checkWin(card){
   if(firstCard === 0){
+    document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
     firstCard = card
     valueA =  card.getElementsByClassName("kaart--back")[0].id
 
     console.log("cardA dataset id = ", valueA)
+    
 
   } else {
     document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
-
+    secondCard = card
+    
     setTimeout(() => {
-      secondCard = card
+      
+
       valueB = card.getElementsByClassName("kaart--back")[0].id
       console.log("cardB dataset id = ", valueB)
 
