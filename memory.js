@@ -30,32 +30,32 @@ selectFront.addEventListener("click", () => {
 
 function createCardFront(char){
 
-  var cards = [];
+  let cards = [];
   console.log("Char: ", char);
   console.log("cardFrontData begin functie: (moet leeg zijn) "+ cards);
   console.log("afmeting : "+ afmeting);
 
   if(char === "*"){
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> * </p>";
       cards.push(card);
     }
   }else if (char === "-"){
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> - </p>";
       cards.push(card);  
     }
   } else if(char === "?"){
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> ? </p>";
       cards.push(card);   
     }
   } else{
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> + </p>";
       cards.push(card);   
     }
@@ -68,99 +68,119 @@ function createCardFront(char){
 //----------------------
 console.log(selectBack.value);
 selectBack.addEventListener("click", () => {
-  cardBackData = createCardBack(selectBack.value);
-  kaartGenerator();
+  createCardBack(selectBack.value).then((response) => {
+    cardBackData = response
+    console.log("cards = ",cardBackData)
+    kaartGenerator()
+  })
 })
 
 function createCardBack(value){
-  var cards = [];
+  let cards = [];
   let times = document.querySelector('#afmeting');
 
-  if(value === "Hondenplaatjes"){
-    plaatjes = true;
 
-    cards = generatePictures()
+  if (value === "Hondenplaatjes") {
+    plaatjes = true;
+    let i = 0
+
+    generatePictures().then(data => {
+      for (item of data) {
+        let card = document.createElement("div")
+        card.innerHTML = "<img src="+item+" />"
+        console.log("card hondenplaatjes = ", card)
+        cards.push(card)
+        i++
+      }
+    })
+    
     console.log("einde van honden: ", cards);
+    return new Promise((resolve) => {
+      setTimeout(()=> {
+        resolve(cards)}, 200)
+    })
+    
     
 
-  }else if(value === "Random foto's"){
+  } else if (value === "Random foto's") {
     var url = "https://source.unsplash.com/collection/928423/480x480";
     let i = 0;
-    while (i < (times.value)){
+    while (i < (times.value)) {
       fetch(url)
-      .then((response) => {
-        return response;
-      })
-      .then((data) => {
-        var img = data.url;
-        cards.push(img);
-        cards.push(img);
-      })
+          .then((response) => {
+            return response;
+          })
+          .then((data) => {
+            var img = data.url;
+            cards.push(img);
+            cards.push(img);
+          })
       i++;
     }
-  }else if(value === "Niet-bestaande personen"){
+  } else if (value === "Niet-bestaande personen") {
     var url = "https://randomuser.me/api/";
     let i = 0;
-    while (i < (times.value)){
+    while (i < (times.value)) {
       fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        var img = data.results[0].picture.medium;
-        cards.push(img);
-        cards.push(img);
-      })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            var img = data.results[0].picture.medium;
+            cards.push(img);
+            cards.push(img);
+          })
       i++;
-    } 
+    }
   } else {
-    const aantalKaarten = (this.afmeting*this.afmeting) / 2;
-    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    
-    var characters = alphabet.sort(() => Math.random() -0.5).slice(0,aantalKaarten);
+    plaatjes = false;
+    const aantalKaarten = (this.afmeting * this.afmeting) / 2;
+    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    var characters = alphabet.sort(() => Math.random() - 0.5).slice(0, aantalKaarten);
     var charactersCopy = characters.slice();
     characters = characters.concat(charactersCopy);
-    
+
     // 2 keer geshuffelde array
-    characters.sort(() => Math.random() -0.5);
-  
-    for (let i = 0; i < (afmeting*afmeting); i++){
+    characters.sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < (afmeting * afmeting); i++) {
       var card = document.createElement("div");
       var value = characters.pop()
       card.innerHTML = "<p> " + value + " </p>";
       card.id = value;
-      cards.push(card);   
-    }  
+      cards.push(card);
+    }
   }
-
+  console.log("cards na backend = ", cards)
   return cards;
 }
 
 function generatePictures() {
-  var temp = [];
+  let temp = []
 
-  
   for (let i = 0; i < afmeting; i++){
-    var div = document.createElement("div");
-    var img = document.createElement("img");
-
+    // var div = document.createElement("div");
+    // var img = document.createElement("img");
     fetch('https://dog.ceo/api/breeds/image/random')
     .then(response => response.json())
-    .then(data => img.src = data[Object.keys(data)[0]])
-
-    console.log("img = ", img)
+    .then(data => {
+      
+      temp.push(data[Object.keys(data)[0]])
+      temp.push(data[Object.keys(data)[0]])
+    })   
     
+  }  
     //img.src = data[Object.keys(data)[0]]
     // card.innerHTML = "<img src=" + img + ">";
-    div.appendChild(img);
-    
-    console.log("div = ", div);
-    // console.log(card);   
-    temp.push(div); 
-    temp.push(div); 
-  }
-  return temp;
-        
+    // div.appendChild(img);
+    //
+    // console.log("div = ", div);
+    // // console.log(card);
+    // temp.push(div);
+    // temp.push(div);
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(temp), 200)});
 }
 
 //----------------------
@@ -184,17 +204,19 @@ function kaartGenerator(){
   game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
   game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
   game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
-
-  console.log('backdata in kaartgen:', cardBackData);
+  console.log("carBackData in kaartgen = ",cardBackData)
 
   // generate HTML for board squares
-  for (let i = 0; i < (afmeting*afmeting); i++) {
+  let i = 0
+  for (item of cardBackData) {
     const card = document.createElement("div");
-    const front = cardFrontData[i];
-    const back = cardBackData[i];
+    const front = cardFrontData[i]
+    const back = cardBackData[i]
+   
     card.classList = 'kaart';
     front.classList = 'kaart--front';
     back.classList = 'kaart--back';
+    
 
     // back.src = item.imgSrc;
     game.appendChild(card);
@@ -210,6 +232,7 @@ function kaartGenerator(){
         startTimer();
         checkWin(card);
     })
+    i++
   }
 }
 
