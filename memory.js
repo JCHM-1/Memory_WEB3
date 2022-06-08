@@ -17,6 +17,8 @@ var size = document.getElementById("afmeting");
 var cardFrontData = createCardFront();
 var cardBackData = createCardBack();
 // array met objecten, front, back
+generate_Hondenplaatjes();
+//kaartGenerator();
 
 kaartGenerator();
 
@@ -77,42 +79,11 @@ function createCardBack(value){
   let times = document.querySelector('#afmeting');
 
   if(value === "Hondenplaatjes"){
-    plaatjes = true;
-
-    cards = generatePictures()
-    console.log("einde van honden: ", cards);
-    
 
   }else if(value === "Random foto's"){
-    var url = "https://source.unsplash.com/collection/928423/480x480";
-    let i = 0;
-    while (i < (times.value)){
-      fetch(url)
-      .then((response) => {
-        return response;
-      })
-      .then((data) => {
-        var img = data.url;
-        cards.push(img);
-        cards.push(img);
-      })
-      i++;
-    }
+    
   }else if(value === "Niet-bestaande personen"){
-    var url = "https://randomuser.me/api/";
-    let i = 0;
-    while (i < (times.value)){
-      fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        var img = data.results[0].picture.medium;
-        cards.push(img);
-        cards.push(img);
-      })
-      i++;
-    } 
+    
   } else {
     const aantalKaarten = (this.afmeting*this.afmeting) / 2;
     const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
@@ -167,51 +138,53 @@ function generatePictures() {
 //  Size gameboard
 //----------------------
 size.addEventListener("click", () =>  {
-    afmeting = size.value;
-    console.log("afmeting na klik: ", afmeting);
-
-    cardFrontData = createCardFront();
-    cardBackData = createCardBack();
-    kaartGenerator();
+  afmeting = size.value;
+  console.log("afmeting na klik: ", afmeting);
+  cardFrontData = createCardFront();
+  cardBackData = createCardBack();
+  // kaartGenerator();
+  generate_Hondenplaatjes();
 });
 
 //----------------------
 // Generate cards
 //----------------------
-function kaartGenerator(){
+const kaartGenerator = () => {
+  
   let height = afmeting + 1;
   let game = document.getElementById("game");
-  game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
-  game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
-  game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
+  // game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
+  // game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
+  // game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
 
-  console.log('backdata in kaartgen:', cardBackData);
+  // console.log('backdata in kaartgen:', cardBackData);
 
   // generate HTML for board squares
-  for (let i = 0; i < (afmeting*afmeting); i++) {
-    const card = document.createElement("div");
-    const front = cardFrontData[i];
-    const back = cardBackData[i];
-    card.classList = 'kaart';
-    front.classList = 'kaart--front';
-    back.classList = 'kaart--back';
+  random = randomize();
+  random.forEach(element => {
+      const card = document.createElement("div");
+      const front = document.createElement("div");
+      const back = document.createElement("img");
 
-    // back.src = item.imgSrc;
-    game.appendChild(card);
-    card.appendChild(front);
-    card.appendChild(back);
-    front.style.backgroundColor = kleurInput_gesloten;
-    if(!plaatjes){
-      back.style.backgroundColor = kleurInput_open;
-    }
+      card.classList = "kaart";
+      front.classList = "kaart--front";
+      back.classList = "kaart--back";
 
-    card.addEventListener('click', (e) => {
+      back.src = element;
+
+      game.appendChild(card);
+      card.appendChild(back);
+      card.appendChild(front);
+
+      card.addEventListener("click", (e) => {
         card.classList.toggle("toggleCard");
         startTimer();
         checkWin(card);
-    })
+      });
+  });
+
   }
-}
+
 
 //----------------------
 // Checkwin
@@ -353,3 +326,224 @@ function resetTimer() {
   min = 0;
 }
 
+let game = document.getElementById("game");
+
+function generate_Hondenplaatjes() {
+  var times = document.querySelector("#afmeting");
+  var url = "https://dog.ceo/api/breeds/image/random";
+
+  for (let i = 0; i < afmeting; i++) {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        var img = data.message;
+        cardImages.push(img);
+        cardImages.push(img);
+      });
+  }
+  console.log("<-- Honden plaatjes zijn gegenereerd -->");
+}
+
+function generate_Randomfotos() {
+  var times = document.querySelector("#afmeting");
+  var url = "https://source.unsplash.com/collection/928423/480x480";
+
+  for (let i = 0; i < afmeting; i++) {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        var img = data.url;
+
+        const card = document.createElement("div");
+        const face = document.createElement("img");
+        const back = document.createElement("div");
+
+        face.src = img;
+
+        card.classList = "kaart";
+        face.classList = "voor";
+        back.classList = "achter";
+
+        game.appendChild(card);
+        card.appendChild(face);
+        card.appendChild(back);
+
+        card.addEventListener("click", (e) => {
+          card.classList.toggle("toggleCard");
+          startTimer();
+          checkWin(card);
+        });
+      });
+  }
+  console.log("<-- Random plaatjes zijn gegenereerd -->");
+}
+
+function generate_NietBestaandePersonen() {
+  var times = document.querySelector("#afmeting");
+  var url = "https://randomuser.me/api/";
+
+  for (let i = 0; i < afmeting; i++) {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        var img = data.results[0].pictue.medium;
+        
+        const card = document.createElement("div");
+        const face = document.createElement("img");
+        const back = document.createElement("div");
+
+        face.src = img;
+
+        game.classList = "kaart";
+        face.classList = "voor";
+        back.classList = "achter";
+
+        section.appendChild(card);
+        card.appendChild(face);
+        card.appendChild(back);
+
+        card.addEventListener("click", (e) => {
+          card.classList.toggle("toggleCard");
+          startTimer();
+          checkWin(card);
+        });
+      });
+  }
+  console.log("<-- Niet bestaande personen plaatjes zijn gegenereerd -->");
+}
+
+
+
+
+
+
+
+//----------------------
+// Fetch images from API
+//----------------------
+// function getImages() {
+//     console.log("werkt wel woef");
+//     let times = document.querySelector('#afmeting');
+//     let optie_img = document.querySelector('#selectBack');
+//     if (optie_img.value === "Hondenplaatjes"){
+//       var url = "https://dog.ceo/api/breeds/image/random";
+//       let i = 0;
+//       while (i < (times.value)){
+//         fetch(url)
+//         .then((response) => {
+//           return response.json();
+//         })
+//         .then((data) => {
+//           var img = data.message;
+//           this.cardImages.push(img);
+//           this.cardImages.push(img);
+//           console.log(this.cardImages);
+//           console.log(this.cardBackData);
+//         })
+//         i++;
+//       }  
+//     } if (optie_img.value === "Random foto's"){
+//       var url = "https://source.unsplash.com/collection/928423/480x480";
+//       let i = 0;
+//       while (i < (times.value)){
+//         fetch(url)
+//         .then((response) => {
+//           return response;
+//         })
+//         .then((data) => {
+//           var img = data.url;
+//           this.cardImages.push(img);
+//           this.cardImages.push(img);
+//           console.log(this.cardImages);
+//         })
+//         i++;
+//       }  
+//     } if (optie_img.value === "Niet-bestaande personen"){
+//       var url = "https://randomuser.me/api/";
+//       let i = 0;
+//       while (i < (times.value)){
+//         fetch(url)
+//         .then((response) => {
+//           return response.json();
+//         })
+//         .then((data) => {
+//           var img = data.results[0].picture.medium;
+//           this.cardImages.push(img);
+//           this.cardImages.push(img);
+//           console.log(this.cardImages);
+//         })
+//         i++;
+//       } 
+//     }
+// }
+
+
+// [ { imgSrc: "", name: "bla bla bla"} ]
+
+// getImages();
+
+// click-event kaarten: 
+// Verandert kaart-class
+// document.querySelectorAll(".kaart").forEach(n => n.addEventListener("click", () => {
+//     n.classList.toggle("kaart-open");
+    
+//     if(a === 0){
+//       a = n;
+//     } else {
+//       b = n;
+//       if (a.innerHtml === b.innerHtml){
+//         a.classList.replace("kaart-open", "kaart-gevonden");
+//         b.classList.replace("kaart-open", "kaart-gevonden");
+
+//         // Animatie toevoegen
+//       }
+
+//       a = 0;
+//       b = 0;
+//     } 
+// }))
+
+
+// var a = 0;
+// var b = 0;
+
+// click-event kaarten: 
+// Verandert kaart-class
+
+// function darkMode() {
+//     var elemment = document.body;
+//     elemment.classList.toggle("dark-mode")
+// }
+
+// In progress
+//const game = document.querySelector('game');
+//game.textContent = '+';
+// let kleur = document.querySelector('gesloten').style.backgroundColor.value;
+// console.log(kleur);
+
+// document.querySelector("")
+
+// function genDivs (rows, cols) {
+//     var e = document.getElementById("game");
+//     for (var r = 0; r < rows; r++) {
+//       var row = document.createElement("div");
+//       row.className = "row";
+//       for (var c = 0; c < cols; c++) {
+//         var cell = document.createElement("div");
+//         if (r == 10 && c == 20)
+//           cell.className = "gridsquare begin";
+//         else if (r == 10 && c == 40)
+//           cell.className = "gridsquare end";
+//         else
+//           cell.className = "gridsquare";
+//         row.appendChild(cell);
+//       }
+//       e.appendChild(row);
+//     }
+//   }
