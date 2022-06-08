@@ -83,15 +83,18 @@ function createCardBack(value){
 
   if (value === "Hondenplaatjes") {
     plaatjes = true;
-    let i = 0
-    let j = 0
+    url = 'https://dog.ceo/api/breeds/image/random'
+    //url = 'https://source.unsplash.com/collection/928423/480x480'
 
-    generatePictures().then(data => {
-      for (item of data) {
+
+    generatePictures(url).then(data => {
+      let i = 0
+      let j = 0
+      for (let item of data) {
         let card = document.createElement("div")
         card.innerHTML = "<img src="+item+" />"
         console.log("card hondenplaatjes = ", card)
-        if(i == j){
+        if(i === j){
           card.id = i
           i++
         } else {
@@ -108,30 +111,39 @@ function createCardBack(value){
       setTimeout(()=> {
         resolve(cards)}, 200)
     })
-    
-    
 
   } else if (value === "Random foto's") {
-    var url = "https://source.unsplash.com/collection/928423/480x480";
+    //var url = "https://source.unsplash.com/collection/928423/480x480";
     let i = 0;
-    while (i < (times.value)) {
+
       fetch(url)
           .then((response) => {
             return response;
           })
           .then((data) => {
-            var img = data.url;
-            cards.push(img);
-            cards.push(img);
+            while (i < (times.value)) {
+              var img = data.url;
+              cards.push(img);
+              cards.push(img);
+              i++;
+            }
           })
-      i++;
-    }
+          .then(() => {
+            return new Promise((resolve) => {
+              setTimeout(()=> {
+                resolve(cards)}, 200)
+            })
+          })
+
+
+
   } else if (value === "Niet-bestaande personen") {
-    var url = "https://randomuser.me/api/";
+    //var url = "https://randomuser.me/api/";
     let i = 0;
     while (i < (times.value)) {
       fetch(url)
           .then((response) => {
+
             return response.json();
           })
           .then((data) => {
@@ -141,6 +153,11 @@ function createCardBack(value){
           })
       i++;
     }
+    return new Promise((resolve) => {
+      setTimeout(()=> {
+        resolve(cards)}, 200)
+    })
+
   } else {
     plaatjes = false;
     const aantalKaarten = (this.afmeting * this.afmeting) / 2;
@@ -160,26 +177,37 @@ function createCardBack(value){
       card.id = value;
       cards.push(card);
     }
+    console.log("cards na backend = ", cards)
+    return cards;
   }
-  console.log("cards na backend = ", cards)
-  return cards;
+
 }
 
-function generatePictures() {
+function generatePictures(url) {
+  let promises = []
   let temp = []
 
-  for (let i = 0; i < afmeting; i++){
-    // var div = document.createElement("div");
-    // var img = document.createElement("img");
-    fetch('https://dog.ceo/api/breeds/image/random')
-    .then(response => response.json())
-    .then(data => {
-      
-      temp.push(data[Object.keys(data)[0]])
-      temp.push(data[Object.keys(data)[0]])
-    })   
-    
-  }  
+  for (let i = 0; i < afmeting; i++) {
+    promises.push(fetch(url))
+  }
+
+    Promise.all(promises)
+      .then(response => {
+        response.forEach( data => {
+        for (let i = 0; i < afmeting; i++) {
+          const contentType = data.headers.get("content-type");
+
+          if (contentType && contentType.indexOf("application/json") !== -1) {
+            return data.json().then(item => {
+              temp.push(item[Object.keys(item)[0]])
+              temp.push(item[Object.keys(item)[0]])
+            });
+          } else {
+            temp.push(response[i].url)
+            temp.push(response[i].url)
+          }
+        }
+      })
     //img.src = data[Object.keys(data)[0]]
     // card.innerHTML = "<img src=" + img + ">";
     // div.appendChild(img);
@@ -188,6 +216,8 @@ function generatePictures() {
     // // console.log(card);
     // temp.push(div);
     // temp.push(div);
+
+  console.log("temp = ",temp)
     return new Promise((resolve) => {
       setTimeout(() => resolve(temp), 200)});
 }
