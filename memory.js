@@ -2,9 +2,10 @@ var cardImages = [];
 var plaatjes = false;
 
 var afmeting = 2; 
-var firstCard = 0;
+let toggled = false;
+let lockBoard = false;
+let firstCard, secondCard;
 var valueA = 0;
-var secondCard = 0;
 var valueB = 0;
 
 var kleurInput_gesloten = document.getElementById('kleur-gesloten').value
@@ -32,32 +33,32 @@ selectFront.addEventListener("click", () => {
 
 function createCardFront(char){
 
-  var cards = [];
+  let cards = [];
   console.log("Char: ", char);
   console.log("cardFrontData begin functie: (moet leeg zijn) "+ cards);
   console.log("afmeting : "+ afmeting);
 
   if(char === "*"){
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> * </p>";
       cards.push(card);
     }
   }else if (char === "-"){
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> - </p>";
       cards.push(card);  
     }
   } else if(char === "?"){
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> ? </p>";
       cards.push(card);   
     }
   } else{
     for (let i = 0; i < (afmeting*afmeting); i++){
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.innerHTML = "<p> + </p>";
       cards.push(card);   
     }
@@ -70,68 +71,127 @@ function createCardFront(char){
 //----------------------
 console.log(selectBack.value);
 selectBack.addEventListener("click", () => {
-  cardBackData = createCardBack(selectBack.value);
-  kaartGenerator();
+  createCardBack(selectBack.value).then((response) => {
+    cardBackData = response
+    console.log("cards = ",cardBackData)
+    kaartGenerator()
+  })
 })
 
 function createCardBack(value){
-  var cards = [];
+  let cards = [];
   let times = document.querySelector('#afmeting');
 
-  if(value === "Hondenplaatjes"){
 
-  }else if(value === "Random foto's"){
+  if (value === "Hondenplaatjes") {
+    plaatjes = true;
+    let i = 0
+    let j = 0
+
+    generatePictures().then(data => {
+      for (item of data) {
+        let card = document.createElement("div")
+        card.innerHTML = "<img src="+item+" />"
+        console.log("card hondenplaatjes = ", card)
+        if(i == j){
+          card.id = i
+          i++
+        } else {
+          card.id = j
+          j++
+        }
+        card.id = i
+        cards.push(card)
+      }
+    })
     
-  }else if(value === "Niet-bestaande personen"){
+    console.log("einde van honden: ", cards);
+    return new Promise((resolve) => {
+      setTimeout(()=> {
+        resolve(cards)}, 200)
+    })
     
+    
+
+  } else if (value === "Random foto's") {
+    var url = "https://source.unsplash.com/collection/928423/480x480";
+    let i = 0;
+    while (i < (times.value)) {
+      fetch(url)
+          .then((response) => {
+            return response;
+          })
+          .then((data) => {
+            var img = data.url;
+            cards.push(img);
+            cards.push(img);
+          })
+      i++;
+    }
+  } else if (value === "Niet-bestaande personen") {
+    var url = "https://randomuser.me/api/";
+    let i = 0;
+    while (i < (times.value)) {
+      fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            var img = data.results[0].picture.medium;
+            cards.push(img);
+            cards.push(img);
+          })
+      i++;
+    }
   } else {
-    const aantalKaarten = (this.afmeting*this.afmeting) / 2;
-    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    
-    var characters = alphabet.sort(() => Math.random() -0.5).slice(0,aantalKaarten);
+    plaatjes = false;
+    const aantalKaarten = (this.afmeting * this.afmeting) / 2;
+    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    var characters = alphabet.sort(() => Math.random() - 0.5).slice(0, aantalKaarten);
     var charactersCopy = characters.slice();
     characters = characters.concat(charactersCopy);
-    
+
     // 2 keer geshuffelde array
-    characters.sort(() => Math.random() -0.5);
-  
-    for (let i = 0; i < (afmeting*afmeting); i++){
+    characters.sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < (afmeting * afmeting); i++) {
       var card = document.createElement("div");
       var value = characters.pop()
       card.innerHTML = "<p> " + value + " </p>";
       card.id = value;
-      cards.push(card);   
-    }  
+      cards.push(card);
+    }
   }
-
+  console.log("cards na backend = ", cards)
   return cards;
 }
 
 function generatePictures() {
-  var temp = [];
+  let temp = []
 
-  
   for (let i = 0; i < afmeting; i++){
-    var div = document.createElement("div");
-    var img = document.createElement("img");
-
+    // var div = document.createElement("div");
+    // var img = document.createElement("img");
     fetch('https://dog.ceo/api/breeds/image/random')
     .then(response => response.json())
-    .then(data => img.src = data[Object.keys(data)[0]])
-
-    console.log("img = ", img)
+    .then(data => {
+      
+      temp.push(data[Object.keys(data)[0]])
+      temp.push(data[Object.keys(data)[0]])
+    })   
     
+  }  
     //img.src = data[Object.keys(data)[0]]
     // card.innerHTML = "<img src=" + img + ">";
-    div.appendChild(img);
-    
-    console.log("div = ", div);
-    // console.log(card);   
-    temp.push(div); 
-    temp.push(div); 
-  }
-  return temp;
-        
+    // div.appendChild(img);
+    //
+    // console.log("div = ", div);
+    // // console.log(card);
+    // temp.push(div);
+    // temp.push(div);
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(temp), 200)});
 }
 
 //----------------------
@@ -146,6 +206,84 @@ size.addEventListener("click", () =>  {
   generate_Hondenplaatjes();
 });
 
+function toggleCard() {
+
+  if (lockBoard) {
+    return;
+  }
+
+  if (this === firstCard) {
+    this.classList.toggle('toggleCard')
+    toggled = false
+    firstCard = null
+    console.log("komt in eerste if")
+    return
+
+  } else if(!toggled) {
+    console.log("komt in tweede if")
+    firstCard = this;
+    this.classList.toggle('toggleCard')
+    toggled = true
+    return
+  }
+  console.log("komt na if")
+  this.classList.toggle('toggleCard')
+  secondCard = this;
+
+  document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+  
+  checkWin()
+}
+
+//----------------------
+// Checkwin
+//----------------------
+function checkWin(){
+  console.log("komt in checkwin")
+    let firstCardBack = firstCard.getElementsByClassName("kaart--back")[0]
+    let secondCardBack = secondCard.getElementsByClassName("kaart--back")[0]
+
+    let win = firstCardBack.id === secondCardBack.id
+
+    win ? disableCards() : untoggleCards();
+
+}
+
+function disableCards() {
+  console.log("komt in disablecards")
+  let kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
+  setTimeout(() => {
+    firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+    secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+    firstCard.removeEventListener('click', toggleCard)
+    secondCard.removeEventListener('click', toggleCard)
+    resetBoard();
+    document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+  }, 1500)
+  
+}
+
+function untoggleCards(){
+  console.log("komt in untoggleCards")
+  lockBoard = true;
+  
+  setTimeout(() => {
+    firstCard.classList.toggle("toggleCard");
+    secondCard.classList.toggle("toggleCard");
+
+    resetBoard();
+    document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+  }, 1500)
+  
+}
+
+function resetBoard() {
+
+  [toggled, lockBoard] = [false, false];
+  [firstCard, secondCard] = [null, null];
+  
+}
+
 //----------------------
 // Generate cards
 //----------------------
@@ -153,86 +291,80 @@ const kaartGenerator = () => {
   
   let height = afmeting + 1;
   let game = document.getElementById("game");
-  // game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
-  // game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
-  // game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
-
-  // console.log('backdata in kaartgen:', cardBackData);
+  game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
+  game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
+  game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
+  console.log("carBackData in kaartgen = ",cardBackData)
 
   // generate HTML for board squares
-  random = randomize();
-  random.forEach(element => {
-      const card = document.createElement("div");
-      const front = document.createElement("div");
-      const back = document.createElement("img");
+  let i = 0
+  for (item of cardBackData) {
+    const card = document.createElement("div");
+    const front = cardFrontData[i]
+    const back = cardBackData[i]
+   
+    card.classList = 'kaart';
+    front.classList = 'kaart--front';
+    back.classList = 'kaart--back';
+    
 
       card.classList = "kaart";
       front.classList = "kaart--front";
       back.classList = "kaart--back";
 
-      back.src = element;
-
-      game.appendChild(card);
-      card.appendChild(back);
-      card.appendChild(front);
-
-      card.addEventListener("click", (e) => {
-        card.classList.toggle("toggleCard");
-        startTimer();
-        checkWin(card);
-      });
-  });
-
+    card.addEventListener('click', toggleCard)
+    i++
   }
 
 
-//----------------------
-// Checkwin
-//----------------------
-function checkWin(card){
-  if(firstCard === 0){
-    firstCard = card
-    valueA =  card.getElementsByClassName("kaart--back")[0].id
 
-    console.log("cardA dataset id = ", valueA)
+  // if(firstCard === 0){
+  //   document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
+  //   firstCard = card
+  //   valueA =  card.getElementsByClassName("kaart--back")[0].id
 
-  } else {
-    document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+  //   console.log("cardA dataset id = ", valueA)
+    
 
-    setTimeout(() => {
-      secondCard = card
-      valueB = card.getElementsByClassName("kaart--back")[0].id
-      console.log("cardB dataset id = ", valueB)
-
-      console.log("valueA: ", valueA)
-      console.log("valueB", valueB)
+  // } else {
+  //   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+  //   secondCard = card
+    
+  //   setTimeout(() => {
       
-      if (valueA === valueB){
-        console.log("Kaarten zijn hetzelfde");
 
-        var kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
+  //     valueB = card.getElementsByClassName("kaart--back")[0].id
+  //     console.log("cardB dataset id = ", valueB)
 
-        firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-        secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+  //     console.log("valueA: ", valueA)
+  //     console.log("valueB", valueB)
+      
+  //     if (valueA === valueB){
+  //       console.log("Kaarten zijn hetzelfde");
 
-        firstCard = 0;
-        secondCard = 0;
-
-      }else{
         
-          console.log("Kaarten zijn niet hetzelfde");
-          firstCard.classList.toggle("toggleCard");
-          secondCard.classList.toggle("toggleCard");
 
-          firstCard = 0;
-          secondCard = 0;
-        }
+  //       firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+  //       secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
 
-        document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-        document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-      }, 1500)
-    }
-  }
+  //       firstCard = 0;
+  //       secondCard = 0;
+
+  //     }else{
+        
+  //         console.log("Kaarten zijn niet hetzelfde");
+  //         firstCard.classList.toggle("toggleCard");
+  //         secondCard.classList.toggle("toggleCard");
+
+  //         firstCard = 0;
+  //         secondCard = 0;
+  //       }
+
+  //       document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+  //       document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
+  //     }, 1500)
+  //   }
+
 
 //----------------------
 // Darkmode
