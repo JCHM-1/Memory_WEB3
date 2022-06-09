@@ -8,8 +8,8 @@ let firstCard, secondCard;
 var valueA = 0;
 var valueB = 0;
 
-var kleurInput_gesloten = document.getElementById('kleur-gesloten').value
-var kleurInput_open = document.getElementById('kleur-open').value
+var kleurInput_gesloten = document.getElementById("kleur-gesloten").value;
+var kleurInput_open = document.getElementById("kleur-open").value;
 
 var selectFront = document.getElementById("selectFront");
 var selectBack = document.getElementById("selectBack");
@@ -27,35 +27,34 @@ kaartGenerator();
 selectFront.addEventListener("click", () => {
   cardFrontData = createCardFront(selectFront.value);
   kaartGenerator();
-})
+});
 
-function createCardFront(char){
-
+function createCardFront(char) {
   let cards = [];
   console.log("Char: ", char);
-  console.log("cardFrontData begin functie: (moet leeg zijn) "+ cards);
-  console.log("afmeting : "+ afmeting);
+  console.log("cardFrontData begin functie: (moet leeg zijn) " + cards);
+  console.log("afmeting : " + afmeting);
 
-  if(char === "*"){
-    for (let i = 0; i < (afmeting*afmeting); i++){
+  if (char === "*") {
+    for (let i = 0; i < afmeting * afmeting; i++) {
       let card = document.createElement("div");
       card.innerHTML = "<p> * </p>";
       cards.push(card);
     }
-  }else if (char === "-"){
-    for (let i = 0; i < (afmeting*afmeting); i++){
+  } else if (char === "-") {
+    for (let i = 0; i < afmeting * afmeting; i++) {
       let card = document.createElement("div");
       card.innerHTML = "<p> - </p>";
       cards.push(card);
     }
-  } else if(char === "?"){
-    for (let i = 0; i < (afmeting*afmeting); i++){
+  } else if (char === "?") {
+    for (let i = 0; i < afmeting * afmeting; i++) {
       let card = document.createElement("div");
       card.innerHTML = "<p> ? </p>";
       cards.push(card);
     }
-  } else{
-    for (let i = 0; i < (afmeting*afmeting); i++){
+  } else {
+    for (let i = 0; i < afmeting * afmeting; i++) {
       let card = document.createElement("div");
       card.innerHTML = "<p> + </p>";
       cards.push(card);
@@ -183,64 +182,66 @@ size.addEventListener("click", () =>  {
 });
 
 function toggleCard() {
-
   if (lockBoard) {
     return;
   }
 
   if (this === firstCard) {
-    this.classList.toggle('toggleCard')
-    toggled = false
-    firstCard = null
-    console.log("komt in eerste if")
-    return
-
-  } else if(!toggled) {
-    console.log("komt in tweede if")
+    this.classList.toggle("toggleCard");
+    toggled = false;
+    firstCard = null;
+    console.log("komt in eerste if");
+    return;
+  } else if (!toggled) {
+    console.log("komt in tweede if");
     firstCard = this;
-    this.classList.toggle('toggleCard')
-    toggled = true
-    return
+    this.classList.toggle("toggleCard");
+    toggled = true;
+    return;
   }
-  console.log("komt na if")
-  this.classList.toggle('toggleCard')
+  console.log("komt na if");
+  this.classList.toggle("toggleCard");
   secondCard = this;
 
-  document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+  document
+    .querySelectorAll(".kaart")
+    .forEach((n) => (n.style.pointerEvents = "none"));
 
-  checkWin()
+  checkWin();
 }
 
 //----------------------
 // Checkwin
 //----------------------
-function checkWin(){
-  console.log("komt in checkwin")
-  let firstCardBack = firstCard.getElementsByClassName("kaart--back")[0]
-  let secondCardBack = secondCard.getElementsByClassName("kaart--back")[0]
+function checkWin() {
+  console.log("komt in checkwin");
+  let firstCardBack = firstCard.getElementsByClassName("kaart--back")[0];
+  let secondCardBack = secondCard.getElementsByClassName("kaart--back")[0];
 
-  let win = firstCardBack.id === secondCardBack.id
+  let win = firstCardBack.id === secondCardBack.id;
 
   win ? disableCards() : untoggleCards();
-
 }
 
 function disableCards() {
-  console.log("komt in disablecards")
-  let kleurInput_gevonden = document.getElementById('kleur-gevonden').value;
+  console.log("komt in disablecards");
+  let kleurInput_gevonden = document.getElementById("kleur-gevonden").value;
   setTimeout(() => {
-    firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-    secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-    firstCard.removeEventListener('click', toggleCard)
-    secondCard.removeEventListener('click', toggleCard)
+    firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor =
+      kleurInput_gevonden;
+    secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor =
+      kleurInput_gevonden;
+    firstCard.removeEventListener("click", toggleCard);
+    secondCard.removeEventListener("click", toggleCard);
     resetBoard();
-    document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-  }, 1500)
-
+    document
+      .querySelectorAll(".kaart")
+      .forEach((n) => n.style.removeProperty("pointer-events"));
+  }, 1500);
 }
 
-function untoggleCards(){
-  console.log("komt in untoggleCards")
+function untoggleCards() {
+  console.log("komt in untoggleCards");
   lockBoard = true;
 
   setTimeout(() => {
@@ -248,55 +249,56 @@ function untoggleCards(){
     secondCard.classList.toggle("toggleCard");
 
     resetBoard();
-    document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-  }, 1500)
-
+    document
+      .querySelectorAll(".kaart")
+      .forEach((n) => n.style.removeProperty("pointer-events"));
+  }, 1500);
 }
 
 function resetBoard() {
-
   [toggled, lockBoard] = [false, false];
   [firstCard, secondCard] = [null, null];
-
 }
 
 //----------------------
 // Generate cards
 //----------------------
-function kaartGenerator(){
+function kaartGenerator() {
   let height = afmeting + 1;
   let game = document.getElementById("game");
-  game.innerHTML = '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
-  game.style.setProperty("grid-template-columns","repeat("+afmeting+", 1fr)");
-  game.style.setProperty("grid-template-rows","repeat("+height+", 1fr)");
-  console.log("carBackData in kaartgen = ",cardBackData)
+  game.innerHTML =
+    '<div class="meter" aria-label="Meter" aria-description="Meter die het aantal gevonden kaarten bijhoudt"></div>';
+  game.style.setProperty(
+    "grid-template-columns",
+    "repeat(" + afmeting + ", 1fr)"
+  );
+  game.style.setProperty("grid-template-rows", "repeat(" + height + ", 1fr)");
+  console.log("carBackData in kaartgen = ", cardBackData);
 
   // generate HTML for board squares
-  let i = 0
+  let i = 0;
   for (item of cardBackData) {
     const card = document.createElement("div");
-    const front = cardFrontData[i]
-    const back = cardBackData[i]
+    const front = cardFrontData[i];
+    const back = cardBackData[i];
 
-    card.classList = 'kaart';
-    front.classList = 'kaart--front';
-    back.classList = 'kaart--back';
-
+    card.classList = "kaart";
+    front.classList = "kaart--front";
+    back.classList = "kaart--back";
 
     // back.src = item.imgSrc;
     game.appendChild(card);
     card.appendChild(front);
     card.appendChild(back);
     front.style.backgroundColor = kleurInput_gesloten;
-    if(!plaatjes){
+    if (!plaatjes) {
       back.style.backgroundColor = kleurInput_open;
     }
 
-    card.addEventListener('click', toggleCard)
-    i++
+    card.addEventListener("click", toggleCard);
+    i++;
   }
 }
-
 
 // if(firstCard === 0){
 //   document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
@@ -305,13 +307,11 @@ function kaartGenerator(){
 
 //   console.log("cardA dataset id = ", valueA)
 
-
 // } else {
 //   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
 //   secondCard = card
 
 //   setTimeout(() => {
-
 
 //     valueB = card.getElementsByClassName("kaart--back")[0].id
 //     console.log("cardB dataset id = ", valueB)
@@ -321,8 +321,6 @@ function kaartGenerator(){
 
 //     if (valueA === valueB){
 //       console.log("Kaarten zijn hetzelfde");
-
-
 
 //       firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
 //       secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
@@ -345,14 +343,13 @@ function kaartGenerator(){
 //     }, 1500)
 //   }
 
-
 //----------------------
 // Darkmode
 //----------------------
 function darkMode() {
   var element = document.body;
-  element.classList.toggle("dark-mode")
-};
+  element.classList.toggle("dark-mode");
+}
 
 //----------------------
 // Randomize
@@ -367,11 +364,15 @@ const randomize = () => {
 // Colour picker
 //---------------------------------
 function changeColour() {
-  kleurInput_gesloten = document.querySelector('#kleur-gesloten').value
-  kleurInput_open = document.querySelector('#kleur-open').value;
+  kleurInput_gesloten = document.querySelector("#kleur-gesloten").value;
+  kleurInput_open = document.querySelector("#kleur-open").value;
 
-  document.querySelectorAll(".kaart--front").forEach(n => n.style.backgroundColor = kleurInput_gesloten);
-  document.querySelectorAll(".kaart--back").forEach(n => n.style.backgroundColor = kleurInput_open);
+  document
+    .querySelectorAll(".kaart--front")
+    .forEach((n) => (n.style.backgroundColor = kleurInput_gesloten));
+  document
+    .querySelectorAll(".kaart--back")
+    .forEach((n) => (n.style.backgroundColor = kleurInput_open));
 }
 
 //---------------------------------
@@ -415,16 +416,16 @@ function timerCycle() {
     }
 
     if (sec < 10 || sec == 0) {
-      sec = '0' + sec;
+      sec = "0" + sec;
     }
     if (min < 10 || min == 0) {
-      min = '0' + min;
+      min = "0" + min;
     }
     if (hr < 10 || hr == 0) {
-      hr = '0' + hr;
+      hr = "0" + hr;
     }
 
-    timer.innerHTML = hr + ':' + min + ':' + sec;
+    timer.innerHTML = hr + ":" + min + ":" + sec;
 
     setTimeout("timerCycle()", 1000);
   }
@@ -437,4 +438,3 @@ function resetTimer() {
   sec = 0;
   min = 0;
 }
-
