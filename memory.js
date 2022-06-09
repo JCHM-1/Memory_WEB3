@@ -30,36 +30,21 @@ selectFront.addEventListener("click", () => {
 });
 
 function createCardFront(char) {
+  if(typeof char === 'undefined'){
+    char = "+"
+  }
   let cards = [];
   console.log("Char: ", char);
   console.log("cardFrontData begin functie: (moet leeg zijn) " + cards);
   console.log("afmeting : " + afmeting);
 
-  if (char === "*") {
-    for (let i = 0; i < afmeting * afmeting; i++) {
-      let card = document.createElement("div");
-      card.innerHTML = "<p> * </p>";
-      cards.push(card);
-    }
-  } else if (char === "-") {
-    for (let i = 0; i < afmeting * afmeting; i++) {
-      let card = document.createElement("div");
-      card.innerHTML = "<p> - </p>";
-      cards.push(card);
-    }
-  } else if (char === "?") {
-    for (let i = 0; i < afmeting * afmeting; i++) {
-      let card = document.createElement("div");
-      card.innerHTML = "<p> ? </p>";
-      cards.push(card);
-    }
-  } else {
-    for (let i = 0; i < afmeting * afmeting; i++) {
-      let card = document.createElement("div");
-      card.innerHTML = "<p> + </p>";
-      cards.push(card);
-    }
+
+  for (let i = 0; i < afmeting * afmeting; i++) {
+    let card = document.createElement("div");
+    card.innerHTML = "<p> " + char + " </p>";
+    cards.push(card);
   }
+
   return cards;
 }
 
@@ -77,16 +62,16 @@ function alphabet(){
   const aantalKaarten = (this.afmeting * this.afmeting) / 2;
   const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-  var characters = alphabet.sort(() => Math.random() - 0.5).slice(0, aantalKaarten);
-  var charactersCopy = characters.slice();
+  let characters = alphabet.sort(() => Math.random() - 0.5).slice(0, aantalKaarten);
+  let charactersCopy = characters.slice();
   characters = characters.concat(charactersCopy);
 
   // 2 keer geshuffelde array
   characters.sort(() => Math.random() - 0.5);
 
   for (let i = 0; i < (afmeting * afmeting); i++) {
-    var card = document.createElement("div");
-    var value = characters.pop()
+    let card = document.createElement("div");
+    let value = characters.pop()
     card.innerHTML = "<p> " + value + " </p>";
     card.id = value;
     cards.push(card);
@@ -94,7 +79,9 @@ function alphabet(){
   return cards;
 }
 
+
 function createCardBack(value){
+
   let promises = []
   let urls = []
   let i = 0, j = 0
@@ -134,13 +121,9 @@ function createCardBack(value){
     })
 
   } else if (value === "Niet-bestaande personen") {
-    // TODO: werkt nog niet
 
       for (let i = 0; i < afmeting; i++) {
-        promises.push(fetch("https://randomuser.me/api/").then(response =>
-          response.json()
-          // JSON.parse(response.results.picture.medium)
-        ))
+        promises.push(fetch("https://randomuser.me/api/").then(response => response.json()))
       }
 
       return Promise.all(promises).then(data => {
@@ -180,7 +163,7 @@ size.addEventListener("click", () =>  {
   console.log("afmeting na klik: ", afmeting);
 
   cardFrontData = createCardFront();
-  cardBackData = createCardBack();
+  cardBackData = alphabet();
   kaartGenerator();
 });
 
