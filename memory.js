@@ -137,13 +137,16 @@ function createCardBack(value){
     // TODO: werkt nog niet
 
       for (let i = 0; i < afmeting; i++) {
-        promises.push(fetch("https://randomuser.me/api/").then(response => response.json()))
+        promises.push(fetch("https://randomuser.me/api/").then(response =>
+          response.json()
+          // JSON.parse(response.results.picture.medium)
+        ))
       }
 
       return Promise.all(promises).then(data => {
 
         data.forEach(item => {
-          let url = item[Object.keys(item)[0]]
+          let url = item.results[0].picture.large
           urls.push(url)
           urls.push(url)
         })
