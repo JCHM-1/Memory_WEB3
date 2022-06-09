@@ -1,7 +1,7 @@
 var cardImages = [];
 var plaatjes = false;
 
-var afmeting = 2; 
+var afmeting = 2;
 let toggled = false;
 let lockBoard = false;
 let firstCard, secondCard;
@@ -16,7 +16,7 @@ var selectBack = document.getElementById("selectBack");
 var size = document.getElementById("afmeting");
 
 var cardFrontData = createCardFront();
-var cardBackData = createCardBack();
+var cardBackData = alphabet()
 // array met objecten, front, back
 
 kaartGenerator();
@@ -46,19 +46,19 @@ function createCardFront(char){
     for (let i = 0; i < (afmeting*afmeting); i++){
       let card = document.createElement("div");
       card.innerHTML = "<p> - </p>";
-      cards.push(card);  
+      cards.push(card);
     }
   } else if(char === "?"){
     for (let i = 0; i < (afmeting*afmeting); i++){
       let card = document.createElement("div");
       card.innerHTML = "<p> ? </p>";
-      cards.push(card);   
+      cards.push(card);
     }
   } else{
     for (let i = 0; i < (afmeting*afmeting); i++){
       let card = document.createElement("div");
       card.innerHTML = "<p> + </p>";
-      cards.push(card);   
+      cards.push(card);
     }
   }
   return cards;
@@ -69,139 +69,117 @@ function createCardFront(char){
 //----------------------
 console.log(selectBack.value);
 selectBack.addEventListener("click", () => {
-  createCardBack(selectBack.value).then((response) => {
-    cardBackData = response
-    console.log("cards = ",cardBackData)
-    kaartGenerator()
-  })
+  createCardBack(selectBack.value)
 })
 
-function createCardBack(value){
-  let cards = [];
-  let times = document.querySelector('#afmeting');
+function alphabet(){
+  plaatjes = false;
+  let cards = []
+  const aantalKaarten = (this.afmeting * this.afmeting) / 2;
+  const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+  var characters = alphabet.sort(() => Math.random() - 0.5).slice(0, aantalKaarten);
+  var charactersCopy = characters.slice();
+  characters = characters.concat(charactersCopy);
 
-  if (value === "Hondenplaatjes") {
-    plaatjes = true;
-    let i = 0
-    let j = 0
+  // 2 keer geshuffelde array
+  characters.sort(() => Math.random() - 0.5);
 
-    generatePictures().then(data => {
-      for (item of data) {
-        let card = document.createElement("div")
-        card.innerHTML = "<img src="+item+" />"
-        console.log("card hondenplaatjes = ", card)
-        if(i == j){
-          card.id = i
-          i++
-        } else {
-          card.id = j
-          j++
-        }
-        card.id = i
-        cards.push(card)
-      }
-    })
-    
-    console.log("einde van honden: ", cards);
-    return new Promise((resolve) => {
-      setTimeout(()=> {
-        resolve(cards)}, 200)
-    })
-    
-    
-
-  } else if (value === "Random foto's") {
-    var url = "https://source.unsplash.com/collection/928423/480x480";
-    let i = 0;
-    while (i < (times.value)) {
-      fetch(url)
-          .then((response) => {
-            return response;
-          })
-          .then((data) => {
-            var img = data.url;
-            cards.push(img);
-            cards.push(img);
-          })
-      i++;
-    }
-  } else if (value === "Niet-bestaande personen") {
-    var url = "https://randomuser.me/api/";
-    let i = 0;
-    while (i < (times.value)) {
-      fetch(url)
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            var img = data.results[0].picture.medium;
-            cards.push(img);
-            cards.push(img);
-          })
-      i++;
-    }
-  } else {
-    plaatjes = false;
-    const aantalKaarten = (this.afmeting * this.afmeting) / 2;
-    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-    var characters = alphabet.sort(() => Math.random() - 0.5).slice(0, aantalKaarten);
-    var charactersCopy = characters.slice();
-    characters = characters.concat(charactersCopy);
-
-    // 2 keer geshuffelde array
-    characters.sort(() => Math.random() - 0.5);
-
-    for (let i = 0; i < (afmeting * afmeting); i++) {
-      var card = document.createElement("div");
-      var value = characters.pop()
-      card.innerHTML = "<p> " + value + " </p>";
-      card.id = value;
-      cards.push(card);
-    }
+  for (let i = 0; i < (afmeting * afmeting); i++) {
+    var card = document.createElement("div");
+    var value = characters.pop()
+    card.innerHTML = "<p> " + value + " </p>";
+    card.id = value;
+    cards.push(card);
   }
-  console.log("cards na backend = ", cards)
   return cards;
 }
 
-function generatePictures() {
-  let temp = []
+function createCardBack(value){
+  let promises = []
+  let urls = []
+  let i = 0, j = 0
 
-  for (let i = 0; i < afmeting; i++){
-    // var div = document.createElement("div");
-    // var img = document.createElement("img");
-    fetch('https://dog.ceo/api/breeds/image/random')
-    .then(response => response.json())
-    .then(data => {
-      
-      temp.push(data[Object.keys(data)[0]])
-      temp.push(data[Object.keys(data)[0]])
-    })   
-    
-  }  
-    //img.src = data[Object.keys(data)[0]]
-    // card.innerHTML = "<img src=" + img + ">";
-    // div.appendChild(img);
-    //
-    // console.log("div = ", div);
-    // // console.log(card);
-    // temp.push(div);
-    // temp.push(div);
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(temp), 200)});
+  if (value === "Hondenplaatjes") {
+
+    for (let i = 0; i < afmeting; i++) {
+      promises.push(fetch("https://dog.ceo/api/breeds/image/random").then(response => response.json()))
+    }
+
+    return Promise.all(promises).then(data => {
+
+      data.forEach(item => {
+
+        let url = item[Object.keys(item)[0]]
+        urls.push(url)
+        urls.push(url)
+      })
+
+      changeCardBack(urls)
+    })
+
+  } else if (value === "Random foto's") {
+    for (let i = 0; i < afmeting; i++) {
+      promises.push(fetch("https://source.unsplash.com/collection/928423/480x480").then(response => response))
+    }
+
+    return Promise.all(promises).then(data => {
+
+      data.forEach(item => {
+
+        urls.push(item.url)
+        urls.push(item.url)
+      })
+
+      changeCardBack(urls)
+    })
+
+  } else if (value === "Niet-bestaande personen") {
+    // TODO: werkt nog niet
+
+      for (let i = 0; i < afmeting; i++) {
+        promises.push(fetch("https://randomuser.me/api/").then(response => response.json()))
+      }
+
+      return Promise.all(promises).then(data => {
+
+        data.forEach(item => {
+          let url = item[Object.keys(item)[0]]
+          urls.push(url)
+          urls.push(url)
+        })
+
+        changeCardBack(urls)
+      })
+  }
 }
+
+function changeCardBack(temp) {
+  let i = 0, j = 0
+  let deck = document.getElementsByClassName("kaart--back")
+  for (let c = 0; c < deck.length; c++) {
+    deck.item(c).innerHTML = "<img src=" + temp[c] + " /img>";
+    if (i === j) {
+      deck.item(c).id = i
+      i++
+    } else {
+      deck.item(c).id = j
+      j++
+    }
+  }
+}
+
 
 //----------------------
 //  Size gameboard
 //----------------------
 size.addEventListener("click", () =>  {
-    afmeting = size.value;
-    console.log("afmeting na klik: ", afmeting);
+  afmeting = size.value;
+  console.log("afmeting na klik: ", afmeting);
 
-    cardFrontData = createCardFront();
-    cardBackData = createCardBack();
-    kaartGenerator();
+  cardFrontData = createCardFront();
+  cardBackData = createCardBack();
+  kaartGenerator();
 });
 
 function toggleCard() {
@@ -229,7 +207,7 @@ function toggleCard() {
   secondCard = this;
 
   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
-  
+
   checkWin()
 }
 
@@ -238,12 +216,12 @@ function toggleCard() {
 //----------------------
 function checkWin(){
   console.log("komt in checkwin")
-    let firstCardBack = firstCard.getElementsByClassName("kaart--back")[0]
-    let secondCardBack = secondCard.getElementsByClassName("kaart--back")[0]
+  let firstCardBack = firstCard.getElementsByClassName("kaart--back")[0]
+  let secondCardBack = secondCard.getElementsByClassName("kaart--back")[0]
 
-    let win = firstCardBack.id === secondCardBack.id
+  let win = firstCardBack.id === secondCardBack.id
 
-    win ? disableCards() : untoggleCards();
+  win ? disableCards() : untoggleCards();
 
 }
 
@@ -258,13 +236,13 @@ function disableCards() {
     resetBoard();
     document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
   }, 1500)
-  
+
 }
 
 function untoggleCards(){
   console.log("komt in untoggleCards")
   lockBoard = true;
-  
+
   setTimeout(() => {
     firstCard.classList.toggle("toggleCard");
     secondCard.classList.toggle("toggleCard");
@@ -272,14 +250,14 @@ function untoggleCards(){
     resetBoard();
     document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
   }, 1500)
-  
+
 }
 
 function resetBoard() {
 
   [toggled, lockBoard] = [false, false];
   [firstCard, secondCard] = [null, null];
-  
+
 }
 
 //----------------------
@@ -299,11 +277,11 @@ function kaartGenerator(){
     const card = document.createElement("div");
     const front = cardFrontData[i]
     const back = cardBackData[i]
-   
+
     card.classList = 'kaart';
     front.classList = 'kaart--front';
     back.classList = 'kaart--back';
-    
+
 
     // back.src = item.imgSrc;
     game.appendChild(card);
@@ -320,52 +298,52 @@ function kaartGenerator(){
 }
 
 
-  // if(firstCard === 0){
-  //   document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-  //   firstCard = card
-  //   valueA =  card.getElementsByClassName("kaart--back")[0].id
+// if(firstCard === 0){
+//   document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
+//   firstCard = card
+//   valueA =  card.getElementsByClassName("kaart--back")[0].id
 
-  //   console.log("cardA dataset id = ", valueA)
-    
+//   console.log("cardA dataset id = ", valueA)
 
-  // } else {
-  //   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
-  //   secondCard = card
-    
-  //   setTimeout(() => {
-      
 
-  //     valueB = card.getElementsByClassName("kaart--back")[0].id
-  //     console.log("cardB dataset id = ", valueB)
+// } else {
+//   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
+//   secondCard = card
 
-  //     console.log("valueA: ", valueA)
-  //     console.log("valueB", valueB)
-      
-  //     if (valueA === valueB){
-  //       console.log("Kaarten zijn hetzelfde");
+//   setTimeout(() => {
 
-        
 
-  //       firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-  //       secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+//     valueB = card.getElementsByClassName("kaart--back")[0].id
+//     console.log("cardB dataset id = ", valueB)
 
-  //       firstCard = 0;
-  //       secondCard = 0;
+//     console.log("valueA: ", valueA)
+//     console.log("valueB", valueB)
 
-  //     }else{
-        
-  //         console.log("Kaarten zijn niet hetzelfde");
-  //         firstCard.classList.toggle("toggleCard");
-  //         secondCard.classList.toggle("toggleCard");
+//     if (valueA === valueB){
+//       console.log("Kaarten zijn hetzelfde");
 
-  //         firstCard = 0;
-  //         secondCard = 0;
-  //       }
 
-  //       document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-  //       document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-  //     }, 1500)
-  //   }
+
+//       firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+//       secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
+
+//       firstCard = 0;
+//       secondCard = 0;
+
+//     }else{
+
+//         console.log("Kaarten zijn niet hetzelfde");
+//         firstCard.classList.toggle("toggleCard");
+//         secondCard.classList.toggle("toggleCard");
+
+//         firstCard = 0;
+//         secondCard = 0;
+//       }
+
+//       document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
+//       document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
+//     }, 1500)
+//   }
 
 
 //----------------------
@@ -408,47 +386,47 @@ var stoptime = true;
 
 function startTimer() {
   if (stoptime == true) {
-      stoptime = false;
-      timerCycle();
+    stoptime = false;
+    timerCycle();
   }
 }
 function stopTimer() {
   if (stoptime == false) {
-      stoptime = true;
+    stoptime = true;
   }
 }
 
 function timerCycle() {
   if (stoptime == false) {
-      sec = parseInt(sec);
-      min = parseInt(min);
-      hr = parseInt(hr);
+    sec = parseInt(sec);
+    min = parseInt(min);
+    hr = parseInt(hr);
 
-      sec = sec + 1;
+    sec = sec + 1;
 
-      if (sec == 60) {
-          min = min + 1;
-          sec = 0;
-      }
-      if (min == 60) {
-          hr = hr + 1;
-          min = 0;
-          sec = 0;
-      }
+    if (sec == 60) {
+      min = min + 1;
+      sec = 0;
+    }
+    if (min == 60) {
+      hr = hr + 1;
+      min = 0;
+      sec = 0;
+    }
 
-      if (sec < 10 || sec == 0) {
-          sec = '0' + sec;
-      }
-      if (min < 10 || min == 0) {
-          min = '0' + min;
-      }
-      if (hr < 10 || hr == 0) {
-          hr = '0' + hr;
-      }
+    if (sec < 10 || sec == 0) {
+      sec = '0' + sec;
+    }
+    if (min < 10 || min == 0) {
+      min = '0' + min;
+    }
+    if (hr < 10 || hr == 0) {
+      hr = '0' + hr;
+    }
 
-      timer.innerHTML = hr + ':' + min + ':' + sec;
+    timer.innerHTML = hr + ':' + min + ':' + sec;
 
-      setTimeout("timerCycle()", 1000);
+    setTimeout("timerCycle()", 1000);
   }
 }
 
