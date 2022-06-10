@@ -7,40 +7,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
-
   <title>Login</title>
   <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
-
-<div class="card mx-auto" style="width: 18rem; margin-top: 200px;">
-  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h4 class="card-header">Member Login</h4>
-
-      <div class="form form-control">
-        <form action="" method="post">
-          <div class="form-group">
-
-            <input type="text" class="form-control" placeholder="Username" required="required">
-          </div>
-          <div class="form-group">
-
-            <input type="password" class="form-control" style="margin-top: 10px;" placeholder="Password" required="required">
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 10px;" value="Login">
-          </div>
-        </form>
-      </div>
-
-      <div class="card-footer">
-        <a href="#">Forgot Password?</a>
-      </div>
+<input type="radio" id="chk1" name="al" style="display: none;">
+<input type="radio" id="chk2" name="al" style="display: none;">
+  <div class="box">
+    <div class="a">
+      <label for="chk1">Login</label>
+      <label for="chk2" id="sup">Sign up</label>
     </div>
+    <div class="b">
+      <form action="" class="frm">
+        <br><br><br><br><br><br>
+        <h6 class="title"> SIGN-UP FORM</h6>
+        <input type="text" placeholder="Enter username">
+        <input type="password" placeholder="Enter password">
+        <input type="password" placeholder="Confirm password">
+        <input type="button" value="Sign up" id="btn">
+        <label for="chk1" id="btm">Login here</label>
+      </form>
+    </div>
+    <div class="c">
+      <form action="" class="frm">
+        <br><br><br><br><br><br>
+        <h6 class="title"> LOGIN FORM</h6>
+        <input type="text" placeholder="Enter username">
+        <input type="password" placeholder="Enter password">
+        <input type="button" value="Login" id="btn">
+        <label for="chk2" id="btm">Signup here</label>
+      </form>
+    </div>
+    <div class="d"></div>
+    <div class="e"></div>
+  </div>
 
 
 <!--<script src="login.js"></script>-->
