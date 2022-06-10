@@ -285,48 +285,10 @@ function kaartGenerator() {
   }
 }
 
-// if(firstCard === 0){
-//   document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-//   firstCard = card
-//   valueA =  card.getElementsByClassName("kaart--back")[0].id
-
-//   console.log("cardA dataset id = ", valueA)
-
-// } else {
-//   document.querySelectorAll(".kaart").forEach(n => n.style.pointerEvents ="none")
-//   secondCard = card
-
-//   setTimeout(() => {
-
-//     valueB = card.getElementsByClassName("kaart--back")[0].id
-//     console.log("cardB dataset id = ", valueB)
-
-//     console.log("valueA: ", valueA)
-//     console.log("valueB", valueB)
-
-//     if (valueA === valueB){
-//       console.log("Kaarten zijn hetzelfde");
-
-//       firstCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-//       secondCard.getElementsByClassName("kaart--back")[0].style.backgroundColor = kleurInput_gevonden
-
-//       firstCard = 0;
-//       secondCard = 0;
-
-//     }else{
-
-//         console.log("Kaarten zijn niet hetzelfde");
-//         firstCard.classList.toggle("toggleCard");
-//         secondCard.classList.toggle("toggleCard");
-
-//         firstCard = 0;
-//         secondCard = 0;
-//       }
-
-//       document.querySelectorAll(".kaart").forEach(n => n.style.removeProperty("pointer-events"))
-//       document.querySelectorAll(".toggleCard").forEach(n => n.style.pointerEvents ="none")
-//     }, 1500)
-//   }
+function login()
+{
+  window.open("login.html")
+}
 
 //----------------------
 // Darkmode
