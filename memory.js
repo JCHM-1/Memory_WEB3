@@ -1,13 +1,19 @@
-var cardImages = [];
-var plaatjes = false;
 
-var afmeting = 2;
-let isWin = false;
-let countWins = 0;
+var plaatjes = false
+let isWin = false
 let toggled = false;
+var afmeting = 2
+let countWins = 0;
 let firstCard, secondCard;
-var valueA = 0;
-var valueB = 0;
+let congrats = `
+<div class="popup" id="popup">
+    <h2><span>Gefeliciteerd</span> </h2>
+     <p> <span>Alle kaarten zijn gevonden!</span></p>
+    <button onclick="newGame();">Nieuw spel</button>
+</div>
+    
+`;
+
 
 var kleurInput_gesloten = document.getElementById("kleur-gesloten").value;
 var kleurInput_open = document.getElementById("kleur-open").value;
@@ -236,15 +242,8 @@ function disableCards() {
         .forEach((n) => n.style.removeProperty("pointer-events"));
 
     if(countWins === afmeting){
+      document.getElementById("game").innerHTML += congrats;
 
-      document.getElementById("game").innerHTML += `
-        <div class="popup" id="popup">
-        <div><h2> Gefeliciteert</h2></div>
-                
-            <div><p>Je hebt alle kaarten gevonden! </p></div>
-                <button onclick="newGame();">Nieuw spel</button>
-            </div>
-      `
     }
   }, 1500);
 }

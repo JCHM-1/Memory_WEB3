@@ -114,6 +114,7 @@ body {
     height: 100%;
 }
 
+
 /* Second column --------- */
 .sidebar {
     flex: 1;
@@ -163,7 +164,10 @@ body {
 }
 
 .popup {
+    display: block !important;
+    flex-direction: row !important;
     width: 275px;
+;
     background: #fff;
     opacity: 80%;
     position: absolute;
@@ -179,10 +183,6 @@ body {
 
 }
 
-.popup div {
-    display: flex;
-    flex-direction: row;
-}
 
 .popup h2 {
 
@@ -192,9 +192,14 @@ body {
 }
 
 .popup p {
-    display: flex;
-    flex-direction: row;
+
     color: #020024;
+}
+
+.open-popup {
+    visibility: visible !important;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 
