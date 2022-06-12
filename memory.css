@@ -167,7 +167,6 @@ body {
     display: block !important;
     flex-direction: row !important;
     width: 275px;
-;
     background: #fff;
     opacity: 80%;
     position: absolute;
@@ -180,12 +179,10 @@ body {
     color: #333;
     transition: transform 0.4s, top 0.4s;
     transform: translate(-50%, -50%) scale(1);
-
 }
 
 
 .popup h2 {
-
     color: #020024;
     font-size: 38px;
     font-weight: 500;
@@ -195,14 +192,6 @@ body {
 
     color: #020024;
 }
-
-.open-popup {
-    visibility: visible !important;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-
 
 /* dark mode ------------ */
 .dark-mode {

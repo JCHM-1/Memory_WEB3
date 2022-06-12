@@ -6,12 +6,11 @@ var afmeting = 2
 let countWins = 0;
 let firstCard, secondCard;
 let congrats = `
-<div class="popup" id="popup">
-    <h2><span>Gefeliciteerd</span> </h2>
-     <p> <span>Alle kaarten zijn gevonden!</span></p>
-    <button onclick="newGame();">Nieuw spel</button>
-</div>
-    
+  <div class="popup" id="popup">
+      <h2><span>Gefeliciteerd</span> </h2>
+       <p> <span>Alle kaarten zijn gevonden!</span></p>
+      <button onclick="newGame();">Nieuw spel</button>
+  </div>    
 `;
 
 
