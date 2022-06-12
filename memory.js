@@ -3,7 +3,8 @@ var plaatjes = false;
 
 var afmeting = 2;
 let isWin = false;
-let lockBoard = false;
+let countWins = 0;
+let toggled = false;
 let firstCard, secondCard;
 var valueA = 0;
 var valueB = 0;
@@ -169,13 +170,15 @@ size.addEventListener("click", () =>  {
 
 function toggleCard() {
 
+
+
   if( firstCard != null && secondCard != null){
     untoggleCards()
   }
 
   if (this === firstCard) {
     return;
-  } else if (firstCard === null) {
+  } else if (!toggled) {
       console.log("komt in toggled")
     firstCard = this;
     this.classList.toggle("toggleCard");
@@ -226,16 +229,29 @@ function disableCards() {
     secondCard.removeEventListener("click", toggleCard);
 
     [firstCard, secondCard] = [null, null];
-    isWin = true;
+    [isWin, countWins, toggled] = [true, countWins+1, false];
 
     document
         .querySelectorAll(".kaart")
         .forEach((n) => n.style.removeProperty("pointer-events"));
+
+    if(countWins === afmeting){
+
+      document.getElementById("game").innerHTML += `
+        <div class="popup" id="popup">
+        <div><h2> Gefeliciteert</h2></div>
+                
+            <div><p>Je hebt alle kaarten gevonden! </p></div>
+                <button onclick="newGame();">Nieuw spel</button>
+            </div>
+      `
+    }
   }, 1500);
 }
 
 function untoggleCards() {
   console.log("komt in untoggleCards");
+  [isWin, toggled] = [true, false];
 
 
     firstCard.classList.toggle("toggleCard");
@@ -244,10 +260,11 @@ function untoggleCards() {
     [firstCard, secondCard] = [null, null];
 
 
+
     document
         .querySelectorAll(".kaart")
         .forEach((n) => n.style.removeProperty("pointer-events"));
-  
+
 }
 
 
@@ -397,4 +414,8 @@ function resetTimer() {
   hr = 0;
   sec = 0;
   min = 0;
+}
+
+function newGame() {
+  location.reload();
 }

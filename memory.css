@@ -162,6 +162,42 @@ body {
     padding-left: 50px;
 }
 
+.popup {
+    width: 275px;
+    background: #fff;
+    opacity: 80%;
+    position: absolute;
+    border-radius: 10%;
+
+    top: calc(50% + 20px) ;
+    left: 50%;
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    transition: transform 0.4s, top 0.4s;
+    transform: translate(-50%, -50%) scale(1);
+
+}
+
+.popup div {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup h2 {
+
+    color: #020024;
+    font-size: 38px;
+    font-weight: 500;
+}
+
+.popup p {
+    display: flex;
+    flex-direction: row;
+    color: #020024;
+}
+
+
 
 /* dark mode ------------ */
 .dark-mode {
