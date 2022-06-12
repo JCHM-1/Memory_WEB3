@@ -2,7 +2,7 @@ var cardImages = [];
 var plaatjes = false;
 
 var afmeting = 2;
-let toggled = false;
+let isWin = false;
 let lockBoard = false;
 let firstCard, secondCard;
 var valueA = 0;
@@ -164,21 +164,19 @@ size.addEventListener("click", () =>  {
   cardFrontData = createCardFront();
   cardBackData = alphabet();
   kaartGenerator();
+  [firstCard, secondCard] = [null, null];
 });
 
 function toggleCard() {
-  if (lockBoard) {
-    return;
+
+  if( firstCard != null && secondCard != null){
+    untoggleCards()
   }
 
   if (this === firstCard) {
-    this.classList.toggle("toggleCard");
-    toggled = false;
-    firstCard = null;
-    console.log("komt in eerste if");
     return;
-  } else if (!toggled) {
-    console.log("komt in tweede if");
+  } else if (firstCard === null) {
+      console.log("komt in toggled")
     firstCard = this;
     this.classList.toggle("toggleCard");
     toggled = true;
@@ -205,7 +203,15 @@ function checkWin() {
 
   let win = firstCardBack.id === secondCardBack.id;
 
-  win ? disableCards() : untoggleCards();
+  if(win){
+    disableCards()
+  } else {
+    document
+        .querySelectorAll(".kaart")
+        .forEach((n) => n.style.removeProperty("pointer-events"));
+    return
+  }
+
 }
 
 function disableCards() {
@@ -218,7 +224,10 @@ function disableCards() {
         kleurInput_gevonden;
     firstCard.removeEventListener("click", toggleCard);
     secondCard.removeEventListener("click", toggleCard);
-    resetBoard();
+
+    [firstCard, secondCard] = [null, null];
+    isWin = true;
+
     document
         .querySelectorAll(".kaart")
         .forEach((n) => n.style.removeProperty("pointer-events"));
@@ -227,23 +236,20 @@ function disableCards() {
 
 function untoggleCards() {
   console.log("komt in untoggleCards");
-  lockBoard = true;
 
-  setTimeout(() => {
+
     firstCard.classList.toggle("toggleCard");
     secondCard.classList.toggle("toggleCard");
 
-    resetBoard();
+    [firstCard, secondCard] = [null, null];
+
+
     document
         .querySelectorAll(".kaart")
         .forEach((n) => n.style.removeProperty("pointer-events"));
-  }, 1500);
+  
 }
 
-function resetBoard() {
-  [toggled, lockBoard] = [false, false];
-  [firstCard, secondCard] = [null, null];
-}
 
 //----------------------
 // Generate cards
