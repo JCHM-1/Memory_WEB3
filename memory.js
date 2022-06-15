@@ -306,16 +306,10 @@ function kaartGenerator() {
   }
 }
 
+
 function login()
 {
   window.open("login.html")
-  fetch('localhost:8080/frontend')
-      .then( resp => resp.json() )
-      .then( json => {
-        console.log(json)
-        let datum = new Date(json['date']).toLocaleDateString('NL-nl', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'} )
-        document.getElementById('result').innerHTML = `De huidige datum is ${datum}`
-      })
 }
 
 //----------------------

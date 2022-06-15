@@ -24,6 +24,7 @@ class Login {
             if (error == 0) {
                 //do login api here
                 localStorage.setItem("auth", 1);
+
                 this.form.submit();
             }
         });
@@ -79,12 +80,13 @@ class Login {
 
 const signupForm = document.getElementById("signup");
 const loginForm = document.getElementById("login")
+
 if (signupForm) {
     const fields = ["username", "password", "confirm"];
-    const validator = new Login(form, fields);
+    const validator = new Login(signupForm, fields);
 } else{
     const fields = ["username", "password"];
-    const validator = new Login(form, fields);
+    const validator = new Login(loginForm, fields);
 }
 
 
