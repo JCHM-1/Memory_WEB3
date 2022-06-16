@@ -17,7 +17,7 @@ body{
 .box{
     position: absolute;
     width: 350px;
-    height: 500px;
+    height: 600px;
     background: none;
     left: calc(50% - 175px);
     top: calc(50% - 250px);
@@ -27,7 +27,7 @@ body{
 
 .box div{
     width: 350px;
-    height: 500px;
+    height: 600px;
     position: absolute;
     background-image: radial-gradient(#fff, #ffbef8);
     box-shadow: 0px 0px 5px #a21563, 0px 0px 30px #a21563,
@@ -76,7 +76,7 @@ body{
 .title{
     width: 100%;
     text-align: center;
-    line-height: 30px;
+    line-height: 50px;
     font-size: 30px;
     font-weight: bold;
     color: #8d006c;
@@ -92,7 +92,7 @@ body{
     display: block;
     text-align: center;
     line-height: 40px;
-    top: 60px;
+    top: 40px;
     background: none;
     outline: none;
     border: none;
@@ -124,7 +124,7 @@ body{
 }
 #btm{
     position: absolute;
-    bottom: 20px;
+    bottom: 15px;
     font-size: 20px;
     color: #720058;
     text-align: center;
