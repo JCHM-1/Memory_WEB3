@@ -38,13 +38,8 @@ class Login {
                 }
             });
             if (error === 0) {
-                const body = {
-                    'username': username,
-                    'password': password
-                }
-
-                console.log(JSON.stringify(body))
-                console.log(JSON.stringify(data))
+                // TODO: npm install -g local-cors-proxy werkend krijgen
+                // Misschien werkt het inloggen dan
 
                 if (this.signup) {
                     console.log("final data signup", data)
