@@ -1,3 +1,4 @@
+const auth = new Auth();
 
 var plaatjes = false
 let isWin = false

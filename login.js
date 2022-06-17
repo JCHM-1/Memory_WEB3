@@ -1,11 +1,11 @@
-// Moet in memory.html:
-// const auth = new Auth();
+let form, fields, submit
 
 class Login {
-    constructor(form, fields, signup) {
+    constructor(form, fields, signup, submit) {
         this.form = form;
         this.fields = fields;
         this.signup = signup;
+        this.submit = submit
         this.validateonSubmit();
     }
 
@@ -14,44 +14,78 @@ class Login {
         let self = this;
         let data = {}
 
-        this.form.addEventListener("submit", (e) => {
-            console.log("In submit")
+        this.submit.addEventListener("click", (e) => {
             e.preventDefault();
+
             var error = 0;
             self.fields.forEach((field) => {
-                console.log(field)
-                const input = document.getElementById(field);
+
+                let input = ''
+                if(!this.signup) {
+                    let lfield = "l"+field
+                    input = document.getElementById(lfield)
+                    console.log(input)
+                    console.log()
+                } else {
+                    input = document.getElementById(field)
+                }
 
                 data[field] = input.value
 
-                if (self.validateFields(input) == false) {
+                if (self.validateFields(input) === false) {
                     error++;
+                    console.log(error)
+                }
+            });
+            if (error === 0) {
+                const body = {
+                    'username': username,
+                    'password': password
                 }
 
-            });
-            if (error == 0) {
-                //do login api here
-                // localStorage.setItem("auth", 1);
-                //
-                // this.form.submit();
-
-                console.log("final data", data)
+                console.log(JSON.stringify(body))
+                console.log(JSON.stringify(data))
 
                 if (this.signup) {
+                    console.log("final data signup", data)
                     fetch("http://localhost:8000/register", {
                         method: "POST",
                         body: JSON.stringify(data),
                         header: {
-                            "content-tyoe": "application/json; charset=UTF-8",
+                            'Content-Type': 'application/json'
                         },
                     })
                         .then(data => {
                             console.log(data.statusText)
+                            //this.form.submit();
                         })
                         .catch(data => {
                             console.error("Error: ", data.message)
                         })
+
                 } else {
+
+                    console.log("final data login", data)
+                    data = JSON.stringify(data)
+                     console.log("na JSON stringify: ", data)
+
+                    fetch("http://localhost:8000/api/login_check", {
+                        mode: 'no-cors',
+                        method: "POST",
+                        body: ''+data,
+                        header: {
+                            'Content-Type': 'application/json',
+
+                        },
+                    })
+                        .then(data => {
+                            // this.form.submit();
+                            console.log(data)
+                            console.log(data.json())
+                        })
+                        .catch(data => {
+                            console.error("Error: ", data.message)
+                        })
 
                 }
 
@@ -61,23 +95,25 @@ class Login {
 
     validateFields(field) {
         if (field.value.trim() === "") {
+
             this.setStatus(
                 field,
-                `${field.nextSibling.innerText} cannot be blank`,
+                `${field.nextElementSibling.innerText} cannot be blank`,
                 "error"
             );
             return false;
         } else {
             if (field.type == "password") {
-                console.log(field)
-                if (field.value.length < 8) {
-                    console.log(field.nextElementSibling)
-                    this.setStatus(
-                        field,
-                        `${field.previousElementSibling.innerText} must be at least 8 characters`,
-                        "error"
-                    );
-                    return false;
+                if(field.id !== "lpassword"){
+                    if (field.value.length < 8) {
+
+                        this.setStatus(
+                            field,
+                            `${field.nextElementSibling.innerText} must be at least 8 characters`,
+                            "error"
+                        );
+                        return false;
+                }
                 } else {
                     this.setStatus(field, null, "success");
                     return true;
@@ -90,7 +126,6 @@ class Login {
     }
 
     setStatus(field, message, status) {
-        console.log(field)
         const errorMessage = field.nextElementSibling
 
         if (status == "success") {
@@ -102,22 +137,34 @@ class Login {
 
         if (status == "error") {
             errorMessage.innerText = message;
-
         }
     }
 }
 
 // Access the form element...
-const signupForm = document.getElementById("signup");
-const loginForm = document.getElementById("login")
+document.getElementById("chk1").addEventListener("click", () => {
+    form = document.getElementById("login")
+    submit = document.getElementById("submitLogin")
+    console.log("form = login")
 
-if (signupForm) {
-    const fields = ["username", "email", "password"];
-    const validator = new Login(signupForm, fields, 1);
-} else{
-    const fields = ["username", "password"];
-    const validator = new Login(loginForm, fields, 0);
-}
+    fields = ["username", "password"];
+
+    const validator = new Login(form, fields, 0, submit)
+
+})
+document.getElementById("chk2").addEventListener("click", () => {
+    form = document.getElementById("signup")
+    submit = document.getElementById("submitSignup")
+    console.log("form = signup")
+    fields = ["username", "email", "password"];
+
+    const validator = new Login(form, fields, 1, submit)
+})
+
+
+
+
+
 
 
 

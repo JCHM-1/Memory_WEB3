@@ -11,7 +11,6 @@ body{
     background-image: linear-gradient(45deg, #020024 , #4f0c31);
     background-attachment: fixed;
     background-size: cover;
-    perspective: -1000px;
 }
 
 .box{
@@ -64,15 +63,20 @@ body{
     cursor: pointer;
 }
 
-#sup, #btn{
+#sup{
     background-image: linear-gradient(45deg, #e66465, #9198e5);
     color: white;
     cursor: pointer;
 }
+
+.button .button {
+}
+
 #btn:focus{
     width: calc(100% - 80px);
     left: 40px;
 }
+
 .title{
     width: 100%;
     text-align: center;
@@ -92,28 +96,43 @@ body{
     display: block;
     text-align: center;
     line-height: 40px;
-    top: 40px;
+    top: 60px;
     background: none;
     outline: none;
     border: none;
     border-radius: 25px;
     box-shadow: 0px 0px 5px #a21563, 0px 0px 30px #a21563;
-    margin: 20px 0px;
+    margin: 10px 0px;
     font-size: 16px;
 }
 
-.frm span{
-    position: relative;
-
-    display: block;
-    text-align: center;
-    line-height: 15px;
-    top: 50px;
-
+.frm button[type=button]{
+    position: absolute;
+    width: 200px;
+    left: 65px;
+    top: 450px;
+    color: white;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
     margin: 20px 0px;
-    font-size: 13px;
-    font-style: italic;
+    text-align: center;
+    display: block;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px #a21563, 0px 0px 30px #a21563;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, #e66465, #9198e5);
+}
 
+.frm p{
+    color: #746C74;
+    top: 55px;
+    position: relative;
+    text-align: center;
+    max-height: 10px;
+    font-style: italic;
+    text-shadow: 0px 0px 20px #ffbef8;
 }
 
 .frm input:focus {
