@@ -1,5 +1,7 @@
 const token = window.localStorage.getItem('token') == null ? false : window.localStorage.getItem('token')
 console.log(token)
+fetch_scores()
+
 
 function checkLogin(){
 
@@ -459,3 +461,42 @@ function sendPrefsBackend(){
 
 }
 
+function fetch_scores() {
+  fetch("http://localhost:8000/scores", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => add_scores(json));
+}
+  
+
+function add_scores(data) {
+  const items = data;
+
+  function compare(b, a) {
+    if (a.score < b.score) {
+      return -1;
+    }
+    if (a.score > b.score) {
+      return 1;
+    }
+    return 0;
+  }
+  items.sort(compare);
+
+  let element = document.getElementById("get_scores");
+  for (let i = 0; i < items.length; i++) {
+    console.log("in de loop");
+    var li = document.createElement("li");
+    var text = document.createTextNode(
+      items[i].username + " " + items[i].score
+    );
+    li.appendChild(text);
+    console.log(li);
+    console.log(element);
+    element.appendChild(li);
+  }
+}

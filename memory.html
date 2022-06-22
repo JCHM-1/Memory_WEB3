@@ -38,7 +38,19 @@
 
         </div>
 
+        
+
         <div class="sidebar" aria-label="Configuraties">
+        
+            <div>
+                <h2>Account preferences:</h2>
+                <input type="text" placeholder="email@test.nl">
+                <button onclick="">Change Email</button>
+            </div>
+
+            <br>
+            <br>
+
             <button id='btnLogin' onClick="login()"> Login </button>
             <button onClick="sendPrefsBackend()">
                 Voorkeuren opslaan
@@ -46,18 +58,11 @@
 
 
 
-            <h2>Top vijf</h2>
+            <h2>Top vijf:</h2>
             <p>
-                <ol role="Top vijf">
-                    <li>Barack Obama: 200</li>
-                    <li>Bernie Sanders: 300</li>
-                    <li>Hilary Clinton: 400</li>
-                    <li>Donald Trump: 500</li>
-                    <li>Jeb Bush: 600</li>
+                <ol type="1" id="get_scores">
                 </ol>
             </p>
-
-            <h3>Gemiddelde speeltijd: </h3>
 
             <label for="selectFront" aria-label="Kies karakter">Kies voorkant kaarten:
                 <select id="selectFront" name="front">
