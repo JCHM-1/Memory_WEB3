@@ -1,4 +1,5 @@
 const token = window.localStorage.getItem('token') == null ? false : window.localStorage.getItem('token')
+console.log(token)
 
 function checkLogin(){
 
@@ -10,16 +11,26 @@ function checkLogin(){
     let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+    let data = JSON.parse(jsonPayload)
 
     const currentDate = new Date();
 
-    const exp = new Date(JSON.parse(jsonPayload).exp * 1000)
+    const exp = new Date(data.exp * 1000)
+
 
     if (exp <= currentDate) {
       window.localStorage.removeItem('token')
+      document.getElementById('btnLogin').innerHTML = login
       ingelogd = false
+      window.alert('Je moet inloggen')
+      window.open('login.html')
+
+    } else {
+      document.getElementById('btnLogin').innerHTML = 'Ingelogd'
     }
   }
+
+
   return ingelogd
 }
 
@@ -171,6 +182,7 @@ function createCardBack(value){
 }
 
 function changeCardBack(temp) {
+
   let i = 0, j = 0
   let deck = document.getElementsByClassName("kaart--back")
   for (let c = 0; c < deck.length; c++) {
@@ -200,9 +212,6 @@ size.addEventListener("click", () =>  {
 });
 
 function toggleCard() {
-
-
-
   if( firstCard != null && secondCard != null){
     untoggleCards()
   }
@@ -436,5 +445,17 @@ function resetTimer() {
 
 function newGame() {
   location.reload();
+}
+
+function sendPrefsBackend(){
+
+
+  let kleurInput_gesloten = document.querySelector("#kleur-gesloten").value;
+  let kleurInput_open = document.querySelector("#kleur-open").value;
+
+  let backPrefs = selectFront.value
+  let frontPrefs = selectBack.value
+
+
 }
 
