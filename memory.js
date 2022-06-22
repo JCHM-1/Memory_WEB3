@@ -1,4 +1,29 @@
-const auth = new Auth();
+const token = window.localStorage.getItem('token') == null ? false : window.localStorage.getItem('token')
+
+function checkLogin(){
+
+  let ingelogd = true
+
+  if (token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    const currentDate = new Date();
+
+    const exp = new Date(JSON.parse(jsonPayload).exp * 1000)
+
+    if (exp <= currentDate) {
+      window.localStorage.removeItem('token')
+      ingelogd = false
+    }
+  }
+  return ingelogd
+}
+
+checkLogin()
 
 var plaatjes = false
 let isWin = false

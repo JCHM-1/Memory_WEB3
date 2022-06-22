@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preferences</title>
+</head>
+<body>
+<label for="selectFront" aria-label="Kies karakter">Kies voorkant kaarten:
+    <select id="selectFront" name="front">
+        <option value="+" selected>+</option>
+        <option value="*">*</option>
+        <option value="-">-</option>
+        <option value="?">?</option>
+    </select>
+</label>
+<br>
+<!-- Minstens 3 verschillende webAPI opties ! -->
+<label for="selectBack" aria-label="Kies plaatjes" aria-description="Kies de plaatjes voor op de kaarten">Kies achterkant kaarten:
+    <select id="selectBack" name="selectBack">
+        <option value="random">Willekeurig</option>
+        <option value="alfabet" selected>Alfabet</option>
+        <option value="Hondenplaatjes" aria-label="Hondenplaatjes">Hondenplaatjes</option>
+        <option value="Random foto's" aria-label="Random foto's">Random foto's</option>
+        <option value="Niet-bestaande personen" aria-label="Niet-bestaande personen">Niet-bestaande personen</option>
+    </select>
+</label>
+
+<br>
+<br>
+<label for="afmeting" aria-label="Kies afmeting bord">Afmeting bord:
+    <select id="afmeting" name="afmeting" aria-expanded="false">
+        <option value="2" aria-label="2" selected>2</option>
+        <option value="4" aria-label="4">4</option>
+        <option value="6" aria-label="6">6</option>
+        <option value="8" aria-label="8">8</option>
+    </select>
+</label>
+
+<div class="buttons_div">
+    <table class="buttons" >
+        <tr>
+            <td>Kaartkleur</td>
+            <td class="kleur-gesloten"><input type="color" id="kleur-gesloten"  aria-controls="gesloten" value="#CA3142"></button></td>
+            <td><button onclick="changeColour();"> Apply </button></td>
+
+        </tr>
+        <tr>
+            <td>Open</td>
+            <td class="kleur-open"><input type="color" id="kleur-open"  aria-controls="open" value="#675BC6"></button></td>
+            <td><button onclick="changeColour();"> Apply </button></td>
+
+        </tr>
+        <tr>
+            <td>Gevonden</td>
+            <td class="kleur-gevonden"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#6A307C" size="100"></button></td>
+            <td><button onclick="changeColour();"> Apply </button></td>
+
+        </tr>
+    </table>
+</div>
+</body>
+</html>
+
+<script>
+
+</script>
