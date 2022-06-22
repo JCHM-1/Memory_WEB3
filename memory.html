@@ -41,29 +41,22 @@
         
 
         <div class="sidebar" aria-label="Configuraties">
-        
-            <div>
+            <button id='btnLogin' onClick="login()"> Login </button>
+            <br>
+            <h2>Top vijf:</h2>
+            <p>
+            <ol type="1" id="get_scores">
+            </ol>
+            </p>
+            <br>
+
+            <div class="Config">
                 <h2>Account preferences:</h2>
                 <input id="email" type="email" placeholder="email@test.nl">
                 <button type="submit" onclick="set_Email(), document.getElementById('email').value = ''">Change Email</button>
             </div>
-
             <br>
             <br>
-
-            <button id='btnLogin' onClick="login()"> Login </button>
-            <button onClick="sendPrefsBackend()">
-                Voorkeuren opslaan
-            </button>
-
-
-
-            <h2>Top vijf:</h2>
-            <p>
-                <ol type="1" id="get_scores">
-                </ol>
-            </p>
-
             <label for="selectFront" aria-label="Kies karakter">Kies voorkant kaarten:
                 <select id="selectFront" name="front">
                     <option value="+" selected>+</option>
@@ -71,7 +64,7 @@
                     <option value="-">-</option>
                     <option value="?">?</option>
                 </select>
-            </label> 
+            </label>
             <br>
             <!-- Minstens 3 verschillende webAPI opties ! -->
             <label for="selectBack" aria-label="Kies plaatjes" aria-description="Kies de plaatjes voor op de kaarten">Kies achterkant kaarten:
@@ -82,7 +75,7 @@
                     <option value="Random foto's" aria-label="Random foto's">Random foto's</option>
                     <option value="Niet-bestaande personen" aria-label="Niet-bestaande personen">Niet-bestaande personen</option>
                 </select>
-            </label> 
+            </label>
             <br>
             <br>
             <label for="afmeting" aria-label="Kies afmeting bord">Afmeting bord:
@@ -90,35 +83,39 @@
                     <option value="2" aria-label="2" selected>2</option>
                     <option value="4" aria-label="4">4</option>
                     <option value="6" aria-label="6">6</option>
-                    <option value="8" aria-label="8">8</option>  
+                    <option value="8" aria-label="8">8</option>
                 </select>
             </label>
-
+            <br>
+            <br>
+            <br>
             <div class="buttons_div">
                 <table class="buttons" >
                     <tr>
                         <td>Kaartkleur</td>
                         <td class="kleur-gesloten"><input type="color" id="kleur-gesloten"  aria-controls="gesloten" value="#CA3142"></button></td>
                         <td><button onclick="changeColour();"> Apply </button></td>
-                        
+
                     </tr>
                     <tr>
                         <td>Open</td>
                         <td class="kleur-open"><input type="color" id="kleur-open"  aria-controls="open" value="#675BC6"></button></td>
                         <td><button onclick="changeColour();"> Apply </button></td>
-                        
+
                     </tr>
                     <tr>
                         <td>Gevonden</td>
                         <td class="kleur-gevonden"><input type="color" id ="kleur-gevonden"  aria-controls="gevonden" value="#6A307C" size="100"></button></td>
                         <td><button onclick="changeColour();"> Apply </button></td>
-                        
+
                     </tr>
                 </table>
             </div>
-
-
-
+            <br>
+            <br>
+            <button class="Config" onClick="sendPrefsBackend()">
+                Voorkeuren opslaan
+            </button>
         </div>
     </div>
 

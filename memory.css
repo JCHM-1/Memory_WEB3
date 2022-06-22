@@ -130,7 +130,6 @@ body {
 
 /* buttons -------------- */
 .buttons_div {
-    padding-top: 75px;
 }
 
 .button_nieuwspel {
@@ -208,3 +207,4 @@ body {
 .timer {
     font-size: 25px;
 }
+

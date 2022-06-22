@@ -27,18 +27,12 @@ function checkLogin(){
       if (exp <= currentDate) {
         ingelogd = false
         window.localStorage.removeItem('token')
-        document.getElementById('btnLogin').innerHTML = 'logout'
+        document.getElementById('btnLogin').innerHTML = 'login'
 
         window.alert('Uitgelogd')
       }
     }
-  } else {
-
   }
-
-
-
-
   return ingelogd
 }
 
@@ -255,6 +249,7 @@ function checkWin() {
   let win = firstCardBack.id === secondCardBack.id;
 
   if(win){
+
     disableCards()
   } else {
     document
@@ -463,25 +458,30 @@ function newGame() {
 }
 
 function sendPrefsBackend(){
+  if(ingelogd){
+    let kleurInput_gesloten = document.querySelector("#kleur-gesloten").value;
+    let kleurInput_open = document.querySelector("#kleur-open").value;
 
-  let kleurInput_gesloten = document.querySelector("#kleur-gesloten").value;
-  let kleurInput_open = document.querySelector("#kleur-open").value;
+    let backPrefs = selectBack.value
 
-  let backPrefs = selectBack.value
+    let object = `{"id":${data.sub},"api":"${backPrefs}","color_found":"${kleurInput_open}","color_closed":"${kleurInput_gesloten}"}`
 
-  let object = `{"id":${data.sub},"api":"${backPrefs}","color_found":"${kleurInput_open}","color_closed":"${kleurInput_gesloten}"}`
+    console.log(data.sub)
+    fetch(`http://localhost:8000/api/player/${data.sub}/preferences`, {
+      method: 'POST',
+      headers: {
+        'Authorization' : `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: object
+    })
+        .then(resp => {if(resp.status == 204){window.alert("gelukt")}})
+  } else {
+    window.alert("Je bent nog niet ingelogd")
+  }
 
-  console.log(data.sub)
-  fetch(`http://localhost:8000/api/player/${data.sub}/preferences`, {
-    method: 'POST',
-        headers: {
-      'Authorization' : `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-    },
-    body: object
-  })
-.then(resp => {if(resp.status == 204){window.alert("gelukt")}})
+
 
 
 
@@ -525,17 +525,21 @@ function add_scores(data) {
 }
 
 function set_Email() {
-  id = data.sub
-  email = document.getElementById('email').value
-  console.log(token)
-  fetch(`http://localhost:8000/api/player/${id}/email`, {
-    method: "PUT",
-    headers: {
-      "Authorization" : `Bearer ${token}`,
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: `{"email": "${email}"}`
-  }).then((res) => console.log(res));
-  window.alert('Email changed to' + ' ' + email)
+  if(ingelogd) {
+    id = data.sub
+    email = document.getElementById('email').value
+    console.log(token)
+    fetch(`http://localhost:8000/api/player/${id}/email`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: `{"email": "${email}"}`
+    }).then((res) => console.log(res));
+    window.alert('Email changed to' + ' ' + email)
+  } else {
+    window.alert("Je bent niet ingelogd")
+  }
   
 }
