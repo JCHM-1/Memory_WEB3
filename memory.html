@@ -44,8 +44,8 @@
         
             <div>
                 <h2>Account preferences:</h2>
-                <input type="text" placeholder="email@test.nl">
-                <button onclick="">Change Email</button>
+                <input id="email" type="email" placeholder="email@test.nl">
+                <button type="submit" onclick="set_Email(), document.getElementById('email').value = ''">Change Email</button>
             </div>
 
             <br>

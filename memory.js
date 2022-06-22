@@ -515,14 +515,27 @@ function add_scores(data) {
 
   let element = document.getElementById("get_scores");
   for (let i = 0; i < items.length; i++) {
-    console.log("in de loop");
     var li = document.createElement("li");
     var text = document.createTextNode(
       items[i].username + " " + items[i].score
     );
     li.appendChild(text);
-    console.log(li);
-    console.log(element);
     element.appendChild(li);
   }
+}
+
+function set_Email() {
+  id = data.sub
+  email = document.getElementById('email').value
+  console.log(token)
+  fetch(`http://localhost:8000/api/player/${id}/email`, {
+    method: "PUT",
+    headers: {
+      "Authorization" : `Bearer ${token}`,
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: `{"email": "${email}"}`
+  }).then((res) => console.log(res));
+  window.alert('Email changed to' + ' ' + email)
+  
 }
