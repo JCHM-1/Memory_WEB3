@@ -1,4 +1,14 @@
 const token = window.localStorage.getItem('token') == null ? false : window.localStorage.getItem('token')
+let data = ''
+
+function JWTtoJSON(token){
+  let base64Url = token.split('.')[1];
+  let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload)
+}
 console.log(token)
 fetch_scores()
 
@@ -8,12 +18,8 @@ function checkLogin(){
   let ingelogd = true
 
   if (token) {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    let data = JSON.parse(jsonPayload)
+
+    data = JWTtoJSON(token)
 
     const currentDate = new Date();
 
@@ -451,12 +457,27 @@ function newGame() {
 
 function sendPrefsBackend(){
 
-
   let kleurInput_gesloten = document.querySelector("#kleur-gesloten").value;
   let kleurInput_open = document.querySelector("#kleur-open").value;
 
   let backPrefs = selectFront.value
-  let frontPrefs = selectBack.value
+
+  let object = `{"id":${data.sub},"api":"${backPrefs}","color_found":"${kleurInput_open}","color_closed":"${kleurInput_gesloten}"}`
+
+  console.log(data.sub)
+  fetch(`http://localhost:8000/api/player/${data.sub}/preferences`, {
+    method: 'POST',
+        headers: {
+      'Content-Type': 'application/json',
+          'Accept': 'application/json'
+    },
+    body: object
+  })
+.then(resp => resp.json())
+      .then(json => {
+
+        //window.alert('opgeslagen')
+      })
 
 
 }
