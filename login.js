@@ -8,14 +8,14 @@ document.querySelectorAll("button").forEach((btn) =>
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        'Accept': "application/json",
       },
       body,
     })
       .then((resp) => resp.json())
       .then((json) => {
         window.localStorage.setItem("token", json.token);
-        console.log(json.token);
+        form.submit();
       });
   })
 );

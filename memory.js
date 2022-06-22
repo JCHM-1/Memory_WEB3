@@ -1,5 +1,6 @@
 const token = window.localStorage.getItem('token') == null ? false : window.localStorage.getItem('token')
 let data = ''
+let ingelogd = false
 
 function JWTtoJSON(token){
   let base64Url = token.split('.')[1];
@@ -12,31 +13,30 @@ function JWTtoJSON(token){
 console.log(token)
 fetch_scores()
 
-
 function checkLogin(){
+  if(!ingelogd) {
+    if (token) {
+      data = JWTtoJSON(token)
 
-  let ingelogd = true
+      const currentDate = new Date();
+      const exp = new Date(data.exp * 1000)
 
-  if (token) {
+      document.getElementById('btnLogin').innerHTML = 'logout'
+      ingelogd = true
 
-    data = JWTtoJSON(token)
+      if (exp <= currentDate) {
+        ingelogd = false
+        window.localStorage.removeItem('token')
+        document.getElementById('btnLogin').innerHTML = 'logout'
 
-    const currentDate = new Date();
-
-    const exp = new Date(data.exp * 1000)
-
-
-    if (exp <= currentDate) {
-      window.localStorage.removeItem('token')
-      document.getElementById('btnLogin').innerHTML = login
-      ingelogd = false
-      window.alert('Je moet inloggen')
-      window.open('login.html')
-
-    } else {
-      document.getElementById('btnLogin').innerHTML = 'Ingelogd'
+        window.alert('Uitgelogd')
+      }
     }
+  } else {
+
   }
+
+
 
 
   return ingelogd
@@ -352,7 +352,14 @@ function kaartGenerator() {
 
 function login()
 {
-  window.open("login.html")
+  if(ingelogd){
+    ingelogd = false
+    window.localStorage.removeItem('token')
+    document.getElementById('btnLogin').innerHTML = 'login'
+  } else {
+    window.open("login.html")
+  }
+
 }
 
 //----------------------
@@ -460,7 +467,7 @@ function sendPrefsBackend(){
   let kleurInput_gesloten = document.querySelector("#kleur-gesloten").value;
   let kleurInput_open = document.querySelector("#kleur-open").value;
 
-  let backPrefs = selectFront.value
+  let backPrefs = selectBack.value
 
   let object = `{"id":${data.sub},"api":"${backPrefs}","color_found":"${kleurInput_open}","color_closed":"${kleurInput_gesloten}"}`
 
@@ -468,16 +475,14 @@ function sendPrefsBackend(){
   fetch(`http://localhost:8000/api/player/${data.sub}/preferences`, {
     method: 'POST',
         headers: {
-      'Content-Type': 'application/json',
+      'Authorization' : `Bearer ${token}`,
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
     },
     body: object
   })
-.then(resp => resp.json())
-      .then(json => {
+.then(resp => {if(resp.status == 204){window.alert("gelukt")}})
 
-        //window.alert('opgeslagen')
-      })
 
 
 }
