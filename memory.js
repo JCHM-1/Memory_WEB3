@@ -1,7 +1,8 @@
-const token = window.localStorage.getItem('token') == null ? false : window.localStorage.getItem('token')
+const token = window.localStorage.getItem('token') === 'undefined' ? false : window.localStorage.getItem('token')
 let data = ''
 let ingelogd = false
 
+console.log(token)
 function JWTtoJSON(token){
   let base64Url = token.split('.')[1];
   let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
