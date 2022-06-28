@@ -16,9 +16,10 @@ document.querySelectorAll("button").forEach((btn) =>
       .then((json) => {
         window.localStorage.setItem("token", json.token);
         form.submit();
-      });
-
-    window.alert("Account created")
+      })
+        .catch(()=>{
+            window.alert("Fout")
+        });
   })
 );
 

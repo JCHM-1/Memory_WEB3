@@ -542,5 +542,8 @@ function set_Email() {
   } else {
     window.alert("Je bent niet ingelogd")
   }
-  
+}
+
+function admin(){
+  window.open("http://localhost:4200/")
 }
