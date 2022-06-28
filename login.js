@@ -14,7 +14,7 @@ document.querySelectorAll("button").forEach((btn) =>
     })
       .then((resp) => resp.json())
       .then((json) => {
-        window.localStorage.setItem("token", json.token);
+        localStorage.setItem("token", json.token);
         form.submit();
       })
         .catch(()=>{

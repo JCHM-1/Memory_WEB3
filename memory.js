@@ -1,4 +1,4 @@
-const token = window.localStorage.getItem('token') === 'undefined' ? false : window.localStorage.getItem('token')
+const token = localStorage.getItem('token') === 'undefined' ? false : window.localStorage.getItem('token')
 let data = ''
 let ingelogd = false
 
@@ -28,9 +28,9 @@ function checkLogin(){
       if (exp <= currentDate) {
         ingelogd = false
         window.localStorage.removeItem('token')
+        if(localStorage.getItem('token') == null){window.alert('Uitgelogd')}
         document.getElementById('btnLogin').innerHTML = 'login'
 
-        window.alert('Uitgelogd')
       }
     }
   }
@@ -350,7 +350,8 @@ function login()
 {
   if(ingelogd){
     ingelogd = false
-    window.localStorage.removeItem('token')
+    localStorage.removeItem('token')
+    if(localStorage.getItem('token') == null){window.alert('Uitgelogd')}
     document.getElementById('btnLogin').innerHTML = 'login'
   } else {
     window.open("login.html")
@@ -545,5 +546,6 @@ function set_Email() {
 }
 
 function admin(){
-  window.open("http://localhost:4200/")
+  window.open(`http://localhost:4200/token/${token}`);
+
 }
