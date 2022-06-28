@@ -122,6 +122,18 @@ body {
 
     padding: 3%;
     margin-top: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+    /*margin-right: 10%;*/
+
+
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    backdrop-filter: blur(10px);
+    background: inherit;
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
 }
 
 .sidebar select {
@@ -207,4 +219,6 @@ body {
 .timer {
     font-size: 25px;
 }
+
+
 

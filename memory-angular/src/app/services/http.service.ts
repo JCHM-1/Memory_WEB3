@@ -9,8 +9,13 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getAggregateList(): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/admin/aggregate');
+  getAggregateList(){
+    this.http.get<any>('http://localhost:8000/api/admin/aggregate').subscribe(
+      response => {
+        console.log(response);
+      }
+    )
+      ;
   }
 
   getPlayersList(): Observable<any> {
