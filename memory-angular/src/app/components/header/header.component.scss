@@ -1,0 +1,9 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.navbar {
+    background-color: darken($color: grey, $amount: 15);
+    border-radius: 2px;
+}
+
