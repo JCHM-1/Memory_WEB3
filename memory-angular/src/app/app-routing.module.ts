@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./components/home/home.component";
-import {AggregateComponent} from "./components/aggregate/aggregate.component";
+import { AggregateComponent } from "./components/aggregate/aggregate.component";
+import { PlayersComponent } from './components/players/players.component';
 
 const routes: Routes = [
   {
@@ -9,8 +10,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'token/:token',
+    path: 'aggregate',
     component: AggregateComponent
+  },
+  {
+    path: 'players',
+    component: PlayersComponent
   }
 ];
 
