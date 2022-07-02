@@ -22,5 +22,3 @@ export class HomeComponent implements OnInit{
     this.token = localStorage.getItem('token') ?? ""
   }
 
-
-}
