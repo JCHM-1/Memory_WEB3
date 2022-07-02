@@ -10,15 +10,8 @@ import { gameData } from '../../models/models'
   providers: [DataService]
 })
 export class HomeComponent implements OnInit{
-  token: string;
 
-  constructor(private dataService: DataService) {
-    this.token = ""
-    console.log(dataService.playerData)
-  }
+  constructor() {}
 
-
-  ngOnInit(): void {
-    this.token = localStorage.getItem('token') ?? ""
-  }
-
+  ngOnInit() {}
+}

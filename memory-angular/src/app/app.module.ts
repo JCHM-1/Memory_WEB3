@@ -12,6 +12,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component'
+var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -36,7 +38,8 @@ import { ModalComponent } from './components/modal/modal.component';
     PlayersComponent,
     HeaderComponent,
     LoginComponent,
-    ModalComponent
+    ModalComponent,
+    CanvasJSChart
   ],
   imports: [
     NgxChartsModule,
