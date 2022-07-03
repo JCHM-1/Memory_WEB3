@@ -1,8 +1,9 @@
 <div class="container">
-    <p>aggregate works!</p>
-
+  <h3> Info </h3>
+  <p> Number of players: {{ aantSpelers }} </p>
+  <p> Number of games: {{ aantSpellen }} </p>
 </div>
 
-<div>
+<div *ngIf="isDataAvailable">
     <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
 </div>
