@@ -10,6 +10,7 @@ export class PlayersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient} from "@angular/common/http";
-import { tap } from "rxjs";
+import { DataService } from 'src/app/services/data.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+
 
 @Component({
   selector: 'app-login',
@@ -8,41 +9,34 @@ import { tap } from "rxjs";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  token: string;
-  username: string;
-  email: string;
-
-  constructor(private http: HttpClient) { 
-    this.token = ""
-    this.username = ""
-    this.email = ""
-  }
+  form: any = {
+    username: null,
+    password: null
+  };
+  hide = true;
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+  constructor(private dataService: DataService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token') ?? ""
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
   }
-
-  // getPlayerList() {
-  //   return this.http.get<any>('http://localhost:8000/api/admin/players', {
-  //     headers: {
-  //       'Authorization': `bearer ${this.token}`,
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     }
-  //   }).pipe(
-  //     tap( // Log the result or error
-  //       {
-  //         next: (data) => data,
-  //         error: () => {
-  //           // refer to error page
-  //           window.alert("Je bent geen admin")
-  //         }
-  //       }
-  //     )
-  //   ).subscribe(response => {
-  //     for
-  //   })
-  // }
-  // }
-
+  onSubmit(): void {
+    const { username, password } = this.form;
+    this.dataService.login(username, password).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.token);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    )
+  }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
+import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,8 +22,6 @@ import { AppComponent } from './app.component';
 import {HomeComponent} from "./components/home/home.component";
 import { AggregateComponent } from './components/aggregate/aggregate.component';
 import { PlayersComponent } from './components/players/players.component';
-
-import {DataService} from "./services/data.service";
 import { HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './components/header/header.component';
@@ -42,6 +41,7 @@ import { ModalComponent } from './components/modal/modal.component';
     CanvasJSChart
   ],
   imports: [
+    FormsModule,
     NgxChartsModule,
     MatTabsModule,
     MatInputModule,
@@ -58,7 +58,6 @@ import { ModalComponent } from './components/modal/modal.component';
     HttpClientModule,
     BrowserAnimationsModule,
   ],
-  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
