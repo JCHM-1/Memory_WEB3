@@ -1,3 +1,16 @@
 <div class="container">
-    <p>Player works</p>
+    <h2>Info current Players</h2>
+
+  <table class="table">
+    <thead classname="thead">
+      <th>Username</th>
+      <th>Email-address</th>
+    </thead>
+    <tbody classname="tbody">
+      <tr classname="tr" *ngFor="let player of players">
+        <td classname="td"> {{ player.username }} </td>
+        <td classname="td"> {{ player.email }} </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

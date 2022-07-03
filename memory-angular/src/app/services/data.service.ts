@@ -5,7 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 
 const AUTH_API = 'http://localhost:8000/api/login_check';
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
-  
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,5 +19,5 @@ export class DataService {
       password
     }, httpOptions)
   }
-  
+
 }
